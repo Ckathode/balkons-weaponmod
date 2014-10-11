@@ -1,0 +1,90 @@
+#Balkon's WeaponMod language file nl_NL
+
+item.spear.wood.name=Houten speer
+item.spear.stone.name=Stenen speer
+item.spear.iron.name=IJzeren speer
+item.spear.diamond.name=Diamanten speer
+item.spear.gold.name=Gouden speer
+
+item.halberd.wood.name=Houten hellebaard
+item.halberd.stone.name=Stenen hellebaard
+item.halberd.iron.name=IJzeren hellebaard
+item.halberd.diamond.name=Diamanten hellebaard
+item.halberd.gold.name=Gouden hellebaard
+
+item.battleaxe.wood.name=Houten gevechtsbijl
+item.battleaxe.stone.name=Stenen gevechtsbijl
+item.battleaxe.iron.name=IJzeren gevechtsbijl
+item.battleaxe.diamond.name=Diamanten gevechtsbijl
+item.battleaxe.gold.name=Gouden gevechtsbijl
+
+item.warhammer.wood.name=Houten strijdhamer
+item.warhammer.stone.name=Stenen strijdhamer
+item.warhammer.iron.name=IJzeren strijdhamer
+item.warhammer.diamond.name=Diamanten strijdhamer
+item.warhammer.gold.name=Gouden strijdhamer
+
+item.knife.wood.name=Houten mes
+item.knife.stone.name=Stenen mes
+item.knife.iron.name=IJzeren mes
+item.knife.diamond.name=Diamanten mes
+item.knife.gold.name=Gouden mes
+
+item.flail.wood.name=Houten strijdvlegel
+item.flail.stone.name=Stenen strijdvlegel
+item.flail.iron.name=IJzeren strijdvlegel
+item.flail.diamond.name=Diamanten strijdvlegel
+item.flail.gold.name=Gouden strijdvlegel
+
+item.javelin.name=Werpspeer
+
+item.musket.name=Musket
+item.musketbayonet.name=Musket met bajonet
+item.musketbayonet.wood.name=Musket met houten bajonet
+item.musketbayonet.stone.name=Musket met stenen bajonet
+item.musketbayonet.iron.name=Musket met ijzeren bajonet
+item.musketbayonet.diamond.name=Musket met diamanten bajonet
+item.musketbayonet.gold.name=Musket met gouden bajonet
+item.musket-ironpart.name=Musketloop
+item.bullet.name=Musketkogel
+
+item.crossbow.name=Kruisboog
+item.bolt.name=Kruisboogpijl
+
+item.blowgun.name=Blaaspijp
+item.dart.name=Giftig dartpijltje
+
+item.dynamite.name=Dynamiet
+
+item.firerod.name=Vuurstaaf
+
+item.cannon.name=Kanon
+item.cannonball.name=Kanonskogel
+
+item.blunderbuss.name=Donderbus
+item.blunder-ironpart.name=Donderbusloop
+item.shot.name=Donderbusschot
+
+item.dummy.name=Oefenpop
+
+item.gun-stock.name=Geweermagazijn
+
+item.boomerang.wood.name=Houten boemerang
+item.boomerang.stone.name=Stenen boemerang
+item.boomerang.iron.name=IJzeren boemerang
+item.boomerang.diamond.name=Diamanten boemerang
+item.boomerang.gold.name=Gouden boemerang
+
+item.katana.wood.name=Houten katana
+item.katana.stone.name=Steben katana
+item.katana.iron.name=IJzeren katana
+item.katana.diamond.name=Diamanten katana
+item.katana.gold.name=Gouden katana
+
+item.flintlock.name=Vuursteenslot pistool
+
+attribute.name.weaponmod.ignoreArmour=Negeer pantser
+attribute.name.weaponmod.knockback=Terugslag
+attribute.name.weaponmod.attackSpeed=Aanvalssnelheid
+attribute.name.weaponmod.reloadTime=Herlaadtijd
+attribute.name.weaponmod.reach=Bereik

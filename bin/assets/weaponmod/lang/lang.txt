@@ -1,0 +1,12 @@
+en_US
+en_UK
+nl_NL
+de_DE
+en_PT
+ru_RU
+it_IT
+es_ES
+it_IT
+fr_FR
+fr_CA
+zh_TW

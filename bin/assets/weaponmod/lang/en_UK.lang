@@ -1,0 +1,90 @@
+#Balkon's WeaponMod language file en_UK
+
+item.spear.wood.name=Wooden Spear
+item.spear.stone.name=Stone Spear
+item.spear.iron.name=Iron Spear
+item.spear.diamond.name=Diamond Spear
+item.spear.gold.name=Golden Spear
+
+item.halberd.wood.name=Wooden Halberd
+item.halberd.stone.name=Stone Halberd
+item.halberd.iron.name=Iron Halberd
+item.halberd.diamond.name=Diamond Halberd
+item.halberd.gold.name=Golden Halberd
+
+item.battleaxe.wood.name=Wooden Battleaxe
+item.battleaxe.stone.name=Stone Battleaxe
+item.battleaxe.iron.name=Iron Battleaxe
+item.battleaxe.diamond.name=Diamond Battleaxe
+item.battleaxe.gold.name=Golden Battleaxe
+
+item.warhammer.wood.name=Wooden Warhammer
+item.warhammer.stone.name=Stone Warhammer
+item.warhammer.iron.name=Iron Warhammer
+item.warhammer.diamond.name=Diamond Warhammer
+item.warhammer.gold.name=Golden Warhammer
+
+item.knife.wood.name=Wooden Knife
+item.knife.stone.name=Stone Knife
+item.knife.iron.name=Iron Knife
+item.knife.diamond.name=Diamond Knife
+item.knife.gold.name=Golden Knife
+
+item.flail.wood.name=Wooden Flail
+item.flail.stone.name=Stone Flail
+item.flail.iron.name=Iron Flail
+item.flail.diamond.name=Diamond Flail
+item.flail.gold.name=Golden Flail
+
+item.javelin.name=Javelin
+
+item.musket.name=Musket
+item.musketbayonet.name=Musket with Bayonet
+item.musketbayonet.wood.name=Musket with Wooden Bayonet
+item.musketbayonet.stone.name=Musket with Stone Bayonet
+item.musketbayonet.iron.name=Musket with Iron Bayonet
+item.musketbayonet.diamond.name=Musket with Diamond Bayonet
+item.musketbayonet.gold.name=Musket with Golden Bayonet
+item.musket-ironpart.name=Musket Barrel
+item.bullet.name=Musket Round
+
+item.crossbow.name=Crossbow
+item.bolt.name=Crossbow Bolt
+
+item.blowgun.name=Blowgun
+item.dart.name=Poisonous Dart
+
+item.dynamite.name=Dynamite
+
+item.firerod.name=Fire Rod
+
+item.cannon.name=Cannon
+item.cannonball.name=Cannon Ball
+
+item.blunderbuss.name=Blunderbuss
+item.blunder-ironpart.name=Blunderbuss Barrel
+item.shot.name=Blunderbuss Shot
+
+item.dummy.name=Training Dummy
+
+item.gun-stock.name=Gun Stock
+
+item.boomerang.wood.name=Wooden Boomerang
+item.boomerang.stone.name=Stone Boomerang
+item.boomerang.iron.name=Iron Boomerang
+item.boomerang.diamond.name=Diamond Boomerang
+item.boomerang.gold.name=Golden Boomerang
+
+item.katana.wood.name=Wooden Katana
+item.katana.stone.name=Stone Katana
+item.katana.iron.name=Iron Katana
+item.katana.diamond.name=Diamond Katana
+item.katana.gold.name=Golden Katana
+
+item.flintlock.name=Flintlock Pistol
+
+attribute.name.weaponmod.ignoreArmour=Ignore Armour
+attribute.name.weaponmod.knockback=Knockback
+attribute.name.weaponmod.attackSpeed=Attack Speed
+attribute.name.weaponmod.reloadTime=Reload Time
+attribute.name.weaponmod.reach=Reach

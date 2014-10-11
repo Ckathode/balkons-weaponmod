@@ -1,0 +1,82 @@
+#Balkon's WeaponMod language file en_PT
+
+item.spear.wood.name=Timber Stabber
+item.spear.stone.name=Stabber o' Rock
+item.spear.iron.name=Stabber o' Pebbles
+item.spear.diamond.name=Bejeweled Stabber
+item.spear.gold.name=Golden Stabber
+
+item.halberd.wood.name=Timber Halberd
+item.halberd.stone.name=Halberd o' Rock
+item.halberd.iron.name=Halberd o' Steel
+item.halberd.diamond.name=Bejeweled Halberd
+item.halberd.gold.name=Golden Halberd
+
+item.battleaxe.wood.name=Grand Hatchet o' Timber
+item.battleaxe.stone.name=Grand Hatchet o' Rock
+item.battleaxe.iron.name=Grand Iron Hatchet
+item.battleaxe.diamond.name=Grand Bejeweled Hatchet
+item.battleaxe.gold.name=Grand Golden Hatchet
+
+item.warhammer.wood.name=Timber Warrrhammer
+item.warhammer.stone.name=Warrrhammer o' Rock
+item.warhammer.iron.name=Warrrhammer o' Metal
+item.warhammer.diamond.name=Bejeweled Warrrhammer
+item.warhammer.gold.name=Golden Warrrhammer
+
+item.knife.wood.name=Timber Dagg'r
+item.knife.stone.name=Dagg'r o' Rock
+item.knife.iron.name=Rusty Dagg'r
+item.knife.diamond.name=Bejeweled Dagg'r
+item.knife.gold.name=Golden Dagg'r
+
+item.flail.wood.name=Plank on a Rope
+item.flail.stone.name=Rock on a Rope
+item.flail.iron.name=Cannon Ball on a Rope
+item.flail.diamond.name=Jewel on a Rope
+item.flail.gold.name=Nugget on a Rope
+
+item.javelin.name=Javelin'
+
+item.musket.name=Musket
+item.musketbayonet.name=Musket an' Cutlass
+item.musketbayonet.wood.name=Musket an' Cutlass o' Timber
+item.musketbayonet.stone.name=Musket an' Cutlass o' Rock
+item.musketbayonet.iron.name=Musket an' Rusty Cutlass
+item.musketbayonet.diamond.name=Musket an' Bejeweled Cutlass
+item.musketbayonet.gold.name=Musket an' Golden Cutlass
+item.musket-ironpart.name=Musket Barrrrel
+item.bullet.name=Musket Round
+
+item.crossbow.name=Pistol o' Lassies
+item.bolt.name=Pistol o' Lassies' Bullet
+
+item.blowgun.name=Blowgun
+item.dart.name=Arrow o' Scurvy
+
+item.dynamite.name=Hand Granadoe
+
+item.firerod.name=Burnin' Stick
+
+item.cannon.name=Monkey
+item.cannonball.name=Monkey's Pill
+
+item.blunderbuss.name=Ye Olde Gun
+item.blunder-ironpart.name=Ye Olde Gun's Barrrrel
+item.shot.name=Ye Olde Gun's Shot
+
+item.dummy.name=Landlubber's Puppet
+
+item.gun-stock.name=Piece o' a Gun
+
+item.boomerang.wood.name=Timber Bird
+item.boomerang.stone.name=Bird o' Rock
+item.boomerang.iron.name=Bird o' Iron
+item.boomerang.diamond.name=Bejeweled Bird
+item.boomerang.gold.name=Golden Bird
+
+item.katana.wood.name=Handsome Cutlass o' Timber
+item.katana.stone.name=Handsome Cutlass o' Rock
+item.katana.iron.name=Handsome Cutlass o' Metal
+item.katana.diamond.name=Handsome Bejeweled Cutlass
+item.katana.gold.name=Handsome Golden Cutlass

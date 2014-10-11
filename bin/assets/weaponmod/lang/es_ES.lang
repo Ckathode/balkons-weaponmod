@@ -1,0 +1,73 @@
+#Balkon's WeaponMod language file es_ES
+
+#Translated by SackCastellon
+
+item.spear.wood.name=Lanza de Madera
+item.spear.stone.name=Lanza de Piedra
+item.spear.iron.name=Lanza de Hierro
+item.spear.diamond.name=Lanza de Diamante
+item.spear.gold.name=Lanza de Oro
+
+item.halberd.wood.name=Alabarda de Madera
+item.halberd.stone.name=Alabarda de Piedra
+item.halberd.iron.name=Alabarda de Hierro
+item.halberd.diamond.name=Alabarda de Diamante
+item.halberd.gold.name=Alabarda de Oro
+
+item.battleaxe.wood.name=Hacha de Combate de Madera
+item.battleaxe.stone.name=Hacha de Combate de Piedra
+item.battleaxe.iron.name=Hacha de Combate de Hierro
+item.battleaxe.diamond.name=Hacha de Combate de Diamante
+item.battleaxe.gold.name=Hacha de Combate de Oro
+
+item.warhammer.wood.name=Martillo de Guerra de Madera
+item.warhammer.stone.name=Martillo de Guerra de Piedra
+item.warhammer.iron.name=Martillo de Guerra de Hierro
+item.warhammer.diamond.name=Martillo de Guerra de Diamante
+item.warhammer.gold.name=Martillo de Guerra de Oro
+
+item.knife.wood.name=Cuchillo de Madera
+item.knife.stone.name=Cuchillo de Piedra
+item.knife.iron.name=Cuchillo de Hierro
+item.knife.diamond.name=Cuchillo de Diamante
+item.knife.gold.name=Cuchillo de Oro
+
+item.flail.wood.name=Maza de Madera
+item.flail.stone.name=Maza de Piedra
+item.flail.iron.name=Maza de Hierro 
+item.flail.diamond.name=Maza de Diamante
+item.flail.gold.name=Maza de Oro
+
+item.javelin.name=Javalina
+
+item.musket.name=Mosquete
+item.musketbayonet.name=Mosquete con Bayoneta
+item.musket-ironpart.name=Cañon del Mosquete
+item.bullet.name=Balas de Mosquete
+
+item.crossbow.name=Ballesta
+item.bolt.name=Flecha de Ballesta
+
+item.blowgun.name=Cerbatana
+item.dart.name=Dardo Venenoso
+
+item.dynamite.name=Dinamita
+
+item.firerod.name=Lanza de Fuego
+
+item.cannon.name=Cañon
+item.cannonball.name=Bola de Cañon
+
+item.blunderbuss.name=Trabuco
+item.blunder-ironpart.name=Cañon del Trabuco
+item.shot.name=Bala de Trabuco
+
+item.dummy.name=Muñeco de Entrenamiento
+
+item.gun-stock.name=Base de Arma
+
+item.boomerang.wood.name=Bumerang de Madera
+item.boomerang.stone.name=Bumerang de Piedra
+item.boomerang.iron.name=Bumerang de Hierro
+item.boomerang.diamond.name=Bumerang de Diamante
+item.boomerang.gold.name=Bumerang de Oro

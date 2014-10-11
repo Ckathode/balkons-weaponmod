@@ -1,0 +1,79 @@
+﻿#Balkon's WeaponMod language file fr_FR 
+
+#Translated by Pentiminax
+
+item.spear.wood.name=Lance en bois
+item.spear.stone.name=Lance en pierre
+item.spear.iron.name=Lance en fer
+item.spear.diamond.name=Lance en diamant
+item.spear.gold.name=Lance en or
+
+item.halberd.wood.name=Hallebarde en bois
+item.halberd.stone.name=Hallebarde en pierre
+item.halberd.iron.name=Hallebarde en fer
+item.halberd.diamond.name=Hallebarde en diamant
+item.halberd.gold.name=Hallebarde en or
+
+item.battleaxe.wood.name=Hache de combat en bois
+item.battleaxe.stone.name=Hache de combat en pierre
+item.battleaxe.iron.name=Hache de combat en fer
+item.battleaxe.diamond.name=Hache de combat en diamant
+item.battleaxe.gold.name=Hache de combat en or
+
+item.warhammer.wood.name=Masse en bois 
+item.warhammer.stone.name=Masse en pierre
+item.warhammer.iron.name=Masse en fer
+item.warhammer.diamond.name=Masse en diamant
+item.warhammer.gold.name=Masse en or
+
+item.knife.wood.name=Couteau de lancer en bois
+item.knife.stone.name=Couteau de lancer en pierre
+item.knife.iron.name=Couteau de lancer en fer
+item.knife.diamond.name=Couteau de lancer en diamant
+item.knife.gold.name=Couteau de lancer en or
+
+item.flail.wood.name=Fleau en bois
+item.flail.stone.name=Fleau en pierre
+item.flail.iron.name=Fleau en fer
+item.flail.diamond.name=Fleau en diamant
+item.flail.gold.name=Fleau en or
+
+item.javelin.name=Javelot 
+
+item.musket.name=Mousquet
+item.musketbayonet.name=Mousquet avec bayonette
+item.musket-ironpart.name=Canon du mousquet
+item.bullet.name=Munition pour mousquet
+
+item.crossbow.name=Arbalete 
+item.bolt.name=Carreau d'arbalete
+
+item.blowgun.name=Sarbacane
+item.dart.name=Dart toxique
+
+item.dynamite.name=Dynamite
+
+item.firerod.name=Baton enflamer
+
+item.cannon.name=Canon
+item.cannonball.name=Boulet de canon
+
+item.blunderbuss.name=Fusil a pompe
+item.blunder-ironpart.name=Canon du fusil a pompe
+item.shot.name=Cartouche de chevrotine
+
+item.dummy.name=Mannequin d'entrainement
+
+item.gun-stock.name=Crosse 
+
+item.boomerang.wood.name=Boomerang en bois
+item.boomerang.stone.name=Boomerang en pierre
+item.boomerang.iron.name=Boomerang en fer
+item.boomerang.diamond.name=Boomerang en diamant
+item.boomerang.gold.name=Boomerang en or
+
+item.katana.wood.name=Katana en bois
+item.katana.stone.name=Katana en pierre
+item.katana.iron.name=Katana de fer 
+item.katana.diamond.name=Katana de diamant 
+item.katana.gold.name=Katana d'or

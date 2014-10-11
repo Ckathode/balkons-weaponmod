@@ -1,0 +1,71 @@
+#Balkon's WeaponMod language file it_IT by Frantisek_Markov
+
+item.spear.wood.name=Lancia di legno
+item.spear.stone.name=Lancia di pietra
+item.spear.iron.name=Lancia di ferro
+item.spear.diamond.name=Lancia di diamante
+item.spear.gold.name=Lancia d'oro
+
+item.halberd.wood.name=Alabarda di legno
+item.halberd.stone.name=Alabarda di pietra
+item.halberd.iron.name=Alabarda di ferro
+item.halberd.diamond.name=Alabarda di diamante
+item.halberd.gold.name=Alabarda d'oro
+
+item.battleaxe.wood.name=Ascia da guerra di legno
+item.battleaxe.stone.name=Ascia da guerra di pietra
+item.battleaxe.iron.name=Ascia da guerra di ferro
+item.battleaxe.diamond.name=Ascia da guerra di diamante
+item.battleaxe.gold.name=Ascia da guerra d'oro
+
+item.warhammer.wood.name=Martello da guerra di legno
+item.warhammer.stone.name=Martello da guerra di pietra
+item.warhammer.iron.name=Martello da guerra di ferro
+item.warhammer.diamond.name=Martello da guerra di diamante
+item.warhammer.gold.name=Martello da guerra d'oro
+
+item.knife.wood.name=Pugnale di legno
+item.knife.stone.name=Pugnale di pietra
+item.knife.iron.name=Pugnale di ferro
+item.knife.diamond.name=Pugnale di diamante
+item.knife.gold.name=Pugnale d'oro
+
+item.flail.wood.name=Mazzafrusto di legno
+item.flail.stone.name=Mazzafrusto di pietra
+item.flail.iron.name=Mazzafrusto di ferro
+item.flail.diamond.name=Mazzafrusto di diamante
+item.flail.gold.name=Mazzafrusto d'oro
+
+item.javelin.name=Giavellotto
+
+item.musket.name=Moschetto
+item.musketbayonet.name=Moschetto con baionetta
+item.musket-ironpart.name=Canna del moschetto
+item.bullet.name=Proiettile del moschetto
+
+item.crossbow.name=Balestra
+item.bolt.name=Dardo per balestra
+
+item.blowgun.name=Cerbottana
+item.dart.name=Dardo avvelenato
+
+item.dynamite.name=Dinamite
+
+item.firerod.name=Bastone del fuoco
+
+item.cannon.name=Cannone
+item.cannonball.name=Palla di cannone
+
+item.blunderbuss.name=Archibugio
+item.blunder-ironpart.name=Canna dell'archibugio
+item.shot.name=Proiettile dell'archibugio
+
+item.dummy.name=Manichino da allenamento
+
+item.gun-stock.name=Fusto del fucile
+
+item.boomerang.wood.name=Boomerang di legno
+item.boomerang.stone.name=Boomerang di pietra
+item.boomerang.iron.name=Boomerang di ferro
+item.boomerang.diamond.name=Boomerang di diamante
+item.boomerang.gold.name=Boomerang d'oro
