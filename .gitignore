@@ -13,3 +13,7 @@ hs_err_pid*
 
 #mac
 .DS_Store
+
+bin/*
+build/*
+.gradle/*
