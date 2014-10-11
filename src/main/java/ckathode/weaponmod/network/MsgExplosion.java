@@ -20,7 +20,8 @@ public class MsgExplosion extends WMMessage
 	private float				size;
 	private List<ChunkPosition>	blocks;
 	private boolean				smallParticles, bigParticles;
-	
+
+	@SuppressWarnings("unchecked")
 	public MsgExplosion(AdvancedExplosion explosion, boolean smallparts, boolean bigparts)
 	{
 		x = explosion.explosionX;
@@ -31,11 +32,11 @@ public class MsgExplosion extends WMMessage
 		smallParticles = smallparts;
 		bigParticles = bigparts;
 	}
-	
+
 	public MsgExplosion()
 	{
 	}
-	
+
 	@Override
 	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf)
 	{
@@ -45,7 +46,7 @@ public class MsgExplosion extends WMMessage
 		size = buf.readFloat();
 		smallParticles = buf.readBoolean();
 		bigParticles = buf.readBoolean();
-		
+
 		int size = buf.readInt();
 		blocks = new ArrayList<ChunkPosition>(size);
 		for (int i = 0; i < size; i++)
@@ -56,7 +57,7 @@ public class MsgExplosion extends WMMessage
 			blocks.add(new ChunkPosition(ix, iy, iz));
 		}
 	}
-	
+
 	@Override
 	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf)
 	{
@@ -66,7 +67,7 @@ public class MsgExplosion extends WMMessage
 		buf.writeFloat(size);
 		buf.writeBoolean(smallParticles);
 		buf.writeBoolean(bigParticles);
-		
+
 		int n = blocks.size();
 		buf.writeInt(n);
 		for (int i = 0; i < n; i++)
@@ -80,7 +81,7 @@ public class MsgExplosion extends WMMessage
 			buf.writeByte(dz);
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleClientSide(EntityPlayer player)
@@ -90,7 +91,7 @@ public class MsgExplosion extends WMMessage
 		expl.setAffectedBlockPositions(blocks);
 		expl.doParticleExplosion(smallParticles, bigParticles);
 	}
-	
+
 	@Override
 	public void handleServerSide(EntityPlayer player)
 	{

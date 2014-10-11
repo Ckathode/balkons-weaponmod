@@ -1,7 +1,5 @@
 package ckathode.weaponmod.render;
 
-import java.util.Random;
-
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
@@ -17,7 +15,6 @@ public class RenderCannon extends Render
 	protected ModelCannon			modelCannon;
 	protected ModelCannonBarrel		modelBarrel;
 	protected ModelCannonStandard	modelStandard;
-	private Random					rand;
 	
 	public RenderCannon()
 	{
@@ -25,7 +22,6 @@ public class RenderCannon extends Render
 		modelCannon = new ModelCannon();
 		modelBarrel = new ModelCannonBarrel();
 		modelStandard = new ModelCannonStandard();
-		rand = new Random();
 	}
 	
 	private void renderCannon(EntityCannon entitycannon, double d, double d1, double d2, float f, float f1)
