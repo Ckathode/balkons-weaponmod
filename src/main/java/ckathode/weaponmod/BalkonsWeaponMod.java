@@ -4,6 +4,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 
@@ -55,25 +56,27 @@ import ckathode.weaponmod.item.RangedCompBlunderbuss;
 import ckathode.weaponmod.item.RangedCompCrossbow;
 import ckathode.weaponmod.item.RangedCompFlintlock;
 import ckathode.weaponmod.item.WMItem;
+import ckathode.weaponmod.matapi.IWeaponMaterials;
 import ckathode.weaponmod.network.WMMessagePipeline;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = BalkonsWeaponMod.MOD_ID, name = BalkonsWeaponMod.MOD_NAME, version = BalkonsWeaponMod.MOD_VERSION)
-public class BalkonsWeaponMod
+public class BalkonsWeaponMod implements IWeaponMaterials
 {
 	public static final String		MOD_ID		= "weaponmod";
 	public static final String		MOD_NAME	= "Balkon's WeaponMod";
 	public static final String		MOD_VERSION	= "1.7.2 v1.14.3";
 	
-	@Instance("weaponmod")
+	@Instance(MOD_ID)
 	public static BalkonsWeaponMod	instance;
 	
 	public static Logger			modLog;
@@ -186,6 +189,8 @@ public class BalkonsWeaponMod
 		modConfig.loadConfig();
 		
 		addModItems();
+		
+		FMLInterModComms.sendMessage("bwmMaterialAPI", "register", "");
 	}
 	
 	@EventHandler
@@ -578,6 +583,28 @@ public class BalkonsWeaponMod
 			BlockDispenser.dispenseBehaviorRegistry.putObject(Items.gunpowder, behavior);
 		}
 	}
+	
+	//region IWeaponMaterial overrides
+	private static final float[][]	MATERIAL_COLORS	= { { 0.6F, 0.4F, 0.1F, 1F }, { 0.5F, 0.5F, 0.5F, 1F }, { 1.0F, 1.0F, 1.0F, 1F }, { 0.0F, 0.8F, 0.7F, 1F }, { 1.0F, 0.9F, 0.0F, 1F } };
+	
+	@Override
+	public ToolMaterial[] getWMCustomMaterials()
+	{
+		return new ToolMaterial[] { ToolMaterial.WOOD, ToolMaterial.STONE, ToolMaterial.IRON, ToolMaterial.EMERALD, ToolMaterial.GOLD };
+	}
+	
+	@Override
+	public float getWMKnockbackMultiplier(ToolMaterial toolmaterial)
+	{
+		return toolmaterial == ToolMaterial.GOLD ? 1.5f : 1f;
+	}
+	
+	@Override
+	public float[] getWMProjectileColor(ToolMaterial toolmaterial)
+	{
+		return MATERIAL_COLORS[toolmaterial.ordinal()];
+	}
+	//endregion
 	
 	/*
 	@Override

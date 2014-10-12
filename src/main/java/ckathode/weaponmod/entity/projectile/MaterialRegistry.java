@@ -5,6 +5,11 @@ import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 
+/**
+ * @author Ckathode
+ * @deprecated Use WeaponMaterialAPI instead.
+ */
+@Deprecated
 public class MaterialRegistry
 {
 	private static final float[]							NO_MATERIAL_COLOR	= { 1F, 1F, 1F };

@@ -22,7 +22,7 @@ public class RenderBoomerang extends Render
 		Tessellator tess = Tessellator.instance;
 		
 		int mat = entityarrow.getWeaponMaterialId();
-		float[] color = entityarrow.getMaterialColor();
+		float[] color = entityarrow.getWeaponMaterialColor();
 		float ft0 = 0.0F;
 		float ft1 = 0.5F;
 		float ft2 = 1.0F;
@@ -47,7 +47,7 @@ public class RenderBoomerang extends Render
 		
 		if (mat != 0)
 		{
-			tess.setColorOpaque_F(color[0], color[1], color[2]);
+			tess.setColorRGBA_F(color[0], color[1], color[2], color[3]);
 			tess.addVertexWithUV(0D, 0D, 1D, ft2, ft0);
 			tess.addVertexWithUV(1D, 0D, 1D, ft1, ft0);
 			tess.addVertexWithUV(1D, 0D, 0D, ft1, ft1);
@@ -64,7 +64,7 @@ public class RenderBoomerang extends Render
 		
 		if (mat != 0)
 		{
-			tess.setColorOpaque_F(color[0], color[1], color[2]);
+			tess.setColorRGBA_F(color[0], color[1], color[2], color[3]);
 			tess.addVertexWithUV(1D, 0D, 0D, ft1, ft1);
 			tess.addVertexWithUV(1D, 0D, 1D, ft2, ft1);
 			tess.addVertexWithUV(0D, 0D, 1D, ft2, ft0);
@@ -84,7 +84,7 @@ public class RenderBoomerang extends Render
 		
 		if (mat != 0)
 		{
-			tess.setColorOpaque_F(color[0], color[1], color[2]);
+			tess.setColorRGBA_F(color[0], color[1], color[2], color[3]);
 			tess.addVertexWithUV(f2, -fh, f4, ft2, ft3);
 			tess.addVertexWithUV(f2, fh, f4, ft2, ft4);
 			tess.addVertexWithUV(f3, fh, f4, ft1, ft4);
@@ -99,7 +99,7 @@ public class RenderBoomerang extends Render
 		
 		if (mat != 0)
 		{
-			tess.setColorOpaque_F(color[0], color[1], color[2]);
+			tess.setColorRGBA_F(color[0], color[1], color[2], color[3]);
 			tess.addVertexWithUV(f2, -fh, f4, ft2, ft3);
 			tess.addVertexWithUV(f2, fh, f4, ft2, ft4);
 			tess.addVertexWithUV(f2, fh, f2, ft1, ft4);

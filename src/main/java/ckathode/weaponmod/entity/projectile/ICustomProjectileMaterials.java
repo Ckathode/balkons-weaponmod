@@ -4,6 +4,11 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * @author Ckathode
+ * @deprecated Use IWeaponMaterials and the WeaponMaterialAPI instead.
+ */
+@Deprecated
 public interface ICustomProjectileMaterials
 {
 	public int[] getAllMaterialIDs();

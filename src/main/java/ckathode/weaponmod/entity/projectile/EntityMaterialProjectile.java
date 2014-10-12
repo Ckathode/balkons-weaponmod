@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import ckathode.weaponmod.item.IItemWeapon;
+import ckathode.weaponmod.matapi.WeaponMaterialAPI;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,7 +27,7 @@ public abstract class EntityMaterialProjectile extends EntityProjectile
 	public void entityInit()
 	{
 		super.entityInit();
-		dataWatcher.addObject(25, Byte.valueOf((byte) 0));
+		dataWatcher.addObject(25, Short.valueOf((short) 0));
 	}
 	
 	public float getMeleeHitDamage(Entity entity)
@@ -72,23 +73,20 @@ public abstract class EntityMaterialProjectile extends EntityProjectile
 	
 	public int getWeaponMaterialId()
 	{
-		return dataWatcher.getWatchableObjectByte(25);
+		return dataWatcher.getWatchableObjectShort(25);
 	}
 	
 	protected final void updateWeaponMaterial()
 	{
 		if (thrownItem != null && thrownItem.getItem() instanceof IItemWeapon && ((IItemWeapon) thrownItem.getItem()).getMeleeComponent() != null)
 		{
-			int material = MaterialRegistry.getMaterialID(thrownItem);
-			if (material < 0)
-			{
-				material = ((IItemWeapon) thrownItem.getItem()).getMeleeComponent().weaponMaterial.ordinal();
-			}
-			dataWatcher.updateObject(25, Byte.valueOf((byte) (material & 0xFF)));
+			int material = ((IItemWeapon) thrownItem.getItem()).getMeleeComponent().weaponMaterial.ordinal();
+			dataWatcher.updateObject(25, Short.valueOf((short) (material & 0xFFFF)));
 		}
 	}
 	
 	@SideOnly(Side.CLIENT)
+	@Deprecated
 	public final float[] getMaterialColor()
 	{
 		int id = getWeaponMaterialId();
@@ -97,6 +95,12 @@ public abstract class EntityMaterialProjectile extends EntityProjectile
 			return MATERIAL_COLORS[id];
 		}
 		return MaterialRegistry.getColorFromMaterialID(id);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public final float[] getWeaponMaterialColor()
+	{
+		return WeaponMaterialAPI.instance.getWeaponMaterialColorFromID(getWeaponMaterialId());
 	}
 	
 	@Override

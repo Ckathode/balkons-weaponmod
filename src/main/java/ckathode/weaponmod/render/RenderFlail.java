@@ -25,7 +25,7 @@ public class RenderFlail extends Render
 		Tessellator tessellator = Tessellator.instance;
 		
 		// ===============FLAIL BALL===============
-		float[] color = entityarrow.getMaterialColor();
+		float[] color = entityarrow.getWeaponMaterialColor();
 		int i = 0;
 		float f2 = 0.0F;
 		float f3 = 0.5F;
@@ -44,7 +44,7 @@ public class RenderFlail extends Render
 			GL11.glRotatef(f12, 0.0F, 0.0F, 1.0F);
 		}
 		
-		GL11.glColor3f(color[0], color[1], color[2]);
+		GL11.glColor4f(color[0], color[1], color[2], color[3]);
 		GL11.glRotatef(45F, 1.0F, 0.0F, 0.0F);
 		GL11.glScalef(f10, f10, f10);
 		GL11.glTranslatef(-4F, 0.0F, 0.0F);

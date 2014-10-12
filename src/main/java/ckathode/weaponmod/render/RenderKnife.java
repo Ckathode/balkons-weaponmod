@@ -22,7 +22,7 @@ public class RenderKnife extends Render
 			GL11.glRotatef((entityarrow.prevRotationYaw + (entityarrow.rotationYaw - entityarrow.prevRotationYaw) * f1) - 90F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(entityarrow.prevRotationPitch + (entityarrow.rotationPitch - entityarrow.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
 			Tessellator tess = Tessellator.instance;
-			float[] color = entityarrow.getMaterialColor();
+			float[] color = entityarrow.getWeaponMaterialColor();
 			int i = 0;
 			float f2 = 0.0F;
 			float f3 = 0.5F;
@@ -75,7 +75,7 @@ public class RenderKnife extends Render
 					tess.addVertexWithUV(8D, 2D, 0.0D, f3, f5);
 					tess.addVertexWithUV(-8D, 2D, 0.0D, f2, f5);
 					
-					tess.setColorOpaque_F(color[0], color[1], color[2]);
+					tess.setColorRGBA_F(color[0], color[1], color[2], color[3]);
 					tess.addVertexWithUV(-8D, -2D, 0.0D, f2, f13);
 					tess.addVertexWithUV(8D, -2D, 0.0D, f3, f13);
 					tess.addVertexWithUV(8D, 2D, 0.0D, f3, f14);
