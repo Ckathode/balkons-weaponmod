@@ -41,28 +41,30 @@ public class WMClientProxy extends WMCommonProxy
 	public void registerEventHandlers()
 	{
 		super.registerEventHandlers();
-		FMLCommonHandler.instance().bus().register(new WMClientTickHandler());
+		WMClientEventHandler eventhandler = new WMClientEventHandler();
+		FMLCommonHandler.instance().bus().register(eventhandler);
+		MinecraftForge.EVENT_BUS.register(eventhandler);
 		MinecraftForge.EVENT_BUS.register(new GuiOverlayReloaded(FMLClientHandler.instance().getClient()));
-		
+
 	}
-	
+
 	@Override
 	public void registerPackets(WMMessagePipeline pipeline)
 	{
 		super.registerPackets(pipeline);
 	}
-	
+
 	@Override
 	public void registerIcons()
 	{
 	}
-	
+
 	@Override
 	public void registerRenderers(WeaponModConfig config)
 	{
 		LongItemRenderer longrender = new LongItemRenderer();
 		//StabItemRenderer stabrender = new StabItemRenderer();
-		
+
 		if (config.isEnabled("halberd"))
 		{
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.halberdWood, longrender);
@@ -71,7 +73,7 @@ public class WMClientProxy extends WMCommonProxy
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.halberdDiamond, longrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.halberdGold, longrender);
 		}
-		
+
 		if (config.isEnabled("knife"))
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntityKnife.class, new RenderKnife());
@@ -82,29 +84,29 @@ public class WMClientProxy extends WMCommonProxy
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.knifeDiamond.itemID, stabrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.knifeGold.itemID, stabrender);*/
 		}
-		
+
 		if (config.isEnabled("spear"))
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpear.class, new RenderSpear());
-			
+
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearWood, longrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearStone, longrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearSteel, longrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearDiamond, longrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearGold, longrender);
 		}
-		
+
 		if (config.isEnabled("javelin"))
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntityJavelin.class, new RenderJavelin());
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.javelin, longrender);
 		}
-		
+
 		if (config.isEnabled("firerod"))
 		{
 			//MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.fireRod.itemID, stabrender);
 		}
-		
+
 		if (config.isEnabled("musket"))
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntityMusketBullet.class, new RenderMusketBullet());

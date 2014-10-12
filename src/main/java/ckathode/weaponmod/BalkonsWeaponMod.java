@@ -586,13 +586,13 @@ public class BalkonsWeaponMod
 		if (musketBullet != null && item.itemID == musketBullet.shiftedIndex)
 		{
 			EntityMusketBullet entitymusketbullet = new EntityMusketBullet(world, x, y, z);
-			
+
 			entitymusketbullet.setThrowableHeading(xVel, 0.0D, zVel, 5.0F, 3.0F);
 			world.spawnEntityInWorld(entitymusketbullet);
 			world.playSoundEffect(x, y, z, "random.explode", 3.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.7F));
 			world.playSoundEffect(x, y, z, "ambient.weather.thunder", 3.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.4F));
 			world.spawnParticle("flame", x + xVel, y, z + zVel, 0.0D, 0.0D, 0.0D);
-			
+
 		} else if (javelin != null && item.itemID == javelin.shiftedIndex)
 		{
 			EntityJavelin entityjavelin = new EntityJavelin(world, x, y, z);
@@ -600,7 +600,7 @@ public class BalkonsWeaponMod
 			entityjavelin.setThrowableHeading(xVel, 0.1D, zVel, 1.1F, 4.0F);
 			world.spawnEntityInWorld(entityjavelin);
 			world.playSoundEffect(x, y, z, "random.bow", 1.0F, 1.2F);
-			
+
 		} else if (bolt != null && item.itemID == bolt.shiftedIndex)
 		{
 			EntityCrossbowBolt entitycrossbowbolt = new EntityCrossbowBolt(world, x, y, z);
@@ -608,7 +608,7 @@ public class BalkonsWeaponMod
 			entitycrossbowbolt.setThrowableHeading(xVel, 0.0D, zVel, 5.0F, 4.0F);
 			world.spawnEntityInWorld(entitycrossbowbolt);
 			world.playSoundEffect(x, y, z, "random.bow", 1.0F, 1.2F);
-			
+
 		} else if (dart != null && item.itemID == dart.shiftedIndex)
 		{
 			EntityBlowgunDart entityblowgundart = new EntityBlowgunDart(world, x, y, z);
@@ -616,20 +616,20 @@ public class BalkonsWeaponMod
 			entityblowgundart.setThrowableHeading(xVel, 0.0D, zVel, 5.0F, 4.0F);
 			world.spawnEntityInWorld(entityblowgundart);
 			world.playSoundEffect(x, y, z, "random.bow", 1.0F, 1.2F);
-			
+
 		} else if (dynamite != null && item.itemID == dynamite.shiftedIndex)
 		{
 			EntityDynamite entitydynamite = new EntityDynamite(world, x, y, z);
 			entitydynamite.setThrowableHeading(xVel, 0.1D, zVel, 1.0F, 4.0F);
 			world.spawnEntityInWorld(entitydynamite);
 			world.playSoundEffect(x, y, z, "random.fuse", 1.0F, 1.2F);
-			
+
 		} else if (blunderShot != null && item.itemID == blunderShot.shiftedIndex)
 		{
 			EntityBlunderShot.fireFromDispenser(world, x, y, z, xVel, zVel);
 			world.playSoundEffect(x, y, z, "random.old_explode", 3.0F, 1.0F / (rand.nextFloat() * 0.4F + 1.0F));
 			world.spawnParticle("flame", x + xVel, y, z + zVel, 0.0D, 0.0D, 0.0D);
-			
+
 		} else if (WeaponRegistry.isEnabled("cannon") && (item.itemID == cannonBall.shiftedIndex || item.itemID == Items.gunpowder.shiftedIndex))
 		{
 			boolean canfire = false;
@@ -645,7 +645,7 @@ public class BalkonsWeaponMod
 				{
 					itemtocheck = Items.gunpowder.shiftedIndex;
 				}
-				
+
 				int k;
 				for (k = 0; k < dispenser.getSizeInventory(); k++)
 				{
@@ -658,9 +658,9 @@ public class BalkonsWeaponMod
 					}
 				}
 			}
-			
+
 			if (!canfire) return 0;
-			
+
 			EntityCannonBall entitycannonball = new EntityCannonBall(world, x, y, z);
 			entitycannonball.setThrowableHeading(xVel, 0.1D, zVel, 2.0F, 2.0F);
 			world.spawnEntityInWorld(entitycannonball);
@@ -671,5 +671,5 @@ public class BalkonsWeaponMod
 			return 0;
 		return -1;
 	}
-	*/
+	 */
 }

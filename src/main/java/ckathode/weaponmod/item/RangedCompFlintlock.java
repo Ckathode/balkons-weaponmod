@@ -76,4 +76,10 @@ public class RangedCompFlintlock extends RangedComponent
 		}
 		world.spawnParticle("flame", x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
 	}
+	
+	@Override
+	public float getMaxZoom()
+	{
+		return 0.07f;
+	}
 }
