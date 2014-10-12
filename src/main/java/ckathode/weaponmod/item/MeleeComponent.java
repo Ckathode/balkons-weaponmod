@@ -103,10 +103,16 @@ public class MeleeComponent extends AbstractWeaponComponent
 			{
 				PhysHelper.knockBack(entityliving, attacker, kb);
 			}
-			entityliving.hurtResistantTime += meleeSpecs.attackDelay;
+			entityliving.hurtResistantTime += getAttackDelay(itemstack, entityliving, attacker);
 		}
 		itemstack.damageItem(meleeSpecs.dmgFromEntity, attacker);
 		return true;
+	}
+	
+	@Override
+	public int getAttackDelay(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker)
+	{
+		return meleeSpecs.attackDelay;
 	}
 	
 	@Override
@@ -196,7 +202,7 @@ public class MeleeComponent extends AbstractWeaponComponent
 	{
 		//NAME db, dm, edb, edm, bd, kb, dfe, dfb, mss, ad
 		SPEAR(0, 1F, 3, 1F, 1F, 0.2F, 1, 2, 1, 0),
-		HALBERD(0, 1F, 3, 1F, 1.5F, 0.6F, 1, 2, 1, 8),
+		HALBERD(0, 1F, 4, 1F, 1.5F, 0.6F, 1, 2, 1, 8),
 		BATTLEAXE(0, 1F, 3, 1F, 1.5F, 0.5F, 1, 2, 1, 5),
 		WARHAMMER(0, 1F, 4, 1F, 1F, 0.7F, 1, 2, 1, 5),
 		KNIFE(0, 0.5F, 3, 1F, 1.5F, 0.2F, 1, 2, 1, 0),

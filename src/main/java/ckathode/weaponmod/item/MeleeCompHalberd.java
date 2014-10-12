@@ -1,6 +1,5 @@
 package ckathode.weaponmod.item;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -32,12 +31,16 @@ public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachIt
 		itemstack.getTagCompound().setBoolean("halb", flag);
 	}
 	
-	private float	halberdEntityDamage;
-	
 	public MeleeCompHalberd(ToolMaterial toolmaterial)
 	{
 		super(MeleeSpecs.HALBERD, toolmaterial);
-		halberdEntityDamage = getEntityDamage();
+	}
+	
+	@Override
+	public int getAttackDelay(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker)
+	{
+		int ad = super.getAttackDelay(itemstack, entityliving, attacker);
+		return getHalberdState(itemstack) ? 0 : ad;
 	}
 	
 	@Override
@@ -45,12 +48,6 @@ public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachIt
 	{
 		float kb = super.getKnockBack(itemstack, entityliving, attacker);
 		return getHalberdState(itemstack) ? kb / 2F : kb;
-	}
-	
-	@Override
-	public float getEntityDamage()
-	{
-		return halberdEntityDamage;
 	}
 	
 	@Override
@@ -64,14 +61,6 @@ public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachIt
 	{
 		setHalberdState(itemstack, !getHalberdState(itemstack));
 		return itemstack;
-	}
-	
-	@Override
-	public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity)
-	{
-		super.onLeftClickEntity(itemstack, entityplayer, entity);
-		halberdEntityDamage = getHalberdState(itemstack) ? super.getEntityDamage() * 2F : super.getEntityDamage();
-		return false;
 	}
 	
 	@Override

@@ -49,6 +49,8 @@ public abstract class AbstractWeaponComponent
 	
 	public abstract boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker);
 	
+	public abstract int getAttackDelay(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker);
+	
 	public abstract float getKnockBack(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker);
 	
 	public abstract int getItemEnchantability();
