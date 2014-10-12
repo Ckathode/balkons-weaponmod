@@ -71,7 +71,7 @@ public class BalkonsWeaponMod
 {
 	public static final String		MOD_ID		= "weaponmod";
 	public static final String		MOD_NAME	= "Balkon's WeaponMod";
-	public static final String		MOD_VERSION	= "1.7.2 v1.14.3";
+	public static final String		MOD_VERSION	= "v1.14.3";
 	
 	@Instance("weaponmod")
 	public static BalkonsWeaponMod	instance;
