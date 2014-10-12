@@ -142,7 +142,7 @@ public class EntityFlail extends EntityMaterialProjectile
 	public void pickUpByOwner()
 	{
 		setDead();
-		if (shootingEntity instanceof EntityPlayer)
+		if (shootingEntity instanceof EntityPlayer && thrownItem != null)
 		{
 			((ItemFlail) thrownItem.getItem()).setThrown((EntityPlayer) shootingEntity, false);
 		}
