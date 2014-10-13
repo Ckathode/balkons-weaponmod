@@ -3,14 +3,13 @@ package ckathode.weaponmod.matapi;
 import java.util.EnumMap;
 
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 
 import org.apache.logging.log4j.Logger;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -20,23 +19,23 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(modid = WeaponMaterialAPI.MOD_ID, name = WeaponMaterialAPI.MOD_NAME, version = WeaponMaterialAPI.MOD_VERSION)
 public class WeaponMaterialAPI
 {
-	public static final String								MOD_ID					= "bwmMaterialAPI";
-	public static final String								MOD_NAME				= "Balkon's WeaponMod Material API";
-	public static final String								MOD_VERSION				= "1.7.10 v0.1.0";
+	public static final String							MOD_ID					= "bwmMaterialAPI";
+	public static final String							MOD_NAME				= "Balkon's WeaponMod Material API";
+	public static final String							MOD_VERSION				= "v0.1.0";
 	
 	@Instance(MOD_ID)
-	public static WeaponMaterialAPI							instance;
-	public static Logger									modLog;
+	public static WeaponMaterialAPI						instance;
+	public static Logger								modLog;
 	
 	@SideOnly(Side.CLIENT)
-	private static final float[]							DEFAULT_MATERIAL_COLOR	= { 1F, 1F, 1F, 1F };
+	private static final float[]						DEFAULT_MATERIAL_COLOR	= { 1F, 1F, 1F, 1F };
 	
-	private EnumMap<Item.ToolMaterial, IWeaponMaterials>	materialToModMap;
+	private EnumMap<Item.ToolMaterial, WeaponMaterial>	materialMap;
 	
 	@EventHandler
 	public void preInitMod(FMLPreInitializationEvent e)
 	{
-		materialToModMap = new EnumMap<Item.ToolMaterial, IWeaponMaterials>(Item.ToolMaterial.class);
+		materialMap = new EnumMap<Item.ToolMaterial, WeaponMaterial>(Item.ToolMaterial.class);
 		modLog = e.getModLog();
 	}
 	
@@ -47,6 +46,33 @@ public class WeaponMaterialAPI
 		{
 			if ("register".equals(m.key))
 			{
+				if (!m.isNBTMessage())
+				{
+					modLog.error("Please provide an NBTTagCompound to register");
+					continue;
+				}
+				NBTTagCompound compound = m.getNBTValue();
+				if (!compound.hasKey("ordinal"))
+				{
+					modLog.error("NBTTagCompound does not have an integer with key='ordinal'");
+					continue;
+				}
+				int id = compound.getInteger("ordinal");
+				int color = compound.hasKey("projectileColor") ? compound.getInteger("projectileColor") : 0xFFFFFFFF;
+				float knockback = compound.hasKey("knockbackMult") ? compound.getFloat("knockbackMult") : 1f;
+				Item.ToolMaterial toolmaterial;
+				try
+				{
+					toolmaterial = Item.ToolMaterial.values()[id];
+				} catch (ArrayIndexOutOfBoundsException aioobe)
+				{
+					modLog.error("No ToolMaterial with ordinal " + id + " has been registered");
+					continue;
+				}
+				
+				WeaponMaterial wm = new WeaponMaterial(toolmaterial, color, knockback);
+				materialMap.put(toolmaterial, wm);
+				/*
 				ModContainer mc = FMLCommonHandler.instance().findContainerFor(m.getSender());
 				if (mc == null)
 				{
@@ -58,25 +84,48 @@ public class WeaponMaterialAPI
 				} else
 				{
 					modLog.error("Mod " + m.getSender() + " -> " + mc.getMod() + " is not of type IWeaponMaterials");
-				}
+				}*/
+				
+				modLog.info("Registered WeaponMaterial " + wm.toString());
 			} else if ("unregister".equals(m.key))
 			{
-				modLog.error("unregister not implemented");
+				int id;
+				if (m.isStringMessage())
+				{
+					try
+					{
+						id = Integer.parseInt(m.getStringValue());
+					} catch (NumberFormatException nfe)
+					{
+						modLog.error("Cannot parse string message to integer", nfe);
+						continue;
+					}
+					
+				} else if (m.isNBTMessage())
+				{
+					id = m.getNBTValue().getInteger("ordinal");
+				} else
+				{
+					modLog.error("Please provide a String or an NBTTagCompound to unregister");
+					continue;
+				}
+				Item.ToolMaterial toolmaterial;
+				try
+				{
+					toolmaterial = Item.ToolMaterial.values()[id];
+				} catch (ArrayIndexOutOfBoundsException aioobe)
+				{
+					modLog.error("No ToolMaterial with ordinal " + id + " has been registered");
+					continue;
+				}
+				materialMap.remove(toolmaterial);
 			}
 		}
 	}
 	
-	private void registerWeaponMaterials(IWeaponMaterials weaponmaterials)
+	public WeaponMaterial getWeaponMaterial(Item.ToolMaterial toolmaterial)
 	{
-		for (Item.ToolMaterial tm : weaponmaterials.getWMCustomMaterials())
-		{
-			materialToModMap.put(tm, weaponmaterials);
-		}
-	}
-	
-	public IWeaponMaterials getModFromMaterial(Item.ToolMaterial toolmaterial)
-	{
-		return materialToModMap.get(toolmaterial);
+		return materialMap.get(toolmaterial);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -90,21 +139,10 @@ public class WeaponMaterialAPI
 		if (id < mats.length)
 		{
 			Item.ToolMaterial tm = mats[id];
-			IWeaponMaterials mod = getModFromMaterial(tm);
+			WeaponMaterial mod = getWeaponMaterial(tm);
 			if (mod != null)
 			{
-				float[] clr = mod.getWMProjectileColor(tm);
-				if (clr == null)
-				{
-					modLog.error("Received null color for " + tm.name() + " from " + mod.toString());
-					return DEFAULT_MATERIAL_COLOR;
-				}
-				if (clr.length != 4)
-				{
-					modLog.error("Received color float array with a length of " + clr.length + " for " + tm.name() + " from " + mod.toString() + ", while 4 is expected");
-					return DEFAULT_MATERIAL_COLOR;
-				}
-				return clr;
+				return mod.getProjectileColor();
 			}
 			modLog.warn("ToolMaterial " + tm.name() + " has not been registered");
 		}

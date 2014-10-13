@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import ckathode.weaponmod.PhysHelper;
 import ckathode.weaponmod.WeaponModAttributes;
+import ckathode.weaponmod.matapi.WeaponMaterial;
+import ckathode.weaponmod.matapi.WeaponMaterialAPI;
 
 import com.google.common.collect.Multimap;
 
@@ -224,7 +226,8 @@ public class MeleeComponent extends AbstractWeaponComponent
 		
 		public float getKnockBack(ToolMaterial material)
 		{
-			return material == ToolMaterial.GOLD ? knockback * 1.5F : knockback;
+			WeaponMaterial wm = WeaponMaterialAPI.instance.getWeaponMaterial(material);
+			return wm == null ? 1f : wm.knockbackMult;
 		}
 		
 		public final int	durabilityBase;
