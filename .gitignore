@@ -21,3 +21,5 @@ hs_err_pid*
 /build/
 .gradle/*
 /bin/
+eclipse/.metadata/
+.settings/
