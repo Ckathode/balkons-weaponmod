@@ -1,0 +1,90 @@
+#Balkon's WeaponMod arquivo de tradução para 'pt_BR'
+
+item.spear.wood.name=Lança de Madeira
+item.spear.stone.name=Lança de Pedra
+item.spear.iron.name=Lança de Ferro
+item.spear.diamond.name=Lança de Diamante
+item.spear.gold.name=Lança de Ouro
+
+item.halberd.wood.name=Alabarda de Madeira
+item.halberd.stone.name=Alabarda de Pedra
+item.halberd.iron.name=Alabarda de Ferro
+item.halberd.diamond.name=Alabarda de Diamante
+item.halberd.gold.name=Alabarda de Ouro
+
+item.battleaxe.wood.name=Machado de Batalha de Madeira
+item.battleaxe.stone.name=Machado de Batalha de Pedra
+item.battleaxe.iron.name=Machado de Batalha de Ferro
+item.battleaxe.diamond.name=Machado de Batalha de Diamante
+item.battleaxe.gold.name=Machado de Batalha de Ouro
+
+item.warhammer.wood.name=Martelo de Guerra de Madeira
+item.warhammer.stone.name=Martelo de Guerra de Pedra
+item.warhammer.iron.name=Martelo de Guerra de Ferro
+item.warhammer.diamond.name=Martelo de Guerra de Diamante
+item.warhammer.gold.name=Martelo de Guerra de Ouro
+
+item.knife.wood.name=Punhal de Madeira
+item.knife.stone.name=Punhal de Pedra
+item.knife.iron.name=Punhal de Ferro
+item.knife.diamond.name=Punhal de Diamante
+item.knife.gold.name=Punhal de Ouro
+
+item.flail.wood.name=Mangual de Madeira
+item.flail.stone.name=Mangual de Pedra
+item.flail.iron.name=Mangual de Ferro
+item.flail.diamond.name=Mangual de Diamante
+item.flail.gold.name=Mangual de Ouro
+
+item.javelin.name=Azagaia
+
+item.musket.name=Mosquete
+item.musketbayonet.name=Mosquete com Baioneta
+item.musketbayonet.wood.name=Mosquete com Baioneta de Madeira
+item.musketbayonet.stone.name=Mosquete com Baioneta de Pedra
+item.musketbayonet.iron.name=Mosquete com Baioneta de Ferro
+item.musketbayonet.diamond.name=Mosquete com Baioneta de Diamante
+item.musketbayonet.gold.name=Mosquete com Baioneta de Ouro
+item.musket-ironpart.name=Culatra do Mosquete
+item.bullet.name=Munição para Mosquete
+
+item.crossbow.name=Besta
+item.bolt.name=Flecha de Besta
+
+item.blowgun.name=Zarabatana
+item.dart.name=Dardo Envenenado
+
+item.dynamite.name=Dinamite
+
+item.firerod.name=Palito de Fósforo
+
+item.cannon.name=Canhão
+item.cannonball.name=Bala de Canhão
+
+item.blunderbuss.name=Bacamarte
+item.blunder-ironpart.name=Culatra do Bacamarte
+item.shot.name=Munição para Bacamarte
+
+item.dummy.name=Manequim de Treinamento
+
+item.gun-stock.name=Coronha
+
+item.boomerang.wood.name=Bumerangue de Madeira
+item.boomerang.stone.name=Bumerangue de Pedra
+item.boomerang.iron.name=Bumerangue de Ferro
+item.boomerang.diamond.name=Bumerangue de Diamante
+item.boomerang.gold.name=Bumerangue de Ouro
+
+item.katana.wood.name=Katana de Madeira
+item.katana.stone.name=Katana de Pedra
+item.katana.iron.name=Katana de Ferro
+item.katana.diamond.name=Katana de Diamante
+item.katana.gold.name=Katana de Ouro
+
+item.flintlock.name=Garrucha
+
+attribute.name.weaponmod.ignoreArmour=Ignora Armadura
+attribute.name.weaponmod.knockback=Tranco
+attribute.name.weaponmod.attackSpeed=Velocidade de Ataque
+attribute.name.weaponmod.reloadTime=Tempo de Recarga
+attribute.name.weaponmod.reach=Alcance
