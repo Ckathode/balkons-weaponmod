@@ -1,70 +1,90 @@
 #Balkon's WeaponMod language file zh_TW
 
-item.spear.wood.name=\u6728\u77db
-item.spear.stone.name=\u77f3\u77db
-item.spear.iron.name=\u9435\u77db
-item.spear.diamond.name=\u947d\u77f3\u77db
-item.spear.gold.name=\u9ec3\u91d1\u77db
+item.spear.wood.name=木矛
+item.spear.stone.name=石矛
+item.spear.iron.name=鐵矛
+item.spear.diamond.name=鑽石矛
+item.spear.gold.name=金矛
 
-item.halberd.wood.name=\u6728\u6230\u621f
-item.halberd.stone.name=\u77f3\u6230\u621f
-item.halberd.iron.name=\u9435\u6230\u621f
-item.halberd.diamond.name=\u947d\u77f3\u6230\u621f
-item.halberd.gold.name=\u9ec3\u91d1\u6230\u621f
+item.halberd.wood.name=木戟
+item.halberd.stone.name=石戟
+item.halberd.iron.name=鐵戟
+item.halberd.diamond.name=鑽石戟
+item.halberd.gold.name=金戟
 
-item.battleaxe.wood.name=\u6728\u6230\u65a7
-item.battleaxe.stone.name=\u77f3\u6230\u65a7
-item.battleaxe.iron.name=\u9435\u6230\u65a7
-item.battleaxe.diamond.name=\u947d\u77f3\u6230\u65a7
-item.battleaxe.gold.name=\u9ec3\u91d1\u6230\u65a7
-item.warhammer.wood.name=\u6728\u6230\u939a
-item.warhammer.stone.name=\u77f3\u6230\u939a
-item.warhammer.iron.name=\u9435\u6230\u939a
-item.warhammer.diamond.name=\u947d\u77f3\u6230\u939a
-item.warhammer.gold.name=\u9ec3\u91d1\u6230\u939a
+item.battleaxe.wood.name=木戰斧
+item.battleaxe.stone.name=石戰斧
+item.battleaxe.iron.name=鐵戰斧
+item.battleaxe.diamond.name=鑽石戰斧
+item.battleaxe.gold.name=金戰斧
 
-item.knife.wood.name=\u6728\u88fd\u5c0f\u5200
-item.knife.stone.name=\u77f3\u88fd\u5c0f\u5200
-item.knife.iron.name=\u9435\u88fd\u5c0f\u5200
-item.knife.diamond.name=\u947d\u77f3\u5c0f\u5200
-item.knife.gold.name=\u9ec3\u91d1\u5c0f\u5200
+item.warhammer.wood.name=木戰鎚
+item.warhammer.stone.name=石戰鎚
+item.warhammer.iron.name=鐵戰鎚
+item.warhammer.diamond.name=鑽石戰鎚
+item.warhammer.gold.name=金戰鎚
 
-item.flail.wood.name=\u6728\u6d41\u661f\u69cc
-item.flail.stone.name=\u77f3\u6d41\u661f\u69cc
-item.flail.iron.name=\u9435\u6d41\u661f\u69cc
-item.flail.diamond.name=\u947d\u77f3\u6d41\u661f\u69cc
-item.flail.gold.name=\u9ec3\u91d1\u6d41\u661f\u69cc
+item.knife.wood.name=木小刀
+item.knife.stone.name=石小刀
+item.knife.iron.name=鐵小刀
+item.knife.diamond.name=鑽石小刀
+item.knife.gold.name=金小刀
 
-item.javelin.name=\u6a19\u69cd
+item.flail.wood.name=木流星槌
+item.flail.stone.name=石流星槌
+item.flail.iron.name=鐵流星槌
+item.flail.diamond.name=鑽石流星槌
+item.flail.gold.name=金流星槌
 
-item.musket.name=\u706b\u69cd
-item.musketbayonet.name=\u6709\u523a\u5200\u7684\u706b\u69cd
-item.musket-ironpart.name=\u706b\u69cd\u7ba1
-item.bullet.name=\u706b\u69cd\u5b50\u5f48
+item.javelin.name=標槍
 
-item.crossbow.name=\u5f29
-item.bolt.name=\u5f29\u7bad
+item.musket.name=火槍
+item.musketbayonet.name=刺刀火槍
+item.musketbayonet.wood.name=木刺刀火槍
+item.musketbayonet.stone.name=石刺刀火槍
+item.musketbayonet.iron.name=鐵刺刀火槍
+item.musketbayonet.diamond.name=鑽石刺刀火槍
+item.musketbayonet.gold.name=金刺刀火槍
+item.musket-ironpart.name=火槍槍管
+item.bullet.name=火槍子彈
 
-item.blowgun.name=\u5439\u7bad\u7b52
-item.dart.name=\u6bd2\u93e2
+item.crossbow.name=十字弩
+item.bolt.name=弩箭
 
-item.dynamite.name=\u6295\u64f2\u70b8\u85e5
+item.blowgun.name=吹筒
+item.dart.name=毒鏢
 
-item.firerod.name=\u71c3\u71d2\u68d2
+item.dynamite.name=投擲炸藥
 
-item.cannon.name=\u5927\u7832
-item.cannonball.name=\u7832\u5f48
+item.firerod.name=燃燒棒
 
-item.blunderbuss.name=\u524d\u88dd\u6ed1\u819b\u6563\u5f48\u77ed\u9283
-item.blunder-ironpart.name=\u77ed\u9283\u69cd\u7ba1
-item.shot.name=\u925b\u5f48
+item.cannon.name=大砲
+item.cannonball.name=砲彈
 
-item.dummy.name=\u8a13\u7df4\u5047\u4eba
+item.blunderbuss.name=前裝滑膛散彈短銃
+item.blunder-ironpart.name=短銃槍管
+item.shot.name=鉛彈
 
-item.gun-stock.name=\u69cd\u6258
+item.dummy.name=訓練假人
 
-item.boomerang.wood.name=\u6728\u8ff4\u65cb\u93e2
-item.boomerang.stone.name=\u77f3\u8ff4\u65cb\u93e2
-item.boomerang.iron.name=\u9435\u8ff4\u65cb\u93e2
-item.boomerang.diamond.name=\u947d\u77f3\u8ff4\u65cb\u93e2
-item.boomerang.gold.name=\u9ec3\u91d1\u8ff4\u65cb\u93e2
+item.gun-stock.name=槍托
+
+item.boomerang.wood.name=木迴旋鏢
+item.boomerang.stone.name=石迴旋鏢
+item.boomerang.iron.name=鐵迴旋鏢
+item.boomerang.diamond.name=鑽石迴旋鏢
+item.boomerang.gold.name=金迴旋鏢
+
+item.katana.wood.name=木武士刀
+item.katana.stone.name=石武士刀
+item.katana.iron.name=鐵武士刀
+item.katana.diamond.name=鑽石武士刀
+item.katana.gold.name=金武士刀
+
+item.flintlock.name=燧發手槍
+
+attribute.name.weaponmod.ignoreArmour=無視護甲
+attribute.name.weaponmod.knockback=擊退
+attribute.name.weaponmod.attackSpeed=攻擊速度
+attribute.name.weaponmod.reloadTime=裝彈時間
+attribute.name.weaponmod.reach=範圍
