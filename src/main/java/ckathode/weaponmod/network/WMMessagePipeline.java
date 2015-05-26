@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetHandlerPlayServer;
 import ckathode.weaponmod.BalkonsWeaponMod;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.FMLEmbeddedChannel;
 import net.minecraftforge.fml.common.network.FMLOutboundHandler;
@@ -83,7 +84,7 @@ public class WMMessagePipeline extends MessageToMessageCodec<FMLProxyPacket, WMM
 		byte discriminator = (byte) packets.indexOf(clazz);
 		buffer.writeByte(discriminator);
 		msg.encodeInto(ctx, buffer);
-		FMLProxyPacket proxyPacket = new FMLProxyPacket(buffer, ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
+		FMLProxyPacket proxyPacket = new FMLProxyPacket((PacketBuffer) buffer, ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
 		out.add(proxyPacket);
 	}
 	

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.ChunkPosition;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import ckathode.weaponmod.AdvancedExplosion;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -18,15 +19,15 @@ public class MsgExplosion extends WMMessage
 {
 	private double				x, y, z;
 	private float				size;
-	private List<ChunkPosition>	blocks;
+	private List<BlockPos>	blocks;
 	private boolean				smallParticles, bigParticles;
 
 	@SuppressWarnings("unchecked")
 	public MsgExplosion(AdvancedExplosion explosion, boolean smallparts, boolean bigparts)
 	{
-		x = explosion.explosionX;
-		y = explosion.explosionY;
-		z = explosion.explosionZ;
+		x = explosion.getPosition().xCoord;
+		y = explosion.getPosition().yCoord;
+		z = explosion.getPosition().zCoord;
 		size = explosion.explosionSize;
 		blocks = explosion.affectedBlockPositions;
 		smallParticles = smallparts;
@@ -48,13 +49,13 @@ public class MsgExplosion extends WMMessage
 		bigParticles = buf.readBoolean();
 
 		int size = buf.readInt();
-		blocks = new ArrayList<ChunkPosition>(size);
+		blocks = new ArrayList<BlockPos>(size);
 		for (int i = 0; i < size; i++)
 		{
 			int ix = buf.readByte() + (int) x;
 			int iy = buf.readByte() + (int) y;
 			int iz = buf.readByte() + (int) z;
-			blocks.add(new ChunkPosition(ix, iy, iz));
+			blocks.add(new BlockPos(ix, iy, iz));
 		}
 	}
 
@@ -72,10 +73,10 @@ public class MsgExplosion extends WMMessage
 		buf.writeInt(n);
 		for (int i = 0; i < n; i++)
 		{
-			ChunkPosition pos = blocks.get(i);
-			int dx = pos.chunkPosX - (int) x;
-			int dy = pos.chunkPosY - (int) y;
-			int dz = pos.chunkPosZ - (int) z;
+			BlockPos pos = blocks.get(i);
+			int dx = (int) pos.getX() - (int) x;
+			int dy = (int) pos.getY() - (int) y;
+			int dz = (int) pos.getZ() - (int) z;
 			buf.writeByte(dx);
 			buf.writeByte(dy);
 			buf.writeByte(dz);
@@ -87,7 +88,7 @@ public class MsgExplosion extends WMMessage
 	public void handleClientSide(EntityPlayer player)
 	{
 		World world = FMLClientHandler.instance().getWorldClient();
-		AdvancedExplosion expl = new AdvancedExplosion(world, null, x, y, z, size);
+		AdvancedExplosion expl = new AdvancedExplosion(world, null, x, y, z, size, true, true);
 		expl.setAffectedBlockPositions(blocks);
 		expl.doParticleExplosion(smallParticles, bigParticles);
 	}
