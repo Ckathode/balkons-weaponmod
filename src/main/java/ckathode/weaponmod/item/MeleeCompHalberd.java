@@ -7,9 +7,9 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachItem
 {
@@ -53,7 +53,7 @@ public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachIt
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.none;
+		return EnumAction.NONE;
 	}
 	
 	@Override

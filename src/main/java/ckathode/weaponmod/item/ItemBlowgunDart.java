@@ -2,7 +2,8 @@ package ckathode.weaponmod.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import ckathode.weaponmod.BalkonsWeaponMod;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,19 +11,43 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBlowgunDart extends WMItem
 {
 	public ItemBlowgunDart(String id)
 	{
 		super(id);
+		ModelBakery.addVariantName(this, BalkonsWeaponMod.MOD_ID + ":" + id);
+		ModelBakery.addVariantName(this, BalkonsWeaponMod.MOD_ID + ":" + id + "_hunger");
+		ModelBakery.addVariantName(this, BalkonsWeaponMod.MOD_ID + ":" + id + "_slow");
+		ModelBakery.addVariantName(this, BalkonsWeaponMod.MOD_ID + ":" + id + "_damage");
 		setHasSubtypes(true);
 	}
-	
+	public String getUnlocalizedName(ItemStack stack)
+	{
+		return this.getFullName(stack.getMetadata());
+	}
+
+	public String getUnlocalizedName(int metadata)
+	{
+		return this.getFullName(metadata);
+	}
+
+	public String getFullName(int metadata){
+		if(metadata == 1){
+			return super.getUnlocalizedName() + "_hunger";
+		}else if(metadata == 2){
+			return super.getUnlocalizedName() + "_slow";
+		}else if(metadata == 3){
+			return super.getUnlocalizedName() + "_damage";
+		}
+		return super.getUnlocalizedName();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, @SuppressWarnings("rawtypes") List list)
@@ -35,26 +60,6 @@ public class ItemBlowgunDart extends WMItem
 			}
 		}
 	}
-	
-	@Override
-	public IIcon getIconFromDamage(int damage)
-	{
-		return (damage >= 0 && damage < DartType.dartTypes.length && DartType.dartTypes[damage] != null) ? DartType.dartTypes[damage].itemIcon : itemIcon;
-	}
-	
-	@Override
-	public void registerIcons(IIconRegister iconregister)
-	{
-		itemIcon = iconregister.registerIcon(getIconString());
-		for (DartType type : DartType.dartTypes)
-		{
-			if (type != null)
-			{
-				type.itemIcon = iconregister.registerIcon("weaponmod:" + type.typeName);
-			}
-		}
-	}
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)

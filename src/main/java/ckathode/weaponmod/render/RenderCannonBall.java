@@ -1,7 +1,9 @@
 package ckathode.weaponmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
@@ -12,14 +14,15 @@ import ckathode.weaponmod.entity.projectile.EntityCannonBall;
 
 public class RenderCannonBall extends Render
 {
-	public RenderCannonBall()
-	{
+	public RenderCannonBall(RenderManager renderManager) {
+		super(renderManager);
 		shadowSize = 0.5F;
 	}
 	
 	public void renderCannonBall(EntityCannonBall entitycannonball, double d, double d1, double d2, float f, float f1)
 	{
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 		GL11.glPushMatrix();
 		bindEntityTexture(entitycannonball);
 		GL11.glTranslatef((float) d, (float) d1, (float) d2);
@@ -27,36 +30,36 @@ public class RenderCannonBall extends Render
 		GL11.glScalef(-1F, -1F, 1.0F);
 		GL11.glScalef(0.7F, 0.7F, 0.7F);
 		GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(-0.5F, +0.5F, -0.5F, 0F, 1F);
-		tessellator.addVertexWithUV(+0.5F, +0.5F, -0.5F, 1F, 1F);
-		tessellator.addVertexWithUV(+0.5F, -0.5F, -0.5F, 1F, 0F);
-		tessellator.addVertexWithUV(-0.5F, -0.5F, -0.5F, 0F, 0F);
+		worldRenderer.startDrawingQuads();
+		worldRenderer.addVertexWithUV(-0.5F, +0.5F, -0.5F, 0F, 1F);
+		worldRenderer.addVertexWithUV(+0.5F, +0.5F, -0.5F, 1F, 1F);
+		worldRenderer.addVertexWithUV(+0.5F, -0.5F, -0.5F, 1F, 0F);
+		worldRenderer.addVertexWithUV(-0.5F, -0.5F, -0.5F, 0F, 0F);
 		
-		tessellator.addVertexWithUV(-0.5F, -0.5F, +0.5F, 0F, 0F);
-		tessellator.addVertexWithUV(+0.5F, -0.5F, +0.5F, 1F, 0F);
-		tessellator.addVertexWithUV(+0.5F, +0.5F, +0.5F, 1F, 1F);
-		tessellator.addVertexWithUV(-0.5F, +0.5F, +0.5F, 0F, 1F);
+		worldRenderer.addVertexWithUV(-0.5F, -0.5F, +0.5F, 0F, 0F);
+		worldRenderer.addVertexWithUV(+0.5F, -0.5F, +0.5F, 1F, 0F);
+		worldRenderer.addVertexWithUV(+0.5F, +0.5F, +0.5F, 1F, 1F);
+		worldRenderer.addVertexWithUV(-0.5F, +0.5F, +0.5F, 0F, 1F);
 		
-		tessellator.addVertexWithUV(-0.5F, -0.5F, -0.5F, 0F, 0F);
-		tessellator.addVertexWithUV(+0.5F, -0.5F, -0.5F, 1F, 0F);
-		tessellator.addVertexWithUV(+0.5F, -0.5F, +0.5F, 1F, 1F);
-		tessellator.addVertexWithUV(-0.5F, -0.5F, +0.5F, 0F, 1F);
+		worldRenderer.addVertexWithUV(-0.5F, -0.5F, -0.5F, 0F, 0F);
+		worldRenderer.addVertexWithUV(+0.5F, -0.5F, -0.5F, 1F, 0F);
+		worldRenderer.addVertexWithUV(+0.5F, -0.5F, +0.5F, 1F, 1F);
+		worldRenderer.addVertexWithUV(-0.5F, -0.5F, +0.5F, 0F, 1F);
 		
-		tessellator.addVertexWithUV(-0.5F, +0.5F, +0.5F, 0F, 1F);
-		tessellator.addVertexWithUV(+0.5F, +0.5F, +0.5F, 1F, 1F);
-		tessellator.addVertexWithUV(+0.5F, +0.5F, -0.5F, 1F, 0F);
-		tessellator.addVertexWithUV(-0.5F, +0.5F, -0.5F, 0F, 0F);
+		worldRenderer.addVertexWithUV(-0.5F, +0.5F, +0.5F, 0F, 1F);
+		worldRenderer.addVertexWithUV(+0.5F, +0.5F, +0.5F, 1F, 1F);
+		worldRenderer.addVertexWithUV(+0.5F, +0.5F, -0.5F, 1F, 0F);
+		worldRenderer.addVertexWithUV(-0.5F, +0.5F, -0.5F, 0F, 0F);
 		
-		tessellator.addVertexWithUV(-0.5F, -0.5F, +0.5F, 0F, 0F);
-		tessellator.addVertexWithUV(-0.5F, +0.5F, +0.5F, 1F, 0F);
-		tessellator.addVertexWithUV(-0.5F, +0.5F, -0.5F, 1F, 1F);
-		tessellator.addVertexWithUV(-0.5F, -0.5F, -0.5F, 0F, 1F);
+		worldRenderer.addVertexWithUV(-0.5F, -0.5F, +0.5F, 0F, 0F);
+		worldRenderer.addVertexWithUV(-0.5F, +0.5F, +0.5F, 1F, 0F);
+		worldRenderer.addVertexWithUV(-0.5F, +0.5F, -0.5F, 1F, 1F);
+		worldRenderer.addVertexWithUV(-0.5F, -0.5F, -0.5F, 0F, 1F);
 		
-		tessellator.addVertexWithUV(+0.5F, -0.5F, -0.5F, 0F, 0F);
-		tessellator.addVertexWithUV(+0.5F, +0.5F, -0.5F, 1F, 0F);
-		tessellator.addVertexWithUV(+0.5F, +0.5F, +0.5F, 1F, 1F);
-		tessellator.addVertexWithUV(+0.5F, -0.5F, +0.5F, 0F, 1F);
+		worldRenderer.addVertexWithUV(+0.5F, -0.5F, -0.5F, 0F, 0F);
+		worldRenderer.addVertexWithUV(+0.5F, +0.5F, -0.5F, 1F, 0F);
+		worldRenderer.addVertexWithUV(+0.5F, +0.5F, +0.5F, 1F, 1F);
+		worldRenderer.addVertexWithUV(+0.5F, -0.5F, +0.5F, 0F, 1F);
 		tessellator.draw();
 		GL11.glPopMatrix();
 	}

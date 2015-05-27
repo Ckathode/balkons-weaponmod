@@ -11,15 +11,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMelee extends ItemSword implements IItemWeapon
 {
@@ -30,7 +31,6 @@ public class ItemMelee extends ItemSword implements IItemWeapon
 		super((meleecomponent.weaponMaterial == null ? ToolMaterial.WOOD : meleecomponent.weaponMaterial));
 		GameRegistry.registerItem(this, id, BalkonsWeaponMod.MOD_ID);
 		setUnlocalizedName(id);
-		setTextureName("weaponmod:" + id);
 		
 		meleeComponent = meleecomponent;
 		meleecomponent.setItem(this);
@@ -38,19 +38,19 @@ public class ItemMelee extends ItemSword implements IItemWeapon
 	}
 	
 	@Override
-	public float func_150931_i()
+	public float getDamageVsEntity()
 	{
 		return meleeComponent.getEntityDamageMaterialPart();
 	}
 	
 	@Override
-	public float func_150893_a(ItemStack itemstack, Block block)
+	public float getStrVsBlock(ItemStack itemstack, Block block)
 	{
 		return meleeComponent.getBlockDamage(itemstack, block);
 	}
 	
 	@Override
-	public boolean func_150897_b(Block block)
+	public boolean canHarvestBlock(Block block)
 	{
 		return meleeComponent.canHarvestBlock(block);
 	}
@@ -62,9 +62,9 @@ public class ItemMelee extends ItemSword implements IItemWeapon
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving)
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving)
 	{
-		return meleeComponent.onBlockDestroyed(itemstack, world, block, j, k, l, entityliving);
+		return meleeComponent.onBlockDestroyed(itemstack, world, block, pos, entityliving);
 	}
 	
 	@Override
@@ -133,7 +133,7 @@ public class ItemMelee extends ItemSword implements IItemWeapon
 	@Override
 	public final UUID getUUID()
 	{
-		return field_111210_e;
+		return itemModifierUUID;
 	}
 	
 	@Override

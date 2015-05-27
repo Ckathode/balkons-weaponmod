@@ -48,6 +48,9 @@ item.bolt.name=Armbrustbolzen
 
 item.blowgun.name=Blasrohr
 item.dart.name=Vergifteter Pfeil
+item.dart_hunger.name=Vergifteter Pfeil
+item.dart_slow.name=Vergifteter Pfeil
+item.dart_damage.name=Vergifteter Pfeil
 
 item.dynamite.name=Dynamit
 

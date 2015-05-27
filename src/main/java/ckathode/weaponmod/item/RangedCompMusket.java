@@ -2,6 +2,7 @@ package ckathode.weaponmod.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import ckathode.weaponmod.ReloadHelper;
@@ -58,7 +59,7 @@ public class RangedCompMusket extends RangedComponent
 		itemstack.damageItem(deltadamage, entityplayer);
 		if (flag)
 		{
-			int bayonetdamage = itemstack.stackTagCompound == null ? 0 : itemstack.stackTagCompound.getShort("bayonetDamage");
+			int bayonetdamage = !itemstack.hasTagCompound() ? 0 : itemstack.getTagCompound().getShort("bayonetDamage");
 			entityplayer.inventory.addItemStackToInventory(new ItemStack(musket.bayonetItem, 1, bayonetdamage));
 		} else
 		{
@@ -89,9 +90,9 @@ public class RangedCompMusket extends RangedComponent
 
 		for (int i = 0; i < 3; i++)
 		{
-			world.spawnParticle("smoke", x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
 		}
-		world.spawnParticle("flame", x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
+		world.spawnParticle(EnumParticleTypes.FLAME, x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override

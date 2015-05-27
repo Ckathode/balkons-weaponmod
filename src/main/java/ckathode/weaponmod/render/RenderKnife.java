@@ -1,7 +1,9 @@
 package ckathode.weaponmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +15,10 @@ import ckathode.weaponmod.entity.projectile.EntityKnife;
 
 public class RenderKnife extends Render
 {
+	public RenderKnife(RenderManager renderManager) {
+		super(renderManager);
+	}
+
 	public void renderKnife(EntityKnife entityarrow, double d, double d1, double d2, float f, float f1)
 	{
 		bindEntityTexture(entityarrow);
@@ -21,7 +27,8 @@ public class RenderKnife extends Render
 			GL11.glTranslatef((float) d, (float) d1, (float) d2);
 			GL11.glRotatef((entityarrow.prevRotationYaw + (entityarrow.rotationYaw - entityarrow.prevRotationYaw) * f1) - 90F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(entityarrow.prevRotationPitch + (entityarrow.rotationPitch - entityarrow.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
-			Tessellator tess = Tessellator.instance;
+			Tessellator tess = Tessellator.getInstance();
+			WorldRenderer worldrenderer = tess.getWorldRenderer();
 			float[] color = entityarrow.getMaterialColor();
 			int i = 0;
 			float f2 = 0.0F;
@@ -46,40 +53,40 @@ public class RenderKnife extends Render
 			GL11.glScalef(f10, f10, f10);
 			GL11.glTranslatef(-4F, 0.0F, 0.0F);
 			GL11.glNormal3f(f10, 0.0F, 0.0F);
-			tess.startDrawingQuads();
+			worldrenderer.startDrawingQuads();
 			{
-				tess.addVertexWithUV(-7D, -2D, -2D, f6, f8);
-				tess.addVertexWithUV(-7D, -2D, 2D, f7, f8);
-				tess.addVertexWithUV(-7D, 2D, 2D, f7, f9);
-				tess.addVertexWithUV(-7D, 2D, -2D, f6, f9);
+				worldrenderer.addVertexWithUV(-7D, -2D, -2D, f6, f8);
+				worldrenderer.addVertexWithUV(-7D, -2D, 2D, f7, f8);
+				worldrenderer.addVertexWithUV(-7D, 2D, 2D, f7, f9);
+				worldrenderer.addVertexWithUV(-7D, 2D, -2D, f6, f9);
 			}
 			tess.draw();
 			GL11.glNormal3f(-f10, 0.0F, 0.0F);
-			tess.startDrawingQuads();
+			worldrenderer.startDrawingQuads();
 			{
-				tess.addVertexWithUV(-7D, 2D, -2D, f6, f8);
-				tess.addVertexWithUV(-7D, 2D, 2D, f7, f8);
-				tess.addVertexWithUV(-7D, -2D, 2D, f7, f9);
-				tess.addVertexWithUV(-7D, -2D, -2D, f6, f9);
+				worldrenderer.addVertexWithUV(-7D, 2D, -2D, f6, f8);
+				worldrenderer.addVertexWithUV(-7D, 2D, 2D, f7, f8);
+				worldrenderer.addVertexWithUV(-7D, -2D, 2D, f7, f9);
+				worldrenderer.addVertexWithUV(-7D, -2D, -2D, f6, f9);
 			}
 			tess.draw();
 			for (int j = 0; j < 4; j++)
 			{
 				GL11.glRotatef(90F, 1.0F, 0.0F, 0.0F);
 				GL11.glNormal3f(0.0F, 0.0F, f10);
-				tess.startDrawingQuads();
+				worldrenderer.startDrawingQuads();
 				{
-					tess.setColorOpaque_F(1F, 1F, 1F);
-					tess.addVertexWithUV(-8D, -2D, 0.0D, f2, f4);
-					tess.addVertexWithUV(8D, -2D, 0.0D, f3, f4);
-					tess.addVertexWithUV(8D, 2D, 0.0D, f3, f5);
-					tess.addVertexWithUV(-8D, 2D, 0.0D, f2, f5);
+					worldrenderer.setColorOpaque_F(1F, 1F, 1F);
+					worldrenderer.addVertexWithUV(-8D, -2D, 0.0D, f2, f4);
+					worldrenderer.addVertexWithUV(8D, -2D, 0.0D, f3, f4);
+					worldrenderer.addVertexWithUV(8D, 2D, 0.0D, f3, f5);
+					worldrenderer.addVertexWithUV(-8D, 2D, 0.0D, f2, f5);
 					
-					tess.setColorOpaque_F(color[0], color[1], color[2]);
-					tess.addVertexWithUV(-8D, -2D, 0.0D, f2, f13);
-					tess.addVertexWithUV(8D, -2D, 0.0D, f3, f13);
-					tess.addVertexWithUV(8D, 2D, 0.0D, f3, f14);
-					tess.addVertexWithUV(-8D, 2D, 0.0D, f2, f14);
+					worldrenderer.setColorOpaque_F(color[0], color[1], color[2]);
+					worldrenderer.addVertexWithUV(-8D, -2D, 0.0D, f2, f13);
+					worldrenderer.addVertexWithUV(8D, -2D, 0.0D, f3, f13);
+					worldrenderer.addVertexWithUV(8D, 2D, 0.0D, f3, f14);
+					worldrenderer.addVertexWithUV(-8D, 2D, 0.0D, f2, f14);
 				}
 				tess.draw();
 			}

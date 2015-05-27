@@ -53,6 +53,9 @@ item.bolt.name=Pistol o' Lassies' Bullet
 
 item.blowgun.name=Blowgun
 item.dart.name=Arrow o' Scurvy
+item.dart_hunger.name=Arrow o' Scurvy
+item.dart_slow.name=Arrow o' Scurvy
+item.dart_damage.name=Arrow o' Scurvy
 
 item.dynamite.name=Hand Granadoe
 

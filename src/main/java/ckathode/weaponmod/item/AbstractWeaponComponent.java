@@ -8,12 +8,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class AbstractWeaponComponent
 {
@@ -45,7 +46,7 @@ public abstract class AbstractWeaponComponent
 	
 	public abstract boolean canHarvestBlock(Block block);
 	
-	public abstract boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving);
+	public abstract boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving);
 	
 	public abstract boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase attacker);
 	

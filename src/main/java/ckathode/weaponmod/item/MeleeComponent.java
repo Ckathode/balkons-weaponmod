@@ -12,14 +12,15 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import ckathode.weaponmod.PhysHelper;
 import ckathode.weaponmod.WeaponModAttributes;
 
 import com.google.common.collect.Multimap;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MeleeComponent extends AbstractWeaponComponent
 {
@@ -84,9 +85,9 @@ public class MeleeComponent extends AbstractWeaponComponent
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving)
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving)
 	{
-		if ((meleeSpecs.blockDamage > 1F || canHarvestBlock(block)) && block.getBlockHardness(world, j, k, l) != 0F)
+		if ((meleeSpecs.blockDamage > 1F || canHarvestBlock(block)) && block.getBlockHardness(world, pos) != 0F)
 		{
 			itemstack.damageItem(meleeSpecs.dmgFromBlock, entityliving);
 		}
@@ -160,7 +161,7 @@ public class MeleeComponent extends AbstractWeaponComponent
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.block;
+		return EnumAction.BLOCK;
 	}
 	
 	@Override

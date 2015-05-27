@@ -1,11 +1,17 @@
 package ckathode.weaponmod;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.Logger;
@@ -57,28 +63,28 @@ import ckathode.weaponmod.item.RangedCompCrossbow;
 import ckathode.weaponmod.item.RangedCompFlintlock;
 import ckathode.weaponmod.item.WMItem;
 import ckathode.weaponmod.network.WMMessagePipeline;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = BalkonsWeaponMod.MOD_ID, name = BalkonsWeaponMod.MOD_NAME, version = BalkonsWeaponMod.MOD_VERSION)
 public class BalkonsWeaponMod
 {
 	public static final String		MOD_ID		= "weaponmod";
 	public static final String		MOD_NAME	= "Balkon's WeaponMod";
-	public static final String		MOD_VERSION	= "v1.14.3";
+	public static final String		MOD_VERSION	= "v1.16";
 	
 	@Instance("weaponmod")
 	public static BalkonsWeaponMod	instance;
 	
 	public static Logger			modLog;
-	
+
 	@SidedProxy(clientSide = "ckathode.weaponmod.WMClientProxy", serverSide = "ckathode.weaponmod.WMCommonProxy")
 	public static WMCommonProxy		proxy;
 	
@@ -192,7 +198,6 @@ public class BalkonsWeaponMod
 	@EventHandler
 	public void initMod(FMLInitializationEvent event)
 	{
-		messagePipeline.initalize();
 		proxy.registerPackets(messagePipeline);
 		proxy.registerEventHandlers();
 		proxy.registerIcons();
@@ -205,7 +210,6 @@ public class BalkonsWeaponMod
 	@EventHandler
 	public void postInitMod(FMLPostInitializationEvent event)
 	{
-		messagePipeline.postInitialize();
 	}
 	
 	private void addModItems()

@@ -5,6 +5,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import ckathode.weaponmod.entity.projectile.EntityMusketBullet;
 
@@ -45,7 +46,7 @@ public class DispenseMusketBullet extends DispenseWeaponProjectile
 	protected void spawnDispenseParticles(IBlockSource blocksource, EnumFacing face)
 	{
 		super.spawnDispenseParticles(blocksource, face);
-		IPosition pos = BlockDispenser.func_149939_a(blocksource);
-		blocksource.getWorld().spawnParticle("flame", pos.getX() + face.getFrontOffsetX(), pos.getY() + face.getFrontOffsetY(), pos.getZ() + face.getFrontOffsetZ(), 0.0D, 0.2D, 0.0D);
+		IPosition pos = BlockDispenser.getDispensePosition(blocksource);
+		blocksource.getWorld().spawnParticle(EnumParticleTypes.FLAME, pos.getX() + face.getFrontOffsetX(), pos.getY() + face.getFrontOffsetY(), pos.getZ() + face.getFrontOffsetZ(), 0.0D, 0.2D, 0.0D);
 	}
 }

@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
@@ -113,7 +114,7 @@ public class RangedCompBlowgun extends RangedComponent
 		float particleY = -MathHelper.sin((pitch / 180F) * 3.141593F) - 0.1F;
 		float particleZ = MathHelper.cos(((yaw + 23) / 180F) * 3.141593F) * MathHelper.cos((pitch / 180F) * 3.141593F);
 
-		world.spawnParticle("explode", x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
+		world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, x + particleX, y + particleY, z + particleZ, 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override

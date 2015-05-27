@@ -11,9 +11,9 @@ import org.lwjgl.opengl.GL11;
 
 import ckathode.weaponmod.item.IItemWeapon;
 import ckathode.weaponmod.item.RangedComponent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiOverlayReloaded extends Gui

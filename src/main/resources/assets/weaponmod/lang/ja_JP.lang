@@ -53,6 +53,9 @@ item.bolt.name=太矢
 
 item.blowgun.name=吹き矢筒
 item.dart.name=毒矢
+item.dart_hunger.name=毒矢
+item.dart_slow.name=毒矢
+item.dart_damage.name=毒矢
 
 item.dynamite.name=ダイナマイト
 

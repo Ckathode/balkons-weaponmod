@@ -13,15 +13,12 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
-import cpw.mods.fml.common.registry.IThrowableEntity;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.registry.IThrowableEntity;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class EntityProjectile extends EntityArrow implements IThrowableEntity
 {
@@ -52,7 +49,6 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		inGround = false;
 		arrowShake = 0;
 		ticksInAir = 0;
-		yOffset = 0F;
 		pickupMode = NO_PICKUP;
 		
 		extraDamage = 0;
@@ -152,12 +148,12 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 			prevRotationPitch = rotationPitch = (float) ((Math.atan2(motionY, f) * 180D) / Math.PI);
 		}
 		
-		Block i = worldObj.getBlock(xTile, yTile, zTile);
+		Block i = worldObj.getBlockState(new BlockPos(xTile, yTile, zTile)).getBlock();
 		if (i != null)
 		{
-			i.setBlockBoundsBasedOnState(worldObj, xTile, yTile, zTile);
-			AxisAlignedBB axisalignedbb = i.getCollisionBoundingBoxFromPool(worldObj, xTile, yTile, zTile);
-			if (axisalignedbb != null && axisalignedbb.isVecInside(Vec3.createVectorHelper(posX, posY, posZ)))
+			i.setBlockBoundsBasedOnState(worldObj, new BlockPos(xTile, yTile, zTile));
+			AxisAlignedBB axisalignedbb = i.getCollisionBoundingBox(worldObj, new BlockPos(xTile, yTile, zTile), null);
+			if (axisalignedbb != null && axisalignedbb.isVecInside(new Vec3(posX, posY, posZ)))
 			{
 				inGround = true;
 			}
@@ -170,8 +166,8 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		
 		if (inGround)
 		{
-			Block j = worldObj.getBlock(xTile, yTile, zTile);
-			int k = worldObj.getBlockMetadata(xTile, yTile, zTile);
+			Block j = worldObj.getBlockState(new BlockPos(xTile, yTile, zTile)).getBlock();
+			int k = worldObj.getBlockState(new BlockPos(xTile, yTile, zTile)).getBlock().getMetaFromState(worldObj.getBlockState(new BlockPos(xTile, yTile, zTile)));
 			if (j == inTile && k == inData)
 			{
 				ticksInGround++;
@@ -194,19 +190,19 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		
 		ticksInAir++;
 		
-		Vec3 vec3d = Vec3.createVectorHelper(posX, posY, posZ);
-		Vec3 vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
-		MovingObjectPosition movingobjectposition = worldObj.func_147447_a(vec3d, vec3d1, false, true, false);
-		vec3d = Vec3.createVectorHelper(posX, posY, posZ);
-		vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
+		Vec3 vec3d = new Vec3(posX, posY, posZ);
+		Vec3 vec3d1 = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
+		MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3d, vec3d1, false, true, false);
+		vec3d = new Vec3(posX, posY, posZ);
+		vec3d1 = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
 		if (movingobjectposition != null)
 		{
-			vec3d1 = Vec3.createVectorHelper(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+			vec3d1 = new Vec3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
 		}
 		
 		Entity entity = null;
 		@SuppressWarnings("unchecked")
-		List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+		List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
 		double d = 0.0D;
 		for (int l = 0; l < list.size(); l++)
 		{
@@ -216,7 +212,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 				continue;
 			}
 			float f4 = 0.3F;
-			AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand(f4, f4, f4);
+			AxisAlignedBB axisalignedbb1 = entity1.getEntityBoundingBox().expand(f4, f4, f4);
 			MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(vec3d, vec3d1);
 			if (movingobjectposition1 == null)
 			{
@@ -250,7 +246,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		{
 			for (int i1 = 0; i1 < 2; i1++)
 			{
-				worldObj.spawnParticle("crit", posX + (motionX * i1) / 4D, posY + (motionY * i1) / 4D, posZ + (motionZ * i1) / 4D, -motionX, -motionY + 0.2D, -motionZ);
+				worldObj.spawnParticle(EnumParticleTypes.CRIT, posX + (motionX * i1) / 4D, posY + (motionY * i1) / 4D, posZ + (motionZ * i1) / 4D, -motionX, -motionY + 0.2D, -motionZ);
 			}
 		}
 		
@@ -282,7 +278,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 			for (int i1 = 0; i1 < 4; i1++)
 			{
 				float f6 = 0.25F;
-				worldObj.spawnParticle("bubble", posX - motionX * f6, posY - motionY * f6, posZ - motionZ * f6, motionX, motionY, motionZ);
+				worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f6, posY - motionY * f6, posZ - motionZ * f6, motionX, motionY, motionZ);
 			}
 			
 			res *= 0.80808080F;
@@ -292,7 +288,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		motionZ *= res;
 		motionY -= grav;
 		setPosition(posX, posY, posZ);
-		func_145775_I();
+		this.worldObj.theProfiler.endSection();
 	}
 	
 	public void onEntityHit(Entity entity)
@@ -332,11 +328,11 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 	
 	public void onGroundHit(MovingObjectPosition mop)
 	{
-		xTile = mop.blockX;
-		yTile = mop.blockY;
-		zTile = mop.blockZ;
-		inTile = worldObj.getBlock(xTile, yTile, zTile);
-		inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+		xTile = mop.getBlockPos().getX();
+		yTile = mop.getBlockPos().getY();
+		zTile = mop.getBlockPos().getZ();
+		inTile = worldObj.getBlockState(mop.getBlockPos()).getBlock();
+		inData = worldObj.getBlockState(mop.getBlockPos()).getBlock().getMetaFromState(worldObj.getBlockState(mop.getBlockPos()));
 		motionX = mop.hitVec.xCoord - posX;
 		motionY = mop.hitVec.yCoord - posY;
 		motionZ = mop.hitVec.zCoord - posZ;
@@ -352,7 +348,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		
 		if (inTile != null)
 		{
-			inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+			inTile.onEntityCollidedWithBlock(worldObj, mop.getBlockPos(), this);
 		}
 	}
 	
@@ -490,14 +486,6 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 	{
 		entityplayer.onItemPickup(this, 1);
 	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public float getShadowSize()
-	{
-		return 0.0F;
-	}
-	
 	@Override
 	protected boolean canTriggerWalking()
 	{

@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 
 public class WarhammerExplosion extends AdvancedExplosion
 {
-	public WarhammerExplosion(World world, Entity entity, double d, double d1, double d2, float f)
+	public WarhammerExplosion(World world, Entity exploder, double explosionX, double explosionY, double explosionZ, float explosionSize, boolean isFlaming, boolean isSmoking)
 	{
-		super(world, entity, d, d1, d2, f);
+		super(world, exploder, explosionX, explosionY, explosionZ, explosionSize, isFlaming, isSmoking);
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class WarhammerExplosion extends AdvancedExplosion
 		int k0 = MathHelper.floor_double(explosionZ - size - 1.0D);
 		int k1 = MathHelper.floor_double(explosionZ + size + 1.0D);
 		@SuppressWarnings("unchecked")
-		List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(exploder, AxisAlignedBB.getBoundingBox(i0, j0, k0, i1, j1, k1));
+		List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(exploder, AxisAlignedBB.fromBounds(i0, j0, k0, i1, j1, k1));
 		
 		double dx;
 		double dy;

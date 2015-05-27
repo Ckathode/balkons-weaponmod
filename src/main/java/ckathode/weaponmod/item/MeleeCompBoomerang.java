@@ -67,7 +67,7 @@ public class MeleeCompBoomerang extends MeleeComponent
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.block;
+		return EnumAction.BLOCK;
 	}
 	
 	@Override

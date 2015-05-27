@@ -1,5 +1,6 @@
 package ckathode.weaponmod.item;
 
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -46,11 +47,11 @@ public class ItemMusket extends ItemShooter
 		if (attacker instanceof EntityPlayer && !((EntityPlayer) attacker).capabilities.isCreativeMode)
 		{
 			EntityPlayer entityplayer = (EntityPlayer) attacker;
-			if (itemstack.stackTagCompound == null)
+			if (!itemstack.hasTagCompound())
 			{
-				itemstack.stackTagCompound = new NBTTagCompound();
+				itemstack.setTagCompound(new NBTTagCompound());
 			}
-			int bayonetdamage = itemstack.stackTagCompound.getShort("bayonetDamage") + 1;
+			int bayonetdamage = itemstack.getTagCompound().getShort("bayonetDamage") + 1;
 			if (bayonetdamage > bayonetDurability)
 			{
 				/*
@@ -83,9 +84,9 @@ public class ItemMusket extends ItemShooter
 					entityplayer.addStat(StatList.objectBreakStats[id], 1);
 				}
 				bayonetdamage = 0;
-				itemstack.func_150996_a(BalkonsWeaponMod.musket);
+				itemstack.setItem(BalkonsWeaponMod.musket);
 			}
-			itemstack.stackTagCompound.setShort("bayonetDamage", (short) bayonetdamage);
+			itemstack.getTagCompound().setShort("bayonetDamage", (short) bayonetdamage);
 		}
 		return true;
 	}

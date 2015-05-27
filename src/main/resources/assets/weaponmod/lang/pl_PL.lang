@@ -1,0 +1,93 @@
+#Balkon's WeaponMod language file pl_PL
+
+item.spear.wood.name=Drewniana włócznia
+item.spear.stone.name=Kamienna włócznia
+item.spear.iron.name=Żelazna włócznia
+item.spear.diamond.name=Diamentowa włócznia
+item.spear.gold.name=Złota włócznia
+
+item.halberd.wood.name=Drewniana halabarda
+item.halberd.stone.name=Kamienna halabarda
+item.halberd.iron.name=Żelazna halabarda
+item.halberd.diamond.name=Diamentowa halabarda
+item.halberd.gold.name=Złota halabarda
+
+item.battleaxe.wood.name=Drewniany topór
+item.battleaxe.stone.name=Kamienny topór
+item.battleaxe.iron.name=Żelazny topór
+item.battleaxe.diamond.name=Diamentowy topór
+item.battleaxe.gold.name=Złoty topór
+
+item.warhammer.wood.name=Drewniany młot bojowy
+item.warhammer.stone.name=Kamienny młot bojowy
+item.warhammer.iron.name=Żelazny młot bojowy
+item.warhammer.diamond.name=Diamentowy młot bojowy
+item.warhammer.gold.name=Złoty młot bojowy
+
+item.knife.wood.name=Drewniany nóż
+item.knife.stone.name=Kamienny nóż
+item.knife.iron.name=Żelazny nóż
+item.knife.diamond.name=Diamentowy nóż
+item.knife.gold.name=Złoty nóż
+
+item.flail.wood.name=Drewniany masłak
+item.flail.stone.name=Kamienny masłak
+item.flail.iron.name=Żelazny masłak
+item.flail.diamond.name=Diamentowy masłak
+item.flail.gold.name=Złoty masłak
+
+item.javelin.name=Oszczep
+
+item.musket.name=Muszkiet
+item.musketbayonet.name=Muszkiet z bagnetem
+item.musketbayonet.wood.name=Muszkiet z drewnianym bagnetem
+item.musketbayonet.stone.name=Muszkiet z kamiennym bagnetem
+item.musketbayonet.iron.name=Muszkiet z żelaznym bagnetem
+item.musketbayonet.diamond.name=Muszkiet z diamentowym bagnetem
+item.musketbayonet.gold.name=Muszkiet z złotym bagnetem
+item.musket-ironpart.name=Lufa do muszkietu
+item.bullet.name=Ładunek do muszkietu
+
+item.crossbow.name=Kusza
+item.bolt.name=Bełt
+
+item.blowgun.name=Dmuchawka
+item.dart.name=Zatruta strzała
+item.dart_hunger.name=Zatruta strzała
+item.dart_slow.name=Zatruta strzała
+item.dart_damage.name=Zatruta strzała
+
+item.dynamite.name=Dynamit
+
+item.firerod.name=Płonący kij
+
+item.cannon.name=Armata
+item.cannonball.name=Kula armatnia
+
+item.blunderbuss.name=Gardłacz
+item.blunder-ironpart.name=Lufa do gardłacza
+item.shot.name=Śrut
+
+item.dummy.name=Manekin treningowy
+
+item.gun-stock.name=Kolba
+
+item.boomerang.wood.name=Drewniany bumerang
+item.boomerang.stone.name=Kamienny bumerang
+item.boomerang.iron.name=Żelazny bumerang
+item.boomerang.diamond.name=Diamentowy bumerang
+item.boomerang.gold.name=Złoty bumerang
+
+item.katana.wood.name=Drewniana katana
+item.katana.stone.name=Kamienna katana
+item.katana.iron.name=Żelazna katana
+item.katana.diamond.name=Diamentowa katana
+item.katana.gold.name=Złota katana
+
+item.flintlock.name=Pistolet skałkowy
+
+attribute.name.weaponmod.ignoreArmour=Penetracja pancerza
+attribute.name.weaponmod.knockback=Odrzut
+attribute.name.weaponmod.attackSpeed=Szybkość Ataku
+attribute.name.weaponmod.reloadTime=Czas Przeładowania
+attribute.name.weaponmod.reach=Zasięg

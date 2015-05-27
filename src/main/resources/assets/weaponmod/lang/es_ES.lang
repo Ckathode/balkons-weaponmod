@@ -50,6 +50,9 @@ item.bolt.name=Flecha de Ballesta
 
 item.blowgun.name=Cerbatana
 item.dart.name=Dardo Venenoso
+item.dart_hunger.name=Dardo Venenoso
+item.dart_slow.name=Dardo Venenoso
+item.dart_damage.name=Dardo Venenoso
 
 item.dynamite.name=Dinamita
 

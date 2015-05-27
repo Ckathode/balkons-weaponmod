@@ -5,8 +5,8 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import ckathode.weaponmod.entity.projectile.EntityJavelin;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemJavelin extends WMItem
 {
@@ -63,7 +63,7 @@ public class ItemJavelin extends WMItem
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 	
 	@Override

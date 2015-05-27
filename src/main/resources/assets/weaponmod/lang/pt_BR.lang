@@ -53,6 +53,9 @@ item.bolt.name=Flecha de Besta
 
 item.blowgun.name=Zarabatana
 item.dart.name=Dardo Envenenado
+item.dart_hunger.name=Dardo Envenenado
+item.dart_slow.name=Dardo Envenenado
+item.dart_damage.name=Dardo Envenenado
 
 item.dynamite.name=Dinamite
 

@@ -1,44 +1,47 @@
 package ckathode.weaponmod.network;
 
+import ckathode.weaponmod.entity.EntityCannon;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.ChunkPosition;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import ckathode.weaponmod.AdvancedExplosion;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MsgExplosion extends WMMessage
-{
+public class MsgExplosion extends WMMessage {
 	private double				x, y, z;
 	private float				size;
-	private List<ChunkPosition>	blocks;
+	private List<BlockPos>	blocks;
 	private boolean				smallParticles, bigParticles;
+
+	public MsgExplosion() { }
 
 	@SuppressWarnings("unchecked")
 	public MsgExplosion(AdvancedExplosion explosion, boolean smallparts, boolean bigparts)
 	{
-		x = explosion.explosionX;
-		y = explosion.explosionY;
-		z = explosion.explosionZ;
+		x = explosion.getPosition().xCoord;
+		y = explosion.getPosition().yCoord;
+		z = explosion.getPosition().zCoord;
 		size = explosion.explosionSize;
 		blocks = explosion.affectedBlockPositions;
 		smallParticles = smallparts;
 		bigParticles = bigparts;
 	}
 
-	public MsgExplosion()
-	{
-	}
-
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf)
+	public void fromBytes(ByteBuf buf)
 	{
 		x = buf.readDouble();
 		y = buf.readDouble();
@@ -48,18 +51,18 @@ public class MsgExplosion extends WMMessage
 		bigParticles = buf.readBoolean();
 
 		int size = buf.readInt();
-		blocks = new ArrayList<ChunkPosition>(size);
+		blocks = new ArrayList<BlockPos>(size);
 		for (int i = 0; i < size; i++)
 		{
 			int ix = buf.readByte() + (int) x;
 			int iy = buf.readByte() + (int) y;
 			int iz = buf.readByte() + (int) z;
-			blocks.add(new ChunkPosition(ix, iy, iz));
+			blocks.add(new BlockPos(ix, iy, iz));
 		}
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf)
+	public void toBytes(ByteBuf buf)
 	{
 		buf.writeDouble(x);
 		buf.writeDouble(y);
@@ -72,28 +75,26 @@ public class MsgExplosion extends WMMessage
 		buf.writeInt(n);
 		for (int i = 0; i < n; i++)
 		{
-			ChunkPosition pos = blocks.get(i);
-			int dx = pos.chunkPosX - (int) x;
-			int dy = pos.chunkPosY - (int) y;
-			int dz = pos.chunkPosZ - (int) z;
+			BlockPos pos = blocks.get(i);
+			int dx = (int) pos.getX() - (int) x;
+			int dy = (int) pos.getY() - (int) y;
+			int dz = (int) pos.getZ() - (int) z;
 			buf.writeByte(dx);
 			buf.writeByte(dy);
 			buf.writeByte(dz);
 		}
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleClientSide(EntityPlayer player)
-	{
-		World world = FMLClientHandler.instance().getWorldClient();
-		AdvancedExplosion expl = new AdvancedExplosion(world, null, x, y, z, size);
-		expl.setAffectedBlockPositions(blocks);
-		expl.doParticleExplosion(smallParticles, bigParticles);
-	}
+	public static class Handler implements IMessageHandler<MsgExplosion, IMessage> {
 
-	@Override
-	public void handleServerSide(EntityPlayer player)
-	{
+		@Override
+		public IMessage onMessage(MsgExplosion message, MessageContext ctx) {
+			World world = FMLClientHandler.instance().getWorldClient();
+			AdvancedExplosion expl = new AdvancedExplosion(world, null, message.x, message.y, message.z, message.size, true, true);
+			expl.setAffectedBlockPositions(message.blocks);
+			expl.doParticleExplosion(message.smallParticles, message.bigParticles);
+
+			return null;
+		}
 	}
 }

@@ -9,6 +9,7 @@ import net.minecraft.dispenser.IPosition;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import ckathode.weaponmod.entity.projectile.EntityBlunderShot;
+import net.minecraft.util.EnumParticleTypes;
 
 public class DispenseBlunderShot extends BehaviorDefaultDispenseItem
 {
@@ -24,7 +25,7 @@ public class DispenseBlunderShot extends BehaviorDefaultDispenseItem
 	{
 		EnumFacing face = EnumFacing.getFront(blocksource.getBlockMetadata());
 		
-		IPosition pos = BlockDispenser.func_149939_a(blocksource);
+		IPosition pos = BlockDispenser.getDispensePosition(blocksource);
 		EntityBlunderShot.fireFromDispenser(blocksource.getWorld(), pos.getX() + face.getFrontOffsetX(), pos.getY() + face.getFrontOffsetY(), pos.getZ() + face.getFrontOffsetZ(), face.getFrontOffsetX(), face.getFrontOffsetY(), face.getFrontOffsetZ());
 		itemstack.splitStack(1);
 		return itemstack;
@@ -40,7 +41,7 @@ public class DispenseBlunderShot extends BehaviorDefaultDispenseItem
 	protected void spawnDispenseParticles(IBlockSource blocksource, EnumFacing face)
 	{
 		super.spawnDispenseParticles(blocksource, face);
-		IPosition pos = BlockDispenser.func_149939_a(blocksource);
-		blocksource.getWorld().spawnParticle("flame", pos.getX() + face.getFrontOffsetX(), pos.getY() + face.getFrontOffsetY(), pos.getZ() + face.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+		IPosition pos = BlockDispenser.getDispensePosition(blocksource);
+		blocksource.getWorld().spawnParticle(EnumParticleTypes.FLAME, pos.getX() + face.getFrontOffsetX(), pos.getY() + face.getFrontOffsetY(), pos.getZ() + face.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
 	}
 }
