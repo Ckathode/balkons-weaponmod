@@ -1,11 +1,10 @@
 package ckathode.weaponmod.item;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import ckathode.weaponmod.PlayerWeaponData;
 import ckathode.weaponmod.entity.projectile.EntityFlail;
@@ -14,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFlail extends WMItem
 {
-	public IIcon	iconIndexThrown;
+	public ModelResourceLocation modelResourceLocation;
 	private float	flailDamage;
 	
 	public ItemFlail(String id, Item.ToolMaterial toolmaterial)
@@ -132,24 +131,5 @@ public class ItemFlail extends WMItem
 	public float getFlailDamage()
 	{
 		return flailDamage;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
-	{
-		if (PlayerWeaponData.isFlailThrown(player))
-		{
-			return iconIndexThrown;
-		}
-		return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconregister)
-	{
-		super.registerIcons(iconregister);
-		iconIndexThrown = iconregister.registerIcon("weaponmod:flail-thrown");
 	}
 }

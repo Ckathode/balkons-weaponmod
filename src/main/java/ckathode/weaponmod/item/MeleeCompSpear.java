@@ -46,7 +46,7 @@ public class MeleeCompSpear extends MeleeComponent implements IExtendedReachItem
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return BalkonsWeaponMod.instance.modConfig.canThrowSpear ? EnumAction.none : EnumAction.block;
+		return BalkonsWeaponMod.instance.modConfig.canThrowSpear ? EnumAction.NONE : EnumAction.BLOCK;
 	}
 	
 	@Override

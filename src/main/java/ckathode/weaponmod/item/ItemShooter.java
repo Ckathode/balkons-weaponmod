@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -12,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
 
@@ -34,7 +34,6 @@ public class ItemShooter extends ItemBow implements IItemWeapon
 		super();
 		GameRegistry.registerItem(this, id, BalkonsWeaponMod.MOD_ID);
 		setUnlocalizedName(id);
-		setTextureName("weaponmod:" + id);
 		
 		rangedComponent = rangedcomponent;
 		meleeComponent = meleecomponent;
@@ -47,13 +46,13 @@ public class ItemShooter extends ItemBow implements IItemWeapon
 	
 	// MELEE PART //
 	@Override
-	public float func_150893_a(ItemStack itemstack, Block block)
+	public float getStrVsBlock(ItemStack itemstack, Block block)
 	{
 		return meleeComponent.getBlockDamage(itemstack, block);
 	}
 	
 	@Override
-	public boolean func_150897_b(Block block)
+	public boolean canHarvestBlock(Block block)
 	{
 		return meleeComponent.canHarvestBlock(block);
 	}
@@ -65,9 +64,9 @@ public class ItemShooter extends ItemBow implements IItemWeapon
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving)
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving)
 	{
-		return meleeComponent.onBlockDestroyed(itemstack, world, block, j, k, l, entityliving);
+		return meleeComponent.onBlockDestroyed(itemstack, world, block, pos, entityliving);
 	}
 	
 	@Override
@@ -139,7 +138,7 @@ public class ItemShooter extends ItemBow implements IItemWeapon
 	@Override
 	public final UUID getUUID()
 	{
-		return field_111210_e;
+		return itemModifierUUID;
 	}
 	
 	@Override
@@ -159,14 +158,7 @@ public class ItemShooter extends ItemBow implements IItemWeapon
 	{
 		return rangedComponent;
 	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconregister)
-	{
-		itemIcon = iconregister.registerIcon(getIconString());
-	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isFull3D()

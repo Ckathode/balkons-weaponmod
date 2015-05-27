@@ -1,26 +1,32 @@
 package ckathode.weaponmod.network;
 
+import ckathode.weaponmod.entity.EntityCannon;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import ckathode.weaponmod.AdvancedExplosion;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MsgExplosion extends WMMessage
-{
+public class MsgExplosion extends WMMessage {
 	private double				x, y, z;
 	private float				size;
 	private List<BlockPos>	blocks;
 	private boolean				smallParticles, bigParticles;
+
+	public MsgExplosion() { }
 
 	@SuppressWarnings("unchecked")
 	public MsgExplosion(AdvancedExplosion explosion, boolean smallparts, boolean bigparts)
@@ -34,12 +40,8 @@ public class MsgExplosion extends WMMessage
 		bigParticles = bigparts;
 	}
 
-	public MsgExplosion()
-	{
-	}
-
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf)
+	public void fromBytes(ByteBuf buf)
 	{
 		x = buf.readDouble();
 		y = buf.readDouble();
@@ -60,7 +62,7 @@ public class MsgExplosion extends WMMessage
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf)
+	public void toBytes(ByteBuf buf)
 	{
 		buf.writeDouble(x);
 		buf.writeDouble(y);
@@ -83,18 +85,16 @@ public class MsgExplosion extends WMMessage
 		}
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleClientSide(EntityPlayer player)
-	{
-		World world = FMLClientHandler.instance().getWorldClient();
-		AdvancedExplosion expl = new AdvancedExplosion(world, null, x, y, z, size, true, true);
-		expl.setAffectedBlockPositions(blocks);
-		expl.doParticleExplosion(smallParticles, bigParticles);
-	}
+	public static class Handler implements IMessageHandler<MsgExplosion, IMessage> {
 
-	@Override
-	public void handleServerSide(EntityPlayer player)
-	{
+		@Override
+		public IMessage onMessage(MsgExplosion message, MessageContext ctx) {
+			World world = FMLClientHandler.instance().getWorldClient();
+			AdvancedExplosion expl = new AdvancedExplosion(world, null, message.x, message.y, message.z, message.size, true, true);
+			expl.setAffectedBlockPositions(message.blocks);
+			expl.doParticleExplosion(message.smallParticles, message.bigParticles);
+
+			return null;
+		}
 	}
 }

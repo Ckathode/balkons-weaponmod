@@ -1,7 +1,9 @@
 package ckathode.weaponmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +15,10 @@ import ckathode.weaponmod.entity.projectile.EntitySpear;
 
 public class RenderSpear extends Render
 {
+	public RenderSpear(RenderManager renderManager) {
+		super(renderManager);
+	}
+
 	public void renderSpear(EntitySpear entityarrow, double d, double d1, double d2, float f, float f1)
 	{
 		bindEntityTexture(entityarrow);
@@ -20,7 +26,8 @@ public class RenderSpear extends Render
 		GL11.glTranslatef((float) d, (float) d1, (float) d2);
 		GL11.glRotatef((entityarrow.prevRotationYaw + (entityarrow.rotationYaw - entityarrow.prevRotationYaw) * f1) - 90F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entityarrow.prevRotationPitch + (entityarrow.rotationPitch - entityarrow.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
-		Tessellator tess = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tess.getWorldRenderer();
 		
 		float[] color = entityarrow.getMaterialColor();
 		int i = 0;
@@ -49,22 +56,22 @@ public class RenderSpear extends Render
 		GL11.glScalef(f10, f10, f10);
 		GL11.glTranslatef(-4F, 0.0F, 0.0F);
 		GL11.glNormal3f(f10, 0.0F, 0.0F);
-		tess.startDrawingQuads();
+		worldrenderer.startDrawingQuads();
 		{
-			tess.addVertexWithUV(-length, -2D, -2D, f6, f8);
-			tess.addVertexWithUV(-length, -2D, 2D, f7, f8);
-			tess.addVertexWithUV(-length, 2D, 2D, f7, f9);
-			tess.addVertexWithUV(-length, 2D, -2D, f6, f9);
+			worldrenderer.addVertexWithUV(-length, -2D, -2D, f6, f8);
+			worldrenderer.addVertexWithUV(-length, -2D, 2D, f7, f8);
+			worldrenderer.addVertexWithUV(-length, 2D, 2D, f7, f9);
+			worldrenderer.addVertexWithUV(-length, 2D, -2D, f6, f9);
 		}
 		tess.draw();
 		
 		GL11.glNormal3f(-f10, 0F, 0F);
-		tess.startDrawingQuads();
+		worldrenderer.startDrawingQuads();
 		{
-			tess.addVertexWithUV(-length, 2D, -2D, f6, f8);
-			tess.addVertexWithUV(-length, 2D, 2D, f7, f8);
-			tess.addVertexWithUV(-length, -2D, 2D, f7, f9);
-			tess.addVertexWithUV(-length, -2D, -2D, f6, f9);
+			worldrenderer.addVertexWithUV(-length, 2D, -2D, f6, f8);
+			worldrenderer.addVertexWithUV(-length, 2D, 2D, f7, f8);
+			worldrenderer.addVertexWithUV(-length, -2D, 2D, f7, f9);
+			worldrenderer.addVertexWithUV(-length, -2D, -2D, f6, f9);
 		}
 		tess.draw();
 		
@@ -72,19 +79,19 @@ public class RenderSpear extends Render
 		{
 			GL11.glRotatef(90F, 1.0F, 0.0F, 0.0F);
 			GL11.glNormal3f(0.0F, 0.0F, f10);
-			tess.startDrawingQuads();
+			worldrenderer.startDrawingQuads();
 			{
-				tess.setColorOpaque_F(1F, 1F, 1F);
-				tess.addVertexWithUV(-length, -2D, 0.0D, f2, f4);
-				tess.addVertexWithUV(length, -2D, 0.0D, f3, f4);
-				tess.addVertexWithUV(length, 2D, 0.0D, f3, f5);
-				tess.addVertexWithUV(-length, 2D, 0.0D, f2, f5);
-				
-				tess.setColorOpaque_F(color[0], color[1], color[2]);
-				tess.addVertexWithUV(-length, -2D, 0.0D, f2, f13);
-				tess.addVertexWithUV(length, -2D, 0.0D, f3, f13);
-				tess.addVertexWithUV(length, 2D, 0.0D, f3, f14);
-				tess.addVertexWithUV(-length, 2D, 0.0D, f2, f14);
+				worldrenderer.setColorOpaque_F(1F, 1F, 1F);
+				worldrenderer.addVertexWithUV(-length, -2D, 0.0D, f2, f4);
+				worldrenderer.addVertexWithUV(length, -2D, 0.0D, f3, f4);
+				worldrenderer.addVertexWithUV(length, 2D, 0.0D, f3, f5);
+				worldrenderer.addVertexWithUV(-length, 2D, 0.0D, f2, f5);
+
+				worldrenderer.setColorOpaque_F(color[0], color[1], color[2]);
+				worldrenderer.addVertexWithUV(-length, -2D, 0.0D, f2, f13);
+				worldrenderer.addVertexWithUV(length, -2D, 0.0D, f3, f13);
+				worldrenderer.addVertexWithUV(length, 2D, 0.0D, f3, f14);
+				worldrenderer.addVertexWithUV(-length, 2D, 0.0D, f2, f14);
 			}
 			tess.draw();
 		}

@@ -1,7 +1,9 @@
 package ckathode.weaponmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
@@ -15,6 +17,10 @@ import ckathode.weaponmod.entity.projectile.EntityFlail;
 
 public class RenderFlail extends Render
 {
+	public RenderFlail(RenderManager renderManager) {
+		super(renderManager);
+	}
+
 	public void renderFlail(EntityFlail entityarrow, double d, double d1, double d2, float f, float f1)
 	{
 		bindEntityTexture(entityarrow);
@@ -22,7 +28,8 @@ public class RenderFlail extends Render
 		GL11.glTranslatef((float) d, (float) d1, (float) d2);
 		GL11.glRotatef((entityarrow.prevRotationYaw + (entityarrow.rotationYaw - entityarrow.prevRotationYaw) * f1) - 90F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entityarrow.prevRotationPitch + (entityarrow.rotationPitch - entityarrow.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		
 		// ===============FLAIL BALL===============
 		float[] color = entityarrow.getMaterialColor();
@@ -49,28 +56,28 @@ public class RenderFlail extends Render
 		GL11.glScalef(f10, f10, f10);
 		GL11.glTranslatef(-4F, 0.0F, 0.0F);
 		GL11.glNormal3f(f10, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(1.5D, -2D, -2D, f6, f8);
-		tessellator.addVertexWithUV(1.5D, -2D, 2D, f7, f8);
-		tessellator.addVertexWithUV(1.5D, 2D, 2D, f7, f9);
-		tessellator.addVertexWithUV(1.5D, 2D, -2D, f6, f9);
+		worldrenderer.startDrawingQuads();
+		worldrenderer.addVertexWithUV(1.5D, -2D, -2D, f6, f8);
+		worldrenderer.addVertexWithUV(1.5D, -2D, 2D, f7, f8);
+		worldrenderer.addVertexWithUV(1.5D, 2D, 2D, f7, f9);
+		worldrenderer.addVertexWithUV(1.5D, 2D, -2D, f6, f9);
 		tessellator.draw();
 		GL11.glNormal3f(-f10, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(1.5D, 2D, -2D, f6, f8);
-		tessellator.addVertexWithUV(1.5D, 2D, 2D, f7, f8);
-		tessellator.addVertexWithUV(1.5D, -2D, 2D, f7, f9);
-		tessellator.addVertexWithUV(1.5D, -2D, -2D, f6, f9);
+		worldrenderer.startDrawingQuads();
+		worldrenderer.addVertexWithUV(1.5D, 2D, -2D, f6, f8);
+		worldrenderer.addVertexWithUV(1.5D, 2D, 2D, f7, f8);
+		worldrenderer.addVertexWithUV(1.5D, -2D, 2D, f7, f9);
+		worldrenderer.addVertexWithUV(1.5D, -2D, -2D, f6, f9);
 		tessellator.draw();
 		for (int j = 0; j < 4; j++)
 		{
 			GL11.glRotatef(90F, 1.0F, 0.0F, 0.0F);
 			GL11.glNormal3f(0.0F, 0.0F, f10);
-			tessellator.startDrawingQuads();
-			tessellator.addVertexWithUV(-8D, -2D, 0.0D, f2, f4);
-			tessellator.addVertexWithUV(8D, -2D, 0.0D, f3, f4);
-			tessellator.addVertexWithUV(8D, 2D, 0.0D, f3, f5);
-			tessellator.addVertexWithUV(-8D, 2D, 0.0D, f2, f5);
+			worldrenderer.startDrawingQuads();
+			worldrenderer.addVertexWithUV(-8D, -2D, 0.0D, f2, f4);
+			worldrenderer.addVertexWithUV(8D, -2D, 0.0D, f3, f4);
+			worldrenderer.addVertexWithUV(8D, 2D, 0.0D, f3, f5);
+			worldrenderer.addVertexWithUV(-8D, 2D, 0.0D, f2, f5);
 			tessellator.draw();
 		}
 		
@@ -93,12 +100,12 @@ public class RenderFlail extends Render
 		float f19 = 0.5F; // 8
 		GL11.glRotatef(180F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		tessellator.addVertexWithUV(0.0F - f18, 0.0F - f19, 0.0D, f13, f16);
-		tessellator.addVertexWithUV(f17 - f18, 0.0F - f19, 0.0D, f14, f16);
-		tessellator.addVertexWithUV(f17 - f18, 1.0F - f19, 0.0D, f14, f15);
-		tessellator.addVertexWithUV(0.0F - f18, 1.0F - f19, 0.0D, f13, f15);
+		worldrenderer.startDrawingQuads();
+		worldrenderer.setNormal(0.0F, 1.0F, 0.0F);
+		worldrenderer.addVertexWithUV(0.0F - f18, 0.0F - f19, 0.0D, f13, f16);
+		worldrenderer.addVertexWithUV(f17 - f18, 0.0F - f19, 0.0D, f14, f16);
+		worldrenderer.addVertexWithUV(f17 - f18, 1.0F - f19, 0.0D, f14, f15);
+		worldrenderer.addVertexWithUV(0.0F - f18, 1.0F - f19, 0.0D, f13, f15);
 		tessellator.draw();
 		GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
 		GL11.glPopMatrix();
@@ -106,11 +113,11 @@ public class RenderFlail extends Render
 		{
 			float f22 = ((EntityLivingBase) entityarrow.shootingEntity).getSwingProgress(f1); // 11
 			float f23 = MathHelper.sin(MathHelper.sqrt_float(f22) * 3.141593F); // 12
-			Vec3 vec3d = Vec3.createVectorHelper(-0.5D, 0.03D, 0.8D);
-			vec3d.rotateAroundX((-(entityarrow.shootingEntity.prevRotationPitch + (entityarrow.shootingEntity.rotationPitch - entityarrow.shootingEntity.prevRotationPitch) * f1) * 3.141593F) / 180F);
-			vec3d.rotateAroundY((-(entityarrow.shootingEntity.prevRotationYaw + (entityarrow.shootingEntity.rotationYaw - entityarrow.shootingEntity.prevRotationYaw) * f1) * 3.141593F) / 180F);
-			vec3d.rotateAroundY(f23 * 0.5F);
-			vec3d.rotateAroundX(-f23 * 0.7F);
+			Vec3 vec3d = new Vec3(-0.5D, 0.03D, 0.8D);
+			vec3d.rotatePitch((-(entityarrow.shootingEntity.prevRotationPitch + (entityarrow.shootingEntity.rotationPitch - entityarrow.shootingEntity.prevRotationPitch) * f1) * 3.141593F) / 180F);
+			vec3d.rotateYaw((-(entityarrow.shootingEntity.prevRotationYaw + (entityarrow.shootingEntity.rotationYaw - entityarrow.shootingEntity.prevRotationYaw) * f1) * 3.141593F) / 180F);
+			vec3d.rotateYaw(f23 * 0.5F);
+			vec3d.rotatePitch(-f23 * 0.7F);
 			double d7 = entityarrow.shootingEntity.prevPosX + (entityarrow.shootingEntity.posX - entityarrow.shootingEntity.prevPosX) * f1 + vec3d.xCoord;
 			double d8 = entityarrow.shootingEntity.prevPosY + (entityarrow.shootingEntity.posY - entityarrow.shootingEntity.prevPosY) * f1 + vec3d.yCoord;
 			double d9 = entityarrow.shootingEntity.prevPosZ + (entityarrow.shootingEntity.posZ - entityarrow.shootingEntity.prevPosZ) * f1 + vec3d.zCoord;
@@ -131,13 +138,13 @@ public class RenderFlail extends Render
 			double d15 = (float) (d9 - d12);
 			GL11.glDisable(3553 /* GL_TEXTURE_2D */);
 			GL11.glDisable(2896 /* GL_LIGHTING */);
-			tessellator.startDrawing(GL11.GL_LINE_STRIP);
-			tessellator.setColorOpaque_I(0);
+			worldrenderer.startDrawing(GL11.GL_LINE_STRIP);
+			worldrenderer.setColorOpaque_I(0);
 			int j = 16;
 			for (int k = 0; k <= j; k++)
 			{
 				float f24 = (float) k / (float) j;
-				tessellator.addVertex(d + d13 * f24, d1 + d14 * (f24 * f24 + f24) * 0.5D + 0.25D, d2 + d15 * f24);
+				worldrenderer.addVertex(d + d13 * f24, d1 + d14 * (f24 * f24 + f24) * 0.5D + 0.25D, d2 + d15 * f24);
 			}
 			
 			tessellator.draw();

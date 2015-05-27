@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import ckathode.weaponmod.BalkonsWeaponMod;
 import ckathode.weaponmod.entity.projectile.EntityCannonBall;
@@ -33,7 +34,7 @@ public class DispenseCannonBall extends BehaviorDefaultDispenseItem
 	{
 		boolean canfire = false;
 		normalDispense = false;
-		TileEntity tileentity = blocksource.getWorld().getTileEntity(MathHelper.floor_double(blocksource.getXInt()), MathHelper.floor_double(blocksource.getYInt()), MathHelper.floor_double(blocksource.getZInt()));
+		TileEntity tileentity = blocksource.getWorld().getTileEntity(blocksource.getBlockPos());
 		if (tileentity instanceof TileEntityDispenser)
 		{
 			TileEntityDispenser dispenser = ((TileEntityDispenser) tileentity);
@@ -64,11 +65,11 @@ public class DispenseCannonBall extends BehaviorDefaultDispenseItem
 			return super.dispenseStack(blocksource, itemstack);
 		}
 		
-		EnumFacing face = BlockDispenser.func_149937_b(blocksource.getBlockMetadata());
+		EnumFacing face = BlockDispenser.getFacing(blocksource.getBlockMetadata());
 		double xvel = face.getFrontOffsetX() * 1.5D;
 		double yvel = face.getFrontOffsetY() * 1.5D;
 		double zvel = face.getFrontOffsetZ() * 1.5D;
-		IPosition pos = BlockDispenser.func_149939_a(blocksource);
+		IPosition pos = BlockDispenser.getDispensePosition(blocksource);
 		
 		EntityCannonBall entitycannonball = new EntityCannonBall(blocksource.getWorld(), pos.getX() + xvel, pos.getY() + yvel, pos.getZ() + zvel);
 		entitycannonball.setThrowableHeading(xvel, yvel + 0.15D, zvel, 2.0F, 2.0F);
@@ -95,8 +96,8 @@ public class DispenseCannonBall extends BehaviorDefaultDispenseItem
 		super.spawnDispenseParticles(blocksource, face);
 		if (!normalDispense)
 		{
-			IPosition pos = BlockDispenser.func_149939_a(blocksource);
-			blocksource.getWorld().spawnParticle("flame", pos.getX() + face.getFrontOffsetX(), pos.getY(), pos.getZ() + face.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+			IPosition pos = BlockDispenser.getDispensePosition(blocksource);
+			blocksource.getWorld().spawnParticle(EnumParticleTypes.FLAME, pos.getX() + face.getFrontOffsetX(), pos.getY(), pos.getZ() + face.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
 		}
 	}
 }

@@ -45,7 +45,7 @@ public class MeleeCompKnife extends MeleeComponent
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return BalkonsWeaponMod.instance.modConfig.canThrowKnife ? EnumAction.none : super.getItemUseAction(itemstack);
+		return BalkonsWeaponMod.instance.modConfig.canThrowKnife ? EnumAction.NONE : super.getItemUseAction(itemstack);
 	}
 	
 	@Override

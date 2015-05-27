@@ -13,6 +13,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.util.EnumParticleTypes;
+import org.lwjgl.Sys;
 
 public class AdvancedExplosion extends Explosion
 {
@@ -26,6 +27,10 @@ public class AdvancedExplosion extends Explosion
 	public AdvancedExplosion(World world, Entity exploder, double explosionX, double explosionY, double explosionZ, float explosionSize, boolean isFlaming, boolean isSmoking)
 	{
 		super(world, exploder, explosionX, explosionY, explosionZ, explosionSize, isFlaming, isSmoking);
+		this.explosionSize = explosionSize;
+		this.explosionX = explosionX;
+		this.explosionY = explosionY;
+		this.explosionZ = explosionZ;
 		affectedBlockPositions = Lists.newArrayList();
 		worldObj = world;
 	}
@@ -75,7 +80,7 @@ public class AdvancedExplosion extends Explosion
 					dx /= d;
 					dy /= d;
 					dz /= d;
-					double dens = worldObj.getBlockDensity(vec31, entity.getBoundingBox());
+					double dens = worldObj.getBlockDensity(vec31, entity.getEntityBoundingBox());
 					double var36 = (1.0D - dr) * dens;
 					int damage = (int) ((var36 * var36 + var36) / 2.0D * 8.0D * size + 1D);
 					entity.attackEntityFrom(damagesource, damage);
@@ -127,11 +132,11 @@ public class AdvancedExplosion extends Explosion
 		
 		for (int i = affectedBlockPositions.size() - 1; i >= 0; i--)
 		{
-			Vec3 chunkposition = (Vec3) affectedBlockPositions.get(i);
-			int j = (int) chunkposition.xCoord;
-			int k = (int) chunkposition.yCoord;
-			int l = (int) chunkposition.zCoord;
-			//int i1 = worldObj.getBlockId(j, k, l);
+			BlockPos chunkposition = (BlockPos) affectedBlockPositions.get(i);
+			int j = (int) chunkposition.getX();
+			int k = (int) chunkposition.getY();
+			int l = (int) chunkposition.getZ();
+			//Block i1 = worldObj.getBlockState(new BlockPos(j, k, l)).getBlock();
 			double px = j + worldObj.rand.nextFloat();
 			double py = k + worldObj.rand.nextFloat();
 			double pz = l + worldObj.rand.nextFloat();
@@ -183,19 +188,17 @@ public class AdvancedExplosion extends Explosion
 						dx = explosionX;
 						dy = explosionY;
 						dz = explosionZ;
-						
 						for (float f = 0.3F; strength > 0.0F; strength -= f * 0.75F)
 						{
 							int x = MathHelper.floor_double(dx);
 							int y = MathHelper.floor_double(dy);
 							int z = MathHelper.floor_double(dz);
 							Block block = worldObj.getBlockState(new BlockPos(x, y, z)).getBlock();
-							
-							if (block != null)
+
+							if (block != Blocks.air)
 							{
-								strength -= (block.getExplosionResistance(worldObj, new BlockPos(x,y,z), exploder, this)+0.3F)*f;
+								strength -= (block.getExplosionResistance(exploder)+0.3F)*f;
 							}
-							
 							if (strength > 0.0F)
 							{
 								set.add(new BlockPos(x, y, z));

@@ -1,7 +1,9 @@
 package ckathode.weaponmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +15,10 @@ import ckathode.weaponmod.entity.projectile.EntityCrossbowBolt;
 
 public class RenderCrossbowBolt extends Render
 {
+	public RenderCrossbowBolt(RenderManager renderManager) {
+		super(renderManager);
+	}
+
 	public void renderCrossbowBolt(EntityCrossbowBolt entityarrow, double d, double d1, double d2, float f, float f1)
 	{
 		bindEntityTexture(entityarrow);
@@ -20,7 +26,8 @@ public class RenderCrossbowBolt extends Render
 		GL11.glTranslatef((float) d, (float) d1, (float) d2);
 		GL11.glRotatef((entityarrow.prevRotationYaw + (entityarrow.rotationYaw - entityarrow.prevRotationYaw) * f1) - 90F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entityarrow.prevRotationPitch + (entityarrow.rotationPitch - entityarrow.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		int i = 0;
 		float f2 = 0.0F;
 		float f3 = 0.5F;
@@ -42,28 +49,28 @@ public class RenderCrossbowBolt extends Render
 		GL11.glScalef(f10, f10, f10);
 		GL11.glTranslatef(-4F, 0.0F, 0.0F);
 		GL11.glNormal3f(f10, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(-4D, -2D, -2D, f6, f8);
-		tessellator.addVertexWithUV(-4D, -2D, 2D, f7, f8);
-		tessellator.addVertexWithUV(-4D, 2D, 2D, f7, f9);
-		tessellator.addVertexWithUV(-4D, 2D, -2D, f6, f9);
+		worldrenderer.startDrawingQuads();
+		worldrenderer.addVertexWithUV(-4D, -2D, -2D, f6, f8);
+		worldrenderer.addVertexWithUV(-4D, -2D, 2D, f7, f8);
+		worldrenderer.addVertexWithUV(-4D, 2D, 2D, f7, f9);
+		worldrenderer.addVertexWithUV(-4D, 2D, -2D, f6, f9);
 		tessellator.draw();
 		GL11.glNormal3f(-f10, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(-4D, 2D, -2D, f6, f8);
-		tessellator.addVertexWithUV(-4D, 2D, 2D, f7, f8);
-		tessellator.addVertexWithUV(-4D, -2D, 2D, f7, f9);
-		tessellator.addVertexWithUV(-4D, -2D, -2D, f6, f9);
+		worldrenderer.startDrawingQuads();
+		worldrenderer.addVertexWithUV(-4D, 2D, -2D, f6, f8);
+		worldrenderer.addVertexWithUV(-4D, 2D, 2D, f7, f8);
+		worldrenderer.addVertexWithUV(-4D, -2D, 2D, f7, f9);
+		worldrenderer.addVertexWithUV(-4D, -2D, -2D, f6, f9);
 		tessellator.draw();
 		for (int j = 0; j < 4; j++)
 		{
 			GL11.glRotatef(90F, 1.0F, 0.0F, 0.0F);
 			GL11.glNormal3f(0.0F, 0.0F, f10);
-			tessellator.startDrawingQuads();
-			tessellator.addVertexWithUV(-5D, -2D, 0.0D, f2, f4);
-			tessellator.addVertexWithUV(5D, -2D, 0.0D, f3, f4);
-			tessellator.addVertexWithUV(5D, 2D, 0.0D, f3, f5);
-			tessellator.addVertexWithUV(-5D, 2D, 0.0D, f2, f5);
+			worldrenderer.startDrawingQuads();
+			worldrenderer.addVertexWithUV(-5D, -2D, 0.0D, f2, f4);
+			worldrenderer.addVertexWithUV(5D, -2D, 0.0D, f3, f4);
+			worldrenderer.addVertexWithUV(5D, 2D, 0.0D, f3, f5);
+			worldrenderer.addVertexWithUV(-5D, 2D, 0.0D, f2, f5);
 			tessellator.draw();
 		}
 		

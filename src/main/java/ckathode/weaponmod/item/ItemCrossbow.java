@@ -1,36 +1,20 @@
 package ckathode.weaponmod.item;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import ckathode.weaponmod.BalkonsWeaponMod;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemCrossbow extends ItemShooter
 {
-	public IIcon	iconIndexLoaded;
+	public ModelResourceLocation	iconIndexLoaded;
 	
 	public ItemCrossbow(String id, RangedComponent rangedcomponent, MeleeComponent meleecomponent)
 	{
 		super(id, rangedcomponent, meleecomponent);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(ItemStack stack, int renderPass)
-	{
-		if (RangedComponent.isReloaded(stack))
-		{
-			return iconIndexLoaded;
-		}
-		return super.getIcon(stack, renderPass);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister)
-	{
-		super.registerIcons(par1IconRegister);
-		iconIndexLoaded = par1IconRegister.registerIcon(getIconString() + "-loaded");
+        ModelBakery.addVariantName(this, BalkonsWeaponMod.MOD_ID + ":" + id);
+        ModelBakery.addVariantName(this, BalkonsWeaponMod.MOD_ID + ":" + id + "-loaded");
 	}
 }

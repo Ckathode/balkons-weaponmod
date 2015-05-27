@@ -1,52 +1,46 @@
 package ckathode.weaponmod.network;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import ckathode.weaponmod.entity.EntityCannon;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MsgCannonFire extends WMMessage
-{
-	private int	cannonEntityID	= 0;
-	
-	public MsgCannonFire()
-	{
-	}
-	
-	public MsgCannonFire(EntityCannon entity)
-	{
-		cannonEntityID = entity.getEntityId();
-	}
-	
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf)
-	{
-		cannonEntityID = buf.readInt();
-	}
-	
-	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf)
-	{
-		buf.writeInt(cannonEntityID);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleClientSide(EntityPlayer player)
-	{
-	}
-	
-	@Override
-	public void handleServerSide(EntityPlayer player)
-	{
-		Entity entity = player.worldObj.getEntityByID(cannonEntityID);
-		if (entity instanceof EntityCannon)
-		{
-			((EntityCannon) entity).fireCannon();
-		}
-	}
-	
+public class MsgCannonFire extends WMMessage {
+
+    private int	cannonEntityID	= 0;
+
+    public MsgCannonFire() { }
+
+    public MsgCannonFire(EntityCannon entity) {
+        cannonEntityID = entity.getEntityId();
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        cannonEntityID = buf.readShort();
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        ByteBufUtils.writeVarShort(buf, cannonEntityID);
+    }
+
+    public static class Handler implements IMessageHandler<MsgCannonFire, IMessage> {
+
+        @Override
+        public IMessage onMessage(MsgCannonFire message, MessageContext ctx) {
+            System.out.println(String.format("Received %s from %s", message.cannonEntityID, ctx.getServerHandler().playerEntity.getDisplayName()));
+
+            Entity entity =  ctx.getServerHandler().playerEntity.worldObj.getEntityByID(message.cannonEntityID);
+            if (entity instanceof EntityCannon)
+            {
+                ((EntityCannon) entity).fireCannon();
+            }
+
+            return null;
+        }
+    }
 }

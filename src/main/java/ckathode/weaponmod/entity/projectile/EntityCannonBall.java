@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -23,7 +24,6 @@ public class EntityCannonBall extends EntityProjectile
 	{
 		this(world);
 		setPosition(d, d1, d2);
-		yOffset = 0.0F;
 	}
 	
 	public EntityCannonBall(World world, EntityCannon entitycannon, boolean superPowered)
@@ -42,7 +42,6 @@ public class EntityCannonBall extends EntityProjectile
 		posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
 		posY -= 0.1D;
 		posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
-		yOffset = 0.0F;
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
@@ -65,7 +64,7 @@ public class EntityCannonBall extends EntityProjectile
 		{
 			for (int i1 = 1; i1 < amount; i1++)
 			{
-				worldObj.spawnParticle("smoke", posX + (motionX * i1) / amount, posY + (motionY * i1) / amount, posZ + (motionZ * i1) / amount, 0.0D, 0.0D, 0.0D);
+				worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + (motionX * i1) / amount, posY + (motionY * i1) / amount, posZ + (motionZ * i1) / amount, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -100,11 +99,7 @@ public class EntityCannonBall extends EntityProjectile
 	@Override
 	public void onGroundHit(MovingObjectPosition mop)
 	{
-		xTile = mop.blockX;
-		yTile = mop.blockY;
-		zTile = mop.blockZ;
-		inTile = worldObj.getBlock(xTile, yTile, zTile);
-		inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+		inTile = worldObj.getBlockState(mop.getBlockPos()).getBlock();
 		motionX = (float) (mop.hitVec.xCoord - posX);
 		motionY = (float) (mop.hitVec.yCoord - posY);
 		motionZ = (float) (mop.hitVec.zCoord - posZ);
@@ -116,7 +111,7 @@ public class EntityCannonBall extends EntityProjectile
 		
 		if (inTile != null)
 		{
-			inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+			inTile.onEntityCollidedWithBlock(worldObj, mop.getBlockPos(), this);
 		}
 		
 		createCrater();
@@ -144,11 +139,5 @@ public class EntityCannonBall extends EntityProjectile
 	public ItemStack getPickupItem()
 	{
 		return new ItemStack(BalkonsWeaponMod.cannonBall, 1);
-	}
-	
-	@Override
-	public float getShadowSize()
-	{
-		return 0.5F;
 	}
 }

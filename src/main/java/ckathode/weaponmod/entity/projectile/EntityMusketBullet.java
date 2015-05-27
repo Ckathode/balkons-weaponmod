@@ -3,6 +3,7 @@ package ckathode.weaponmod.entity.projectile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import ckathode.weaponmod.WeaponDamageSource;
@@ -31,7 +32,6 @@ public class EntityMusketBullet extends EntityProjectile
 		posY -= 0.1D;
 		posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
 		setPosition(posX, posY, posZ);
-		yOffset = 0.0F;
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
@@ -46,7 +46,7 @@ public class EntityMusketBullet extends EntityProjectile
 		{
 			if (rand.nextInt(4) == 0)
 			{
-				worldObj.spawnParticle("smoke", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+				worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -56,7 +56,7 @@ public class EntityMusketBullet extends EntityProjectile
 		{
 			for (int i1 = 1; i1 < amount; i1++)
 			{
-				worldObj.spawnParticle("explode", posX + (motionX * i1) / amount, posY + (motionY * i1) / amount, posZ + (motionZ * i1) / amount, 0.0D, 0.0D, 0.0D);
+				worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (motionX * i1) / amount, posY + (motionY * i1) / amount, posZ + (motionZ * i1) / amount, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
 import ckathode.weaponmod.ReloadHelper;
@@ -84,7 +85,7 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving)
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving)
 	{
 		return false;
 	}
@@ -131,12 +132,12 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 		int state = ReloadHelper.getReloadState(itemstack);
 		if (state == ReloadHelper.STATE_NONE)
 		{
-			return EnumAction.block;
+			return EnumAction.BLOCK;
 		} else if (state == ReloadHelper.STATE_READY)
 		{
-			return EnumAction.bow;
+			return EnumAction.BOW;
 		}
-		return EnumAction.none;
+		return EnumAction.NONE;
 	}
 	
 	@Override

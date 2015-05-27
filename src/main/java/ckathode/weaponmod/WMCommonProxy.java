@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 import ckathode.weaponmod.network.MsgCannonFire;
 import ckathode.weaponmod.network.MsgExplosion;
 import ckathode.weaponmod.network.WMMessagePipeline;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class WMCommonProxy
 {
@@ -14,8 +15,8 @@ public class WMCommonProxy
 	
 	public void registerPackets(WMMessagePipeline pipeline)
 	{
-		pipeline.registerPacket(MsgCannonFire.class);
-		pipeline.registerPacket(MsgExplosion.class);
+		pipeline.registerMessage(MsgCannonFire.Handler.class, MsgCannonFire.class, 0, Side.SERVER);
+		pipeline.registerMessage(MsgExplosion.Handler.class, MsgExplosion.class, 1, Side.CLIENT);
 	}
 	
 	public void registerIcons()

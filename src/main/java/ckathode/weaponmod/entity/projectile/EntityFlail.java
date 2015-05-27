@@ -103,7 +103,7 @@ public class EntityFlail extends EntityMaterialProjectile
 		}
 		
 		double targetPosX = shootingEntity.posX;
-		double targetPosY = shootingEntity.boundingBox.minY + 0.4F;
+		double targetPosY = shootingEntity.getEntityBoundingBox().minY + 0.4F;
 		double targetPosZ = shootingEntity.posZ;
 		
 		float f = 27F;
@@ -234,11 +234,5 @@ public class EntityFlail extends EntityMaterialProjectile
 	public int getMaxArrowShake()
 	{
 		return 0;
-	}
-	
-	@Override
-	public float getShadowSize()
-	{
-		return 0.2F;
 	}
 }

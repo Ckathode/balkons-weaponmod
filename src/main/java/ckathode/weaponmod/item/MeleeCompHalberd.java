@@ -53,7 +53,7 @@ public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachIt
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.none;
+		return EnumAction.NONE;
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public abstract class EntityMaterialProjectile extends EntityProjectile
 	{
 		if (shootingEntity instanceof EntityLivingBase && entity instanceof EntityLivingBase)
 		{
-			return EnchantmentHelper.getEnchantmentModifierLiving((EntityLivingBase) shootingEntity, (EntityLivingBase) entity);
+			return EnchantmentHelper.func_152377_a(thrownItem, ((EntityLivingBase) shootingEntity).getCreatureAttribute());
 		}
 		return 0F;
 	}
@@ -44,7 +44,7 @@ public abstract class EntityMaterialProjectile extends EntityProjectile
 		super.applyEntityHitEffects(entity);
 		if (shootingEntity instanceof EntityLivingBase && entity instanceof EntityLivingBase)
 		{
-			int i = EnchantmentHelper.getKnockbackModifier((EntityLivingBase) shootingEntity, (EntityLivingBase) entity);
+			int i = EnchantmentHelper.getKnockbackModifier((EntityLivingBase) shootingEntity);
 			if (i != 0)
 			{
 				entity.addVelocity(-MathHelper.sin(rotationYaw * (float) Math.PI / 180.0F) * i * 0.5F, 0.1D, MathHelper.cos(rotationYaw * (float) Math.PI / 180.0F) * i * 0.5F);

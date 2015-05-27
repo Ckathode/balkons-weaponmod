@@ -11,7 +11,6 @@ public class WMItem extends Item
 	{
 		GameRegistry.registerItem(this, id, BalkonsWeaponMod.MOD_ID);
 		setUnlocalizedName(id);
-		setTextureName("weaponmod:" + id);
 		setCreativeTab(CreativeTabs.tabCombat);
 	}
 	

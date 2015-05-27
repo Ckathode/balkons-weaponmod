@@ -63,7 +63,7 @@ public class ItemJavelin extends WMItem
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 	
 	@Override

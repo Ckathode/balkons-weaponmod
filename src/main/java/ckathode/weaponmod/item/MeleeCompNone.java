@@ -7,6 +7,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
@@ -43,7 +44,7 @@ public class MeleeCompNone extends MeleeComponent
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving)
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving)
 	{
 		return true;
 	}
@@ -80,7 +81,7 @@ public class MeleeCompNone extends MeleeComponent
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack)
 	{
-		return EnumAction.none;
+		return EnumAction.NONE;
 	}
 	
 	@Override

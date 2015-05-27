@@ -1,11 +1,17 @@
 package ckathode.weaponmod;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.Logger;
@@ -192,7 +198,6 @@ public class BalkonsWeaponMod
 	@EventHandler
 	public void initMod(FMLInitializationEvent event)
 	{
-		messagePipeline.initalize();
 		proxy.registerPackets(messagePipeline);
 		proxy.registerEventHandlers();
 		proxy.registerIcons();
@@ -205,7 +210,6 @@ public class BalkonsWeaponMod
 	@EventHandler
 	public void postInitMod(FMLPostInitializationEvent event)
 	{
-		messagePipeline.postInitialize();
 	}
 	
 	private void addModItems()
