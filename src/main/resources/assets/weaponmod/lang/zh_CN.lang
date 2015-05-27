@@ -53,6 +53,9 @@ item.bolt.name=弩箭
 
 item.blowgun.name=吹筒
 item.dart.name=毒镖
+item.dart_hunger.name=毒镖
+item.dart_slow.name=毒镖
+item.dart_damage.name=毒镖
 
 item.dynamite.name=投掷炸药
 

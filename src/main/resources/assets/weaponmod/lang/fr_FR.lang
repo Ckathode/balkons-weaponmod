@@ -50,6 +50,9 @@ item.bolt.name=Carreau d'arbalete
 
 item.blowgun.name=Sarbacane
 item.dart.name=Dart toxique
+item.dart_hunger.name=Dart toxique
+item.dart_slow.name=Dart toxique
+item.dart_damage.name=Dart toxique
 
 item.dynamite.name=Dynamite
 

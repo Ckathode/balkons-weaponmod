@@ -48,6 +48,9 @@ item.bolt.name=Dardo per balestra
 
 item.blowgun.name=Cerbottana
 item.dart.name=Dardo avvelenato
+item.dart_hunger.name=Dardo avvelenato
+item.dart_slow.name=Dardo avvelenato
+item.dart_damage.name=Dardo avvelenato
 
 item.dynamite.name=Dinamite
 

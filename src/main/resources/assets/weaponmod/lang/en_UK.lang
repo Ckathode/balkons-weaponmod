@@ -53,6 +53,9 @@ item.bolt.name=Crossbow Bolt
 
 item.blowgun.name=Blowgun
 item.dart.name=Poisonous Dart
+item.dart_hunger.name=Poisonous Dart
+item.dart_slow.name=Poisonous Dart
+item.dart_damage.name=Poisonous Dart
 
 item.dynamite.name=Dynamite
 

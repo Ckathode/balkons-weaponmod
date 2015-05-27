@@ -53,6 +53,9 @@ item.bolt.name=Kruisboogpijl
 
 item.blowgun.name=Blaaspijp
 item.dart.name=Giftig dartpijltje
+item.dart_hunger.name=Giftig dartpijltje
+item.dart_slow.name=Giftig dartpijltje
+item.dart_damage.name=Giftig dartpijltje
 
 item.dynamite.name=Dynamiet
 
