@@ -25,7 +25,7 @@ public class EntityBlowgunDart extends EntityProjectile
 		setPosition(d, d1, d2);
 	}
 	
-	public EntityBlowgunDart(World world, EntityLivingBase entityliving, float f)
+	public EntityBlowgunDart(World world, EntityLivingBase entityliving, float speed, float deviation)
 	{
 		this(world);
 		shootingEntity = entityliving;
@@ -34,11 +34,11 @@ public class EntityBlowgunDart extends EntityProjectile
 		posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
 		posY -= 0.1D;
 		posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
-		setPosition(posX, posY, posZ);
+		setPosition(posX, posY, posZ);//实体生成的位置
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
-		setThrowableHeading(motionX, motionY, motionZ, f * 2.0F, 1.0F);
+		setThrowableHeading(motionX, motionY, motionZ, speed, deviation);
 	}
 	
 	@Override
@@ -61,6 +61,7 @@ public class EntityBlowgunDart extends EntityProjectile
 	@Override
 	public void onEntityHit(Entity entity)
 	{
+		float damage = (5F + mainDamage) * (1F + extraDamage);
 		DamageSource damagesource = null;
 		if (shootingEntity == null)
 		{
@@ -69,7 +70,7 @@ public class EntityBlowgunDart extends EntityProjectile
 		{
 			damagesource = WeaponDamageSource.causeProjectileWeaponDamage(this, shootingEntity);
 		}
-		if (entity.attackEntityFrom(damagesource, 1 + extraDamage))
+		if (entity.attackEntityFrom(damagesource, damage))
 		{
 			if (entity instanceof EntityLivingBase)
 			{

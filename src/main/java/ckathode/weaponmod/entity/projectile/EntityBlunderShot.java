@@ -52,7 +52,7 @@ public class EntityBlunderShot extends EntityProjectile
 	@Override
 	public void onEntityHit(Entity entity)
 	{
-		float damage = 4F + extraDamage;
+		float damage = 2F * (1F + extraDamage);
 		
 		DamageSource damagesource;
 		if (shootingEntity == null)
@@ -97,10 +97,10 @@ public class EntityBlunderShot extends EntityProjectile
 		return getTotalVelocity() < 2F ? 0.04F : 0F;
 	}
 	
-	public static void fireSpreadShot(World world, EntityLivingBase entityliving, RangedComponent item, ItemStack itemstack)
+	public static void fireSpreadShot(World world, EntityLivingBase entityliving, RangedComponent item, ItemStack itemstack, int s)
 	{
 		EntityBlunderShot entity;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < s; i++)
 		{
 			entity = new EntityBlunderShot(world, entityliving);
 			if (item != null && itemstack != null)
@@ -113,7 +113,7 @@ public class EntityBlunderShot extends EntityProjectile
 	
 	public static void fireSpreadShot(World world, double x, double y, double z)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			world.spawnEntityInWorld(new EntityBlunderShot(world, x, y, z));
 		}
@@ -121,7 +121,7 @@ public class EntityBlunderShot extends EntityProjectile
 	
 	public static void fireFromDispenser(World world, double d, double d1, double d2, int i, int j, int k)
 	{
-		for (int i1 = 0; i1 < 10; i1++)
+		for (int i1 = 0; i1 < 20; i1++)
 		{
 			EntityBlunderShot entityblundershot = new EntityBlunderShot(world, d, d1, d2);
 			

@@ -4,25 +4,28 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import ckathode.weaponmod.BalkonsWeaponMod;
+import ckathode.weaponmod.PhysHelper;
 import ckathode.weaponmod.WeaponDamageSource;
 
-public class EntityMusketBullet extends EntityProjectile
+public class EntityRocketShell extends EntityProjectile
 {
 	
-	public EntityMusketBullet(World world)
+	public EntityRocketShell(World world)
 	{
 		super(world);
 		setPickupMode(NO_PICKUP);
 	}
 	
-	public EntityMusketBullet(World world, double d, double d1, double d2)
+	public EntityRocketShell(World world, double d, double d1, double d2)
 	{
 		this(world);
 		setPosition(d, d1, d2);
 	}
 	
-	public EntityMusketBullet(World world, EntityLivingBase entityliving, float speed, float deviation)
+	public EntityRocketShell(World world, EntityLivingBase entityliving, float speed, float deviation)
 	{
 		this(world);
 		shootingEntity = entityliving;
@@ -42,29 +45,30 @@ public class EntityMusketBullet extends EntityProjectile
 	public void onUpdate()
 	{
 		super.onUpdate();
-		if (inGround)
-		{
-			if (rand.nextInt(4) == 0)
-			{
-				worldObj.spawnParticle("smoke", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
-			}
-			return;
-		}
-		double speed = getTotalVelocity();
-		double amount = 16D;
-		if (speed > 2.0D)
+		
+		double speed = Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+		double amount = 8D;
+		if (speed > 1.0D)
 		{
 			for (int i1 = 1; i1 < amount; i1++)
 			{
-				worldObj.spawnParticle("explode", posX + (motionX * i1) / amount, posY + (motionY * i1) / amount, posZ + (motionZ * i1) / amount, 0.0D, 0.0D, 0.0D);
+				worldObj.spawnParticle("smoke", posX + (motionX * i1) / amount, posY + (motionY * i1) / amount, posZ + (motionZ * i1) / amount, 0.0D, 0.0D, 0.0D);
 			}
 		}
+	}
+
+	public void createCrater(float f)
+	{
+		if (worldObj.isRemote || isInWater()) return;
+		
+		setDead();
+		PhysHelper.createAdvancedExplosion(worldObj, this, posX, posY, posZ, f, BalkonsWeaponMod.instance.modConfig.rocketDoesBlockDamage, true);
 	}
 	
 	@Override
 	public void onEntityHit(Entity entity)
 	{
-		float damage = (30F + mainDamage) * (1F + extraDamage);
+		float damage = (20F + mainDamage) * (1F + extraDamage);
 		DamageSource damagesource = null;
 		if (shootingEntity == null)
 		{
@@ -77,8 +81,35 @@ public class EntityMusketBullet extends EntityProjectile
 		{
 			applyEntityHitEffects(entity);
 			playHitSound();
-			setDead();
+			float f = damage/6F;
+			createCrater(f);
 		}
+	}
+
+	@Override
+	public void onGroundHit(MovingObjectPosition mop)
+	{
+		xTile = mop.blockX;
+		yTile = mop.blockY;
+		zTile = mop.blockZ;
+		inTile = worldObj.getBlock(xTile, yTile, zTile);
+		inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+		motionX = (float) (mop.hitVec.xCoord - posX);
+		motionY = (float) (mop.hitVec.yCoord - posY);
+		motionZ = (float) (mop.hitVec.zCoord - posZ);
+		float f1 = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
+		posX -= (motionX / f1) * 0.05D;
+		posY -= (motionY / f1) * 0.05D;
+		posZ -= (motionZ / f1) * 0.05D;
+		inGround = true;
+		
+		if (inTile != null)
+		{
+			inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+		}
+		float damage = (20F + mainDamage) * (1F + extraDamage);
+		float f = damage/4F;
+		createCrater(f);
 	}
 	
 	@Override
@@ -102,12 +133,18 @@ public class EntityMusketBullet extends EntityProjectile
 	@Override
 	public float getGravity()
 	{
-		return getTotalVelocity() < 3F ? 0.07F : 0F;
+		return ticksInAir > 20F ? 0.07F : 0F;
 	}
 	
 	@Override
 	public int getMaxArrowShake()
 	{
 		return 0;
+	}
+	
+	@Override
+	public float getShadowSize()
+	{
+		return 0.5F;
 	}
 }

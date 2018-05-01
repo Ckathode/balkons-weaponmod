@@ -75,7 +75,7 @@ public class EntityKnife extends EntityMaterialProjectile
 		{
 			damagesource = WeaponDamageSource.causeProjectileWeaponDamage(this, shootingEntity);
 		}
-		if (entity.attackEntityFrom(damagesource, ((IItemWeapon) thrownItem.getItem()).getMeleeComponent().getEntityDamage() + getMeleeHitDamage(entity)))
+		if (entity.attackEntityFrom(damagesource, (((IItemWeapon) thrownItem.getItem()).getMeleeComponent().getEntityDamage() + getMeleeHitDamage(entity))*1.5F))
 		{
 			applyEntityHitEffects(entity);
 			if (thrownItem.getItemDamage() + 2 > thrownItem.getMaxDamage())

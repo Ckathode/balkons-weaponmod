@@ -49,7 +49,7 @@ public class EntityCrossbowBolt extends EntityProjectile
 	public void onEntityHit(Entity entity)
 	{
 		float vel = (float) getTotalVelocity();
-		float damage = vel * 4 + extraDamage;
+		float damage = vel * 4 * (1F + extraDamage);
 		DamageSource damagesource = null;
 		if (shootingEntity == null)
 		{

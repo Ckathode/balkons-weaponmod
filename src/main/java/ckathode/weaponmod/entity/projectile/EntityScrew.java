@@ -2,32 +2,30 @@ package ckathode.weaponmod.entity.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import ckathode.weaponmod.WeaponDamageSource;
-import ckathode.weaponmod.item.IItemWeapon;
 
-public class EntitySpear extends EntityMaterialProjectile
+public class EntityScrew extends EntityProjectile
 {
-	public EntitySpear(World world)
+	public EntityScrew(World world)
 	{
 		super(world);
+		setPickupMode(NO_PICKUP);
 	}
 	
-	public EntitySpear(World world, double d, double d1, double d2)
+	public EntityScrew(World world, double d, double d1, double d2)
 	{
 		this(world);
 		setPosition(d, d1, d2);
 	}
 	
-	public EntitySpear(World world, EntityLivingBase entityliving, ItemStack itemstack)
+	public EntityScrew(World world, EntityLivingBase entityliving, float speed, float deviation)
 	{
 		this(world);
 		shootingEntity = entityliving;
-		setPickupModeFromEntity(entityliving);
-		setThrownItemStack(itemstack);
 		setLocationAndAngles(entityliving.posX, entityliving.posY + entityliving.getEyeHeight(), entityliving.posZ, entityliving.rotationYaw, entityliving.rotationPitch);
 		posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
 		posY -= 0.1D;
@@ -35,9 +33,9 @@ public class EntitySpear extends EntityMaterialProjectile
 		setPosition(posX, posY, posZ);
 		yOffset = 0.0F;
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
-		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
-		setThrowableHeading(motionX, motionY, motionZ, 0.8F, 3.0F);
+		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
+		setThrowableHeading(motionX, motionY, motionZ, speed, deviation);
 	}
 	
 	@Override
@@ -49,7 +47,7 @@ public class EntitySpear extends EntityMaterialProjectile
 	@Override
 	public void onEntityHit(Entity entity)
 	{
-		if (worldObj.isRemote) return;
+		float damage = (5F + mainDamage) * (1F + extraDamage);
 		DamageSource damagesource = null;
 		if (shootingEntity == null)
 		{
@@ -58,46 +56,41 @@ public class EntitySpear extends EntityMaterialProjectile
 		{
 			damagesource = WeaponDamageSource.causeProjectileWeaponDamage(this, shootingEntity);
 		}
-		if (entity.attackEntityFrom(damagesource, (((IItemWeapon) thrownItem.getItem()).getMeleeComponent().getEntityDamage() + getMeleeHitDamage(entity))*1.5F))
+		if (entity.attackEntityFrom(damagesource, damage))
 		{
 			applyEntityHitEffects(entity);
 			playHitSound();
-			if (thrownItem.getItemDamage() + 1 > thrownItem.getMaxDamage())
-			{
-				thrownItem.stackSize--;
-				setDead();
-			} else
-			{
-				if (shootingEntity instanceof EntityLivingBase)
-				{
-					thrownItem.damageItem(1, (EntityLivingBase) shootingEntity);
-				} else
-				{
-					thrownItem.attemptDamageItem(1, rand);
-				}
-				setVelocity(0D, 0D, 0D);
-			}
-		} else
-		{
-			bounceBack();
+			setDead();
 		}
 	}
 	
 	@Override
-	public void playHitSound()
+	public boolean aimRotation()
 	{
-		worldObj.playSoundAtEntity(this, "random.bowhit", 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 0.9F));
+		return false;
 	}
 	
 	@Override
 	public int getMaxLifetime()
 	{
-		return pickupMode == PICKUP_ALL || pickupMode == PICKUP_OWNER ? 0 : 1200;
+		return 200;
+	}
+	
+	@Override
+	public float getAirResistance()//空气阻力？
+	{
+		return 0.98F;
+	}
+	
+	@Override
+	public float getGravity()
+	{
+		return getTotalVelocity() < 3F ? 0.07F : 0F;
 	}
 	
 	@Override
 	public int getMaxArrowShake()
 	{
-		return 10;
+		return 0;
 	}
 }

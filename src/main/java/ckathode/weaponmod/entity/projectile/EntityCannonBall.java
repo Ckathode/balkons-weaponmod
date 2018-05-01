@@ -51,7 +51,7 @@ public class EntityCannonBall extends EntityProjectile
 		posZ += motionZ * 1.2F;
 		setPosition(posX, posY, posZ);
 		setIsCritical(superPowered);
-		setThrowableHeading(motionX, motionY, motionZ, superPowered ? 4.0F : 2.0F, superPowered ? 0.1F : 2.0F);
+		setThrowableHeading(motionX, motionY, motionZ, superPowered ? 8.0F : 4.0F, superPowered ? 0.1F : 2.0F);
 	}
 	
 	@Override
@@ -76,7 +76,7 @@ public class EntityCannonBall extends EntityProjectile
 		
 		setDead();
 		
-		float f = getIsCritical() ? 5.0F : 2.5F;
+		float f = getIsCritical() ? 10.0F : 5.0F;
 		PhysHelper.createAdvancedExplosion(worldObj, this, posX, posY, posZ, f, BalkonsWeaponMod.instance.modConfig.cannonDoesBlockDamage, true);
 	}
 	

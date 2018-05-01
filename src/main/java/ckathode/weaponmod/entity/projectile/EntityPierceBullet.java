@@ -4,25 +4,25 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import ckathode.weaponmod.WeaponDamageSource;
 
-public class EntityMusketBullet extends EntityProjectile
+public class EntityPierceBullet extends EntityProjectile
 {
-	
-	public EntityMusketBullet(World world)
+	public EntityPierceBullet(World world)
 	{
 		super(world);
 		setPickupMode(NO_PICKUP);
 	}
 	
-	public EntityMusketBullet(World world, double d, double d1, double d2)
+	public EntityPierceBullet(World world, double d, double d1, double d2)
 	{
 		this(world);
 		setPosition(d, d1, d2);
 	}
 	
-	public EntityMusketBullet(World world, EntityLivingBase entityliving, float speed, float deviation)
+	public EntityPierceBullet(World world, EntityLivingBase entityliving, float speed, float deviation)
 	{
 		this(world);
 		shootingEntity = entityliving;
@@ -48,6 +48,9 @@ public class EntityMusketBullet extends EntityProjectile
 			{
 				worldObj.spawnParticle("smoke", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
 			}
+			motionX *= 0.6D;
+			motionY *= 0.6D;
+			motionZ *= 0.6D;
 			return;
 		}
 		double speed = getTotalVelocity();
@@ -64,7 +67,7 @@ public class EntityMusketBullet extends EntityProjectile
 	@Override
 	public void onEntityHit(Entity entity)
 	{
-		float damage = (30F + mainDamage) * (1F + extraDamage);
+		float damage = (40F + mainDamage) * (1F + extraDamage);
 		DamageSource damagesource = null;
 		if (shootingEntity == null)
 		{
@@ -77,7 +80,35 @@ public class EntityMusketBullet extends EntityProjectile
 		{
 			applyEntityHitEffects(entity);
 			playHitSound();
-			setDead();
+		}
+	}
+	
+	@Override
+	public void onGroundHit(MovingObjectPosition mop)
+	{
+		double speed = Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+		if(speed>5.0) return;
+		xTile = mop.blockX;
+		yTile = mop.blockY;
+		zTile = mop.blockZ;
+		inTile = worldObj.getBlock(xTile, yTile, zTile);
+		inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+		motionX = mop.hitVec.xCoord - posX;
+		motionY = mop.hitVec.yCoord - posY;
+		motionZ = mop.hitVec.zCoord - posZ;
+		float f1 = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
+		posX -= motionX / f1 * 0.05D;
+		posY -= motionY / f1 * 0.05D;
+		posZ -= motionZ / f1 * 0.05D;
+		inGround = true;
+		beenInGround = true;//碰到方块
+		setIsCritical(false);
+		arrowShake = getMaxArrowShake();
+		playHitSound();
+		
+		if (inTile != null)
+		{
+			inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
 		}
 	}
 	
