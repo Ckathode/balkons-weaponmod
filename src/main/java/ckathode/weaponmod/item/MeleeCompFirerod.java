@@ -22,7 +22,7 @@ public class MeleeCompFirerod extends MeleeComponent
 		boolean flag = super.hitEntity(itemstack, entityliving, entityliving1);
 		if (flag)
 		{
-			entityliving.setFire(12 + weapon.getItemRand().nextInt(3)); //TODO add fire instead of set fire
+			entityliving.setFire(20 + weapon.getItemRand().nextInt(3)); //TODO add fire instead of set fire
 		}
 		return flag;
 	}

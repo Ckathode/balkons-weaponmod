@@ -13,7 +13,7 @@ public class ItemJavelin extends WMItem
 	public ItemJavelin(String id)
 	{
 		super(id);
-		maxStackSize = 16;
+		maxStackSize = 64;
 	}
 	
 	@Override

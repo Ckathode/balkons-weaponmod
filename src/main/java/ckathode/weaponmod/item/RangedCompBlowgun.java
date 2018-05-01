@@ -14,7 +14,7 @@ public class RangedCompBlowgun extends RangedComponent
 {
 	public RangedCompBlowgun()
 	{
-		super(RangedSpecs.BLOWGUN);
+		super(RangedSpecs.BLOWGUN, null);
 	}
 
 	@Override
@@ -31,18 +31,18 @@ public class RangedCompBlowgun extends RangedComponent
 	}
 
 	@Override
-	public void fire(ItemStack itemstack, World world, EntityPlayer entityplayer, int i)
+	public void fire(ItemStack itemstack, World world, EntityPlayer entityplayer, int i)//蓄力时间
 	{
 		int j = getMaxItemUseDuration(itemstack) - i;
 		float f = j / 20F;
 		f = (f * f + f * 2.0F) / 3F;
-		if (f < 0.1F) return;
+		if (f < 0.1F) return;//蓄力时间少于1秒不发射
 		if (f > 1.0F)
 		{
 			f = 1.0F;
 		}
 
-		ItemStack dartstack = null;
+		ItemStack dartstack = null;//判断背包中是否存在弹药
 		int k;
 		for (k = 0; k < entityplayer.inventory.mainInventory.length; k++)
 		{
@@ -54,12 +54,12 @@ public class RangedCompBlowgun extends RangedComponent
 			}
 		}
 
-		if (dartstack == null && entityplayer.capabilities.isCreativeMode)
+		if (dartstack == null && entityplayer.capabilities.isCreativeMode)//判断玩家是否是创造模式
 		{
-			dartstack = new ItemStack(BalkonsWeaponMod.dart, 1, DartType.damage.typeID);
+			dartstack = new ItemStack(BalkonsWeaponMod.dart, 1, DartType.posion.typeID);
 		}
 
-		if (!entityplayer.capabilities.isCreativeMode && EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemstack) == 0)
+		if (!entityplayer.capabilities.isCreativeMode && EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemstack) == 0)//判断是否存在无限附魔
 		{
 			if (--dartstack.stackSize == 0)
 			{
@@ -69,7 +69,7 @@ public class RangedCompBlowgun extends RangedComponent
 
 		if (!world.isRemote)
 		{
-			EntityBlowgunDart entity = new EntityBlowgunDart(world, entityplayer, f * 1.5F);
+			EntityBlowgunDart entity = new EntityBlowgunDart(world, entityplayer, f * 3.0F, 1.0F);
 			entity.setDartEffectType(dartstack.getItemDamage());
 			applyProjectileEnchantments(entity, itemstack);
 			world.spawnEntityInWorld(entity);
@@ -122,8 +122,9 @@ public class RangedCompBlowgun extends RangedComponent
 	}
 	
 	@Override
-	public float getMaxZoom()
+	public float getMaxZoom(EntityPlayer entityplayer)
 	{
 		return 0.1f;
 	}
+	
 }

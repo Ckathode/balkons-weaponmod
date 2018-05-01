@@ -141,7 +141,7 @@ public class MeleeComponent extends AbstractWeaponComponent
 		{
 			try
 			{
-				multimap.put(WeaponModAttributes.WEAPON_REACH.getAttributeUnlocalizedName(), new AttributeModifier(weapon.getUUID(), "Weapon reach modifier", ((IExtendedReachItem) this).getExtendedReach(null, null, null) - 3F, 0));
+				multimap.put(WeaponModAttributes.WEAPON_REACH.getAttributeUnlocalizedName(), new AttributeModifier(weapon.getUUID(), "Weapon reach modifier", ((IExtendedReachItem) this).getExtendedReach(null, null, null), 0));
 			} catch (NullPointerException e)
 			{}
 		}
@@ -155,6 +155,12 @@ public class MeleeComponent extends AbstractWeaponComponent
 			PhysHelper.prepareKnockbackOnEntity(player, (EntityLivingBase) entity);
 		}
 		return false;
+	}
+	
+	@Override
+	public ItemStack onRightClickEntity(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	{
+		return itemstack;
 	}
 	
 	@Override
@@ -201,14 +207,15 @@ public class MeleeComponent extends AbstractWeaponComponent
 	public static enum MeleeSpecs
 	{
 		//NAME db, dm, edb, edm, bd, kb, dfe, dfb, mss, ad
-		SPEAR(0, 1F, 3, 1F, 1F, 0.2F, 1, 2, 1, 0),
-		HALBERD(0, 1F, 4, 1F, 1.5F, 0.6F, 1, 2, 1, 8),
-		BATTLEAXE(0, 1F, 3, 1F, 1.5F, 0.5F, 1, 2, 1, 5),
-		WARHAMMER(0, 1F, 4, 1F, 1F, 0.7F, 1, 2, 1, 5),
-		KNIFE(0, 0.5F, 3, 1F, 1.5F, 0.2F, 1, 2, 1, 0),
+		SPEAR(0, 1F, 4, 1F, 1F, 0.2F, 1, 2, 1, 0),
+		HALBERD(0, 1F, 5, 1F, 1.5F, 0.6F, 1, 2, 1, 8),
+		BATTLEAXE(0, 1F, 4, 1F, 1.5F, 0.5F, 1, 2, 1, 5),
+		WARHAMMER(0, 1F, 6, 1F, 1F, 0.7F, 1, 2, 1, 8),
+		KNIFE(0, 0.5F, 4, 1F, 1.5F, 0.2F, 1, 2, 1, 0),
 		KATANA(0, 1F, 1, 1F, 1F, 0F, 1, 2, 1, -6),
 		FIREROD(1, 0F, 1, 0F, 1F, 0.4F, 2, 0, 1, 0),
 		BOOMERANG(0, 0.5F, 2, 1F, 1F, 0.4F, 1, 1, 1, 0),
+		QUARTERSTAFF(0, 1.5F, 4, 1F, 1F, 0.4F, 1, 2, 1, 0),
 		NONE(0, 0F, 1, 0F, 1F, 0.4F, 0, 0, 1, 0);
 		
 		private MeleeSpecs(int durbase, float durmult, float dmgbase, float dmgmult, float blockdmg, float knockback, int dmgfromentity, int dmgfromblock, int stacksize, int attackdelay)

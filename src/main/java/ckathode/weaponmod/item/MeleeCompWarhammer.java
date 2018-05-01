@@ -1,6 +1,8 @@
 package ckathode.weaponmod.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item.ToolMaterial;
@@ -12,7 +14,7 @@ import ckathode.weaponmod.WarhammerExplosion;
 
 public class MeleeCompWarhammer extends MeleeComponent
 {
-	public static final int	CHARGE_DELAY	= 400;	//ticks = tickrate * seconds = 20/s * 20s = 400
+	public static final int	CHARGE_DELAY	= 100;	//ticks = tickrate * seconds = 20/s * 20s = 400
 													
 	public MeleeCompWarhammer(ToolMaterial toolmaterial)
 	{
@@ -42,7 +44,8 @@ public class MeleeCompWarhammer extends MeleeComponent
 	protected void superSmash(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		entityplayer.swingItem();
-		float f = getEntityDamage() / 2F;
+		float f = 0.75F * EnchantmentHelper.getEnchantmentLevel(Enchantment.sharpness.effectId, itemstack);
+		f += getEntityDamage() / 2F;
 		WarhammerExplosion expl = new WarhammerExplosion(world, entityplayer, entityplayer.posX, entityplayer.posY - entityplayer.getEyeHeight(), entityplayer.posZ, f);
 		expl.doEntityExplosion(DamageSource.causePlayerDamage(entityplayer));
 		expl.doParticleExplosion(true, false);

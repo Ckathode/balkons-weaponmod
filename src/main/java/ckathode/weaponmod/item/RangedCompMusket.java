@@ -13,7 +13,7 @@ public class RangedCompMusket extends RangedComponent
 
 	public RangedCompMusket()
 	{
-		super(RangedSpecs.MUSKET);
+		super(RangedSpecs.MUSKET, null);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class RangedCompMusket extends RangedComponent
 
 		if (!world.isRemote)
 		{
-			EntityMusketBullet entitymusketbullet = new EntityMusketBullet(world, entityplayer, 1F / f);
+			EntityMusketBullet entitymusketbullet = new EntityMusketBullet(world, entityplayer, 7.0F, 1F / f);
 			applyProjectileEnchantments(entitymusketbullet, itemstack);
 			world.spawnEntityInWorld(entitymusketbullet);
 		}
@@ -95,8 +95,9 @@ public class RangedCompMusket extends RangedComponent
 	}
 
 	@Override
-	public float getMaxZoom()
+	public float getMaxZoom(EntityPlayer entityplayer)
 	{
 		return 0.15f;
 	}
+
 }

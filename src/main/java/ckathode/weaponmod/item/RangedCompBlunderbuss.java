@@ -11,7 +11,7 @@ public class RangedCompBlunderbuss extends RangedComponent
 {
 	public RangedCompBlunderbuss()
 	{
-		super(RangedSpecs.BLUNDERBUSS);
+		super(RangedSpecs.BLUNDERBUSS, null);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class RangedCompBlunderbuss extends RangedComponent
 	{
 		if (!world.isRemote)
 		{
-			EntityBlunderShot.fireSpreadShot(world, entityplayer, this, itemstack);
+			EntityBlunderShot.fireSpreadShot(world, entityplayer, this, itemstack, 20);
 		}
 
 		int damage = 1;
@@ -65,8 +65,9 @@ public class RangedCompBlunderbuss extends RangedComponent
 	}
 
 	@Override
-	public float getMaxZoom()
+	public float getMaxZoom(EntityPlayer entityplayer)
 	{
 		return 0.07f;
 	}
+
 }

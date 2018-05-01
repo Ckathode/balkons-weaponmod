@@ -38,6 +38,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 	protected int			ticksInAir;
 	public boolean			beenInGround;
 	
+	public float			mainDamage;
 	public float			extraDamage;
 	public int				knockBack;
 	
@@ -55,6 +56,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		yOffset = 0F;
 		pickupMode = NO_PICKUP;
 		
+		mainDamage = 0;
 		extraDamage = 0;
 		knockBack = 0;
 		
@@ -345,7 +347,7 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 		posY -= motionY / f1 * 0.05D;
 		posZ -= motionZ / f1 * 0.05D;
 		inGround = true;
-		beenInGround = true;
+		beenInGround = true;//碰到方块
 		setIsCritical(false);
 		arrowShake = getMaxArrowShake();
 		playHitSound();
@@ -423,6 +425,11 @@ public abstract class EntityProjectile extends EntityArrow implements IThrowable
 	public boolean getIsCritical()
 	{
 		return canBeCritical() && dataWatcher.getWatchableObjectByte(16) != 0;
+	}
+	
+	public void setMainDamage(float f)
+	{
+		mainDamage = f;
 	}
 	
 	public void setExtraDamage(float f)

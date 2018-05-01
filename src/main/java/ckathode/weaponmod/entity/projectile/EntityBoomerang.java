@@ -45,7 +45,7 @@ public class EntityBoomerang extends EntityMaterialProjectile
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
-		setThrowableHeading(motionX, motionY, motionZ, f, 5.0F);
+		setThrowableHeading(motionX, motionY, motionZ, f, 0);
 		soundTimer = 0;
 		floatStrength = Math.min(1.5F, f);
 		dataWatcher.updateObject(29, Integer.valueOf(Float.floatToRawIntBits(floatStrength)));
@@ -145,6 +145,7 @@ public class EntityBoomerang extends EntityMaterialProjectile
 		}
 		float damage = ((IItemWeapon) thrownItem.getItem()).getMeleeComponent().getEntityDamage() + 2 + extraDamage;
 		damage += getMeleeHitDamage(entity);
+		damage *=1.5;
 		if (getIsCritical())
 		{
 			damage += 2;

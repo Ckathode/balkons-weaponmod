@@ -25,13 +25,13 @@ public class DispenseMusketBullet extends DispenseWeaponProjectile
 	@Override
 	public float getDeviation()
 	{
-		return 3F;
+		return 1.5F;
 	}
 	
 	@Override
 	public float getVelocity()
 	{
-		return 5F;
+		return 7F;
 	}
 	
 	@Override

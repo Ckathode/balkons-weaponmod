@@ -7,6 +7,7 @@ import ckathode.weaponmod.entity.EntityDummy;
 import ckathode.weaponmod.entity.projectile.EntityBlowgunDart;
 import ckathode.weaponmod.entity.projectile.EntityBlunderShot;
 import ckathode.weaponmod.entity.projectile.EntityBoomerang;
+import ckathode.weaponmod.entity.projectile.EntityBuckshot;
 import ckathode.weaponmod.entity.projectile.EntityCannonBall;
 import ckathode.weaponmod.entity.projectile.EntityCrossbowBolt;
 import ckathode.weaponmod.entity.projectile.EntityDynamite;
@@ -15,12 +16,16 @@ import ckathode.weaponmod.entity.projectile.EntityJavelin;
 import ckathode.weaponmod.entity.projectile.EntityKnife;
 import ckathode.weaponmod.entity.projectile.EntityMusketBullet;
 import ckathode.weaponmod.entity.projectile.EntitySpear;
+import ckathode.weaponmod.entity.projectile.EntityPierceBullet;
+import ckathode.weaponmod.entity.projectile.EntityRocketShell;
+import ckathode.weaponmod.entity.projectile.EntityScrew;
 import ckathode.weaponmod.network.WMMessagePipeline;
 import ckathode.weaponmod.render.GuiOverlayReloaded;
 import ckathode.weaponmod.render.LongItemRenderer;
 import ckathode.weaponmod.render.RenderBlowgunDart;
 import ckathode.weaponmod.render.RenderBlunderShot;
 import ckathode.weaponmod.render.RenderBoomerang;
+import ckathode.weaponmod.render.RenderBuckshot;
 import ckathode.weaponmod.render.RenderCannon;
 import ckathode.weaponmod.render.RenderCannonBall;
 import ckathode.weaponmod.render.RenderCrossbowBolt;
@@ -30,6 +35,9 @@ import ckathode.weaponmod.render.RenderFlail;
 import ckathode.weaponmod.render.RenderJavelin;
 import ckathode.weaponmod.render.RenderKnife;
 import ckathode.weaponmod.render.RenderMusketBullet;
+import ckathode.weaponmod.render.RenderPierceBullet;
+import ckathode.weaponmod.render.RenderRocketShell;
+import ckathode.weaponmod.render.RenderScrew;
 import ckathode.weaponmod.render.RenderSpear;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -95,6 +103,15 @@ public class WMClientProxy extends WMCommonProxy
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearDiamond, longrender);
 			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.spearGold, longrender);
 		}
+		
+		if (config.isEnabled("quarterstaff"))
+		{
+			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.quarterstaffWood, longrender);
+			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.quarterstaffStone, longrender);
+			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.quarterstaffSteel, longrender);
+			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.quarterstaffDiamond, longrender);
+			MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.quarterstaffGold, longrender);
+		}
 
 		if (config.isEnabled("javelin"))
 		{
@@ -117,6 +134,10 @@ public class WMClientProxy extends WMCommonProxy
 			//MinecraftForgeClient.registerItemRenderer(BalkonsWeaponMod.crossbow.itemID, new CrossbowItemRenderer());
 		}
 		if (config.isEnabled("blowgun"))
+		{
+			RenderingRegistry.registerEntityRenderingHandler(EntityBlowgunDart.class, new RenderBlowgunDart());
+		}
+		if (config.isEnabled("blowgunteemo"))
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntityBlowgunDart.class, new RenderBlowgunDart());
 		}
@@ -144,6 +165,22 @@ public class WMClientProxy extends WMCommonProxy
 		if (config.isEnabled("boomerang"))
 		{
 			RenderingRegistry.registerEntityRenderingHandler(EntityBoomerang.class, new RenderBoomerang());
+		}
+		if (config.isEnabled("sniper"))
+		{
+			RenderingRegistry.registerEntityRenderingHandler(EntityPierceBullet.class, new RenderPierceBullet());
+		}
+		if (config.isEnabled("shotgun"))
+		{
+			RenderingRegistry.registerEntityRenderingHandler(EntityBuckshot.class, new RenderBuckshot());
+		}
+		if (config.isEnabled("rocket"))
+		{
+			RenderingRegistry.registerEntityRenderingHandler(EntityRocketShell.class, new RenderRocketShell());
+		}
+		if (config.isEnabled("screw"))
+		{
+			RenderingRegistry.registerEntityRenderingHandler(EntityScrew.class, new RenderScrew());
 		}
 	}
 }

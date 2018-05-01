@@ -10,7 +10,7 @@ public class RangedCompCrossbow extends RangedComponent
 {
 	public RangedCompCrossbow()
 	{
-		super(RangedSpecs.CROSSBOW);
+		super(RangedSpecs.CROSSBOW, null);
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public class RangedCompCrossbow extends RangedComponent
 		
 		if (!world.isRemote)
 		{
-			EntityCrossbowBolt entity = new EntityCrossbowBolt(world, entityplayer, 1.5F / f);
+			EntityCrossbowBolt entity = new EntityCrossbowBolt(world, entityplayer, 1F / f);
 			applyProjectileEnchantments(entity, itemstack);
 			world.spawnEntityInWorld(entity);
 		}
@@ -66,4 +66,5 @@ public class RangedCompCrossbow extends RangedComponent
 	{
 		world.playSoundEffect(x, y, z, "random.bow", 1.0F, 1.0F / (weapon.getItemRand().nextFloat() * 0.4F + 0.8F));
 	}
+
 }

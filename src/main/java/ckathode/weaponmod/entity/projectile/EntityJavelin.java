@@ -37,14 +37,14 @@ public class EntityJavelin extends EntityProjectile
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
-		setThrowableHeading(motionX, motionY, motionZ, f * 1.1F, 3.0F);
+		setThrowableHeading(motionX, motionY, motionZ, f * 1.5F, 3.0F);
 	}
 	
 	@Override
 	public void onEntityHit(Entity entity)
 	{
 		double vel = getTotalVelocity();
-		int damage = MathHelper.ceiling_double_int(vel * (3D + extraDamage));
+		int damage = MathHelper.ceiling_double_int(vel * (10D + extraDamage));
 		if (getIsCritical())
 		{
 			damage += rand.nextInt(damage / 2 + 2);

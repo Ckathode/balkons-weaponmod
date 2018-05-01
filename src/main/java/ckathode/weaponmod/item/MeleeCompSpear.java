@@ -52,7 +52,7 @@ public class MeleeCompSpear extends MeleeComponent implements IExtendedReachItem
 	@Override
 	public float getExtendedReach(World world, EntityLivingBase living, ItemStack itemstack)
 	{
-		return 4F;
+		return 8F;
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-#Balkon's WeaponMod language file zh_CN
+﻿#Balkon's WeaponMod language file zh_CN
 
 item.spear.wood.name=木矛
 item.spear.stone.name=石矛
@@ -24,6 +24,11 @@ item.warhammer.iron.name=铁战锤
 item.warhammer.diamond.name=钻石战锤
 item.warhammer.gold.name=金战锤
 
+item.quarterstaff.wood.name=木硬头棍
+item.quarterstaff.stone.name=石硬头棍
+item.quarterstaff.iron.name=铁硬头棍
+item.quarterstaff.diamond.name=钻石硬头棍
+item.quarterstaff.gold.name=金硬头棍
 item.knife.wood.name=木小刀
 item.knife.stone.name=石小刀
 item.knife.iron.name=铁小刀
@@ -51,8 +56,10 @@ item.bullet.name=火枪子弹
 item.crossbow.name=十字弩
 item.bolt.name=弩箭
 
-item.blowgun.name=吹筒
-item.dart.name=毒镖
+item.blowgun.name=吹箭筒
+
+item.blowgun.teemo.name=提莫的吹箭筒
+item.dart.name=吹箭
 
 item.dynamite.name=投掷炸药
 
@@ -64,7 +71,23 @@ item.cannonball.name=炮弹
 item.blunderbuss.name=前装滑膛散弹短铳
 item.blunder-ironpart.name=短铳枪管
 item.shot.name=铅弹
+item.sniper.name=狙击步枪
+item.sniper-scope.name=狙击镜
+item.shotgun.name=霰弹枪
+item.shotgun-ironpart.name=霰弹枪管
+item.buckshot.name=鹿弹
+item.rocket-shell.name=火箭弹
+item.rocket.name=火箭筒
+item.rocket-wooden.name=木制火箭筒
 
+item.screw.name=螺丝钉
+item.rifle-ironpart.name=步枪枪管
+
+item.rifle-bullet.name=步枪子弹
+
+item.compressed-gunpowder.name=压缩火药
+item.nailgun.name=射钉枪
+item.nailgunMk-2.name=自动射钉枪
 item.dummy.name=训练假人
 
 item.gun-stock.name=枪托
@@ -86,5 +109,6 @@ item.flintlock.name=燧发手枪
 attribute.name.weaponmod.ignoreArmour=无视护甲
 attribute.name.weaponmod.knockback=击退
 attribute.name.weaponmod.attackSpeed=攻击速度
+attribute.name.weaponmod.blockeffect=格挡减伤
 attribute.name.weaponmod.reloadTime=装弹时间
 attribute.name.weaponmod.reach=范围

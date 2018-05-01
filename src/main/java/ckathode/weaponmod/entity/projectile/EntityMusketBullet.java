@@ -22,7 +22,7 @@ public class EntityMusketBullet extends EntityProjectile
 		setPosition(d, d1, d2);
 	}
 	
-	public EntityMusketBullet(World world, EntityLivingBase entityliving, float deviation)
+	public EntityMusketBullet(World world, EntityLivingBase entityliving, float speed, float deviation)
 	{
 		this(world);
 		shootingEntity = entityliving;
@@ -35,7 +35,7 @@ public class EntityMusketBullet extends EntityProjectile
 		motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
 		motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
-		setThrowableHeading(motionX, motionY, motionZ, 5.0F, deviation);
+		setThrowableHeading(motionX, motionY, motionZ, speed, deviation);
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class EntityMusketBullet extends EntityProjectile
 	@Override
 	public void onEntityHit(Entity entity)
 	{
-		float damage = 20F + extraDamage;
+		float damage = (30F + mainDamage) * (1F + extraDamage);
 		DamageSource damagesource = null;
 		if (shootingEntity == null)
 		{
@@ -94,7 +94,7 @@ public class EntityMusketBullet extends EntityProjectile
 	}
 	
 	@Override
-	public float getAirResistance()
+	public float getAirResistance()//空气阻力？
 	{
 		return 0.98F;
 	}

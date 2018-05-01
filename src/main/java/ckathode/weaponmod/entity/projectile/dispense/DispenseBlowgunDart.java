@@ -32,7 +32,7 @@ public class DispenseBlowgunDart extends DispenseWeaponProjectile
 	@Override
 	public float getDeviation()
 	{
-		return 2.0F;
+		return 1.0F;
 	}
 	
 	@Override

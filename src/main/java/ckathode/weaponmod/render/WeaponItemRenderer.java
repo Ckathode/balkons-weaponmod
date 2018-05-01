@@ -51,6 +51,7 @@ public class WeaponItemRenderer implements IItemRenderer
 	
 	protected void renderItemIn2D(Tessellator tess, float texU0, float texV0, float texU1, float texV1, int iconwidth, int iconheight, float thickness)
 	{
+		//tess, icon.getMaxU(), icon.getMinV(), icon.getMinU(), icon.getMaxV(), icon.getIconWidth() * 16, icon.getIconHeight() * 16, 2/32
 		tess.startDrawingQuads();
 		tess.setNormal(0.0F, 0.0F, 1.0F);
 		tess.addVertexWithUV(0.0D, 0.0D, 0.0D, texU0, texV1);

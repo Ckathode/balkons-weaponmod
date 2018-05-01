@@ -10,8 +10,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
 
@@ -122,7 +124,7 @@ public class ItemShooter extends ItemBow implements IItemWeapon
 	{
 		rangedComponent.onPlayerStoppedUsing(itemstack, world, entityplayer, i);
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean flag)
 	{

@@ -11,7 +11,7 @@ public class RangedCompFlintlock extends RangedComponent
 {
 	public RangedCompFlintlock()
 	{
-		super(RangedSpecs.FLINTLOCK);
+		super(RangedSpecs.FLINTLOCK, null);
 	}
 	
 	@Override
@@ -35,9 +35,9 @@ public class RangedCompFlintlock extends RangedComponent
 		
 		if (!world.isRemote)
 		{
-			EntityMusketBullet entitymusketbullet = new EntityMusketBullet(world, entityplayer, 4F / f);
+			EntityMusketBullet entitymusketbullet = new EntityMusketBullet(world, entityplayer, 5.0F, 1.5F / f);
 			applyProjectileEnchantments(entitymusketbullet, itemstack);
-			entitymusketbullet.setExtraDamage(entitymusketbullet.extraDamage - 10F);
+			entitymusketbullet.setMainDamage(entitymusketbullet.mainDamage - 10F);
 			world.spawnEntityInWorld(entitymusketbullet);
 		}
 		
@@ -78,8 +78,9 @@ public class RangedCompFlintlock extends RangedComponent
 	}
 	
 	@Override
-	public float getMaxZoom()
+	public float getMaxZoom(EntityPlayer entityplayer)
 	{
 		return 0.07f;
 	}
+
 }
