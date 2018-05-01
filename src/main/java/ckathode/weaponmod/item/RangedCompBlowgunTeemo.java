@@ -10,11 +10,11 @@ import ckathode.weaponmod.BalkonsWeaponMod;
 import ckathode.weaponmod.ReloadHelper;
 import ckathode.weaponmod.entity.projectile.EntityBlowgunDart;
 
-public class RangedCompBlowgun extends RangedComponent
+public class RangedCompBlowgunTeemo extends RangedComponent
 {
-	public RangedCompBlowgun()
+	public RangedCompBlowgunTeemo()
 	{
-		super(RangedSpecs.BLOWGUN, null);
+		super(RangedSpecs.BLOWGUNTEEMO, null);
 	}
 
 	@Override
@@ -27,16 +27,16 @@ public class RangedCompBlowgun extends RangedComponent
 	@Override
 	public int getReloadDuration(ItemStack itemstack)
 	{
-		return BalkonsWeaponMod.instance.modConfig.getReloadTime("blowgun");
+		return BalkonsWeaponMod.instance.modConfig.getReloadTime("blowgunteemo");
 	}
 
 	@Override
-	public void fire(ItemStack itemstack, World world, EntityPlayer entityplayer, int i)//蓄力时间
+	public void fire(ItemStack itemstack, World world, EntityPlayer entityplayer, int i)
 	{
 		int j = getMaxItemUseDuration(itemstack) - i;
 		float f = j / 20F;
 		f = (f * f + f * 2.0F) / 3F;
-		if (f < 0.1F) return;//蓄力时间少于1秒不发射
+		if (f < 0.1F) return;
 		if (f > 1.0F)
 		{
 			f = 1.0F;
@@ -69,9 +69,10 @@ public class RangedCompBlowgun extends RangedComponent
 
 		if (!world.isRemote)
 		{
-			EntityBlowgunDart entity = new EntityBlowgunDart(world, entityplayer, f * 3.0F, 1.0F);
+			EntityBlowgunDart entity = new EntityBlowgunDart(world, entityplayer, 5.0F, 0F);
 			entity.setDartEffectType(dartstack.getItemDamage());
 			applyProjectileEnchantments(entity, itemstack);
+			entity.setMainDamage(entity.mainDamage + 15F);
 			world.spawnEntityInWorld(entity);
 		}
 
@@ -126,5 +127,5 @@ public class RangedCompBlowgun extends RangedComponent
 	{
 		return 0.1f;
 	}
-	
+
 }

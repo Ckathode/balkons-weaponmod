@@ -66,7 +66,7 @@ public class MeleeCompHalberd extends MeleeComponent implements IExtendedReachIt
 	@Override
 	public float getExtendedReach(World world, EntityLivingBase living, ItemStack itemstack)
 	{
-		return 4F;
+		return 8F;
 	}
 	
 	@SideOnly(Side.CLIENT)

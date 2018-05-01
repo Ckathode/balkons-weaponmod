@@ -1,6 +1,8 @@
 package ckathode.weaponmod.item;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -9,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import ckathode.weaponmod.PlayerWeaponData;
 import ckathode.weaponmod.entity.projectile.EntityFlail;
+import ckathode.weaponmod.entity.projectile.EntityProjectile;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -16,18 +19,41 @@ public class ItemFlail extends WMItem
 {
 	public IIcon	iconIndexThrown;
 	private float	flailDamage;
+	public Item.ToolMaterial flailmaterial;
 	
 	public ItemFlail(String id, Item.ToolMaterial toolmaterial)
 	{
 		super(id);
 		setMaxDamage(toolmaterial.getMaxUses());
-		flailDamage = 4F + toolmaterial.getDamageVsEntity() * 1F;
+		flailmaterial = toolmaterial;
+		flailDamage = 5F + toolmaterial.getDamageVsEntity() * 1F;
 	}
 	
 	@Override
 	public int getItemEnchantability()
 	{
-		return 0;
+		return flailmaterial == null ? 1 : flailmaterial.getEnchantability();
+	}
+	
+	public void applyProjectileEnchantments(EntityProjectile entity, ItemStack itemstack)
+	{
+		
+		int damage = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, itemstack);
+		if (damage > 0)
+		{
+			entity.setExtraDamage(damage/5);
+		}
+		
+		int knockback = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itemstack);
+		if (knockback > 0)
+		{
+			entity.setKnockbackStrength(knockback);
+		}
+		
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, itemstack) > 0)
+		{
+			entity.setFire(100);
+		}
 	}
 	
 	@Override
@@ -74,13 +100,18 @@ public class ItemFlail extends WMItem
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		removePreviousFlail(world, entityplayer);
+		int throwtype = 0;
+		if (entityplayer.isSneaking())
+		{
+			throwtype = 1;
+		}
 		
 		if (itemstack.stackSize > 0)
 		{
 			entityplayer.swingItem();
 			
 			itemstack.damageItem(1, entityplayer);
-			throwFlail(itemstack, world, entityplayer);
+			throwFlail(itemstack, world, entityplayer, throwtype);
 		}
 		
 		return itemstack;
@@ -93,12 +124,13 @@ public class ItemFlail extends WMItem
 		return false;
 	}
 	
-	public void throwFlail(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	public void throwFlail(ItemStack itemstack, World world, EntityPlayer entityplayer, int flag)
 	{
 		world.playSoundAtEntity(entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		if (!world.isRemote)
 		{
-			EntityFlail entity = new EntityFlail(world, entityplayer, itemstack);
+			EntityFlail entity = new EntityFlail(world, entityplayer, itemstack, flag);
+			applyProjectileEnchantments(entity, itemstack);
 			PlayerWeaponData.setFlailEntityId(entityplayer, entity.getEntityId());
 			world.spawnEntityInWorld(entity);
 		}
@@ -152,4 +184,5 @@ public class ItemFlail extends WMItem
 		super.registerIcons(iconregister);
 		iconIndexThrown = iconregister.registerIcon("weaponmod:flail-thrown");
 	}
+	
 }

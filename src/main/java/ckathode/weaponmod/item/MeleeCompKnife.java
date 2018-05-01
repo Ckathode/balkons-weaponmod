@@ -2,6 +2,7 @@ package ckathode.weaponmod.item;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item.ToolMaterial;
@@ -10,7 +11,7 @@ import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
 import ckathode.weaponmod.entity.projectile.EntityKnife;
 
-public class MeleeCompKnife extends MeleeComponent
+public class MeleeCompKnife extends MeleeComponent implements IExtendedReachItem
 {
 	public MeleeCompKnife(ToolMaterial toolmaterial)
 	{
@@ -40,6 +41,12 @@ public class MeleeCompKnife extends MeleeComponent
 			itemstack.stackSize = 0;
 		}
 		return itemstack;
+	}
+	
+	@Override
+	public float getExtendedReach(World world, EntityLivingBase living, ItemStack itemstack)
+	{
+		return 0F;
 	}
 	
 	@Override

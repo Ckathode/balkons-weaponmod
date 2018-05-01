@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import ckathode.weaponmod.BalkonsWeaponMod;
@@ -24,6 +25,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class RangedComponent extends AbstractWeaponComponent
 {
 	protected static final int	MAX_DELAY	= 72000;
+	
+	protected static final int	MANUAL	= 0, SEMI_AUTO = 1, AUTO = 2;
+	
+	public final Item.ToolMaterial	weaponMaterial;
+	
+	public int ticksInHold;
 	
 	public static boolean isReloaded(ItemStack itemstack)
 	{
@@ -42,9 +49,10 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	
 	public final RangedSpecs	rangedSpecs;
 	
-	public RangedComponent(RangedSpecs rangedspecs)
+	public RangedComponent(RangedSpecs rangedspecs, Item.ToolMaterial toolmaterial)
 	{
 		rangedSpecs = rangedspecs;
+		weaponMaterial = toolmaterial;
 	}
 	
 	@Override
@@ -55,7 +63,13 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	@Override
 	public void setThisItemProperties()
 	{
-		item.setMaxDamage(rangedSpecs.durability);
+		if (weaponMaterial == null)
+		{
+			item.setMaxDamage(rangedSpecs.durabilityBase);
+		} else
+		{
+			item.setMaxDamage((int) (rangedSpecs.durabilityBase + weaponMaterial.getMaxUses()));
+		}
 		item.setMaxStackSize(rangedSpecs.stackSize);
 	}
 	
@@ -82,6 +96,12 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	{
 		return false;
 	}
+
+	@Override
+	public ItemStack onRightClickEntity(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	{
+		return itemstack;
+	}
 	
 	@Override
 	public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int j, int k, int l, EntityLivingBase entityliving)
@@ -106,11 +126,11 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	{
 		return 0;
 	}
-	
+
 	@Override
 	public int getItemEnchantability()
 	{
-		return 1;
+		return weaponMaterial == null ? 1 : weaponMaterial.getEnchantability();
 	}
 	
 	@Override
@@ -150,23 +170,68 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	{
 		if (itemstack.stackSize <= 0 || entityplayer.isUsingItem()) return itemstack;
 		
-		if (hasAmmo(itemstack, world, entityplayer)) //Check can reload
+		if(getReloadType(itemstack)==MANUAL)
 		{
-			if (isReadyToFire(itemstack))
+			
+			if (hasAmmo(itemstack, world, entityplayer)) //Check can reload
 			{
-				//Start aiming weapon to fire
-				soundCharge(itemstack, world, entityplayer);
-				entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+				if (isReadyToFire(itemstack))
+				{
+					//Start aiming weapon to fire
+					soundCharge(itemstack, world, entityplayer);
+					entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+				} else
+				{
+					//Begin reloading
+					entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+				}
 			} else
 			{
-				//Begin reloading
-				entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+				//Can't reload; no ammo
+				soundEmpty(itemstack, world, entityplayer);
+				setReloadState(itemstack, ReloadHelper.STATE_NONE);
 			}
-		} else
+			
+		}
+		else if(getReloadType(itemstack)==SEMI_AUTO)
 		{
-			//Can't reload; no ammo
-			soundEmpty(itemstack, world, entityplayer);
-			setReloadState(itemstack, ReloadHelper.STATE_NONE);
+			if (hasAmmoAndConsume(itemstack, world, entityplayer)) //Check can reload
+			{
+				if (isReadyToFire(itemstack))
+				{
+					//Start aiming weapon to fire
+					soundCharge(itemstack, world, entityplayer);
+					entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+				} else
+				{
+					//Begin reloading
+					soundEmpty(itemstack, world, entityplayer);
+				}
+			} else
+			{
+				//Can't reload; no ammo
+				soundEmpty(itemstack, world, entityplayer);
+				setReloadState(itemstack, ReloadHelper.STATE_NONE);
+			}
+		}
+		
+
+		else if(getReloadType(itemstack)==AUTO)
+		{
+			if (hasAmmoAndConsume(itemstack, world, entityplayer)) //Check can reload
+			{
+				if (isReadyToFire(itemstack))
+				{
+					//Start aiming weapon to fire
+					soundCharge(itemstack, world, entityplayer);
+					fire(itemstack, world, entityplayer, 0);
+				}
+			} else
+			{
+				//Can't reload; no ammo
+				soundEmpty(itemstack, world, entityplayer);
+				setReloadState(itemstack, ReloadHelper.STATE_NONE);
+			}
 		}
 		
 		return itemstack;
@@ -203,6 +268,28 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean flag)
 	{
+		int state = ReloadHelper.getReloadState(itemstack);
+		if (entity instanceof EntityPlayer)
+        {
+            EntityPlayer entityplayer = (EntityPlayer)entity;
+            if (state == ReloadHelper.STATE_NONE && flag && hasAmmo(itemstack, world, entityplayer) && getReloadType(itemstack) >= SEMI_AUTO)
+    		{
+
+    			if (ticksInHold <= getReloadDuration(itemstack)) ticksInHold++;
+    			
+    		} else
+    		{
+    			
+    			ticksInHold = 0;
+    			
+    		}
+        }
+		
+		if (ticksInHold >= getReloadDuration(itemstack))
+		{
+			setReloadState(itemstack, ReloadHelper.STATE_READY);
+			
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -245,7 +332,7 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 		int damage = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, itemstack);
 		if (damage > 0)
 		{
-			entity.setExtraDamage(damage);
+			entity.setExtraDamage(damage/5);
 		}
 		
 		int knockback = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itemstack);
@@ -280,7 +367,12 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 		return entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemstack) > 0 || entityplayer.inventory.hasItem(getAmmoItem());
 	}
 	
-	public float getFOVMultiplier(int ticksinuse)
+	public int getReloadType(ItemStack itemstack)
+	{
+		return MANUAL;
+	}
+	
+	public float getFOVMultiplier(int ticksinuse, EntityPlayer entityplayer)
 	{
 		float f1 = ticksinuse / getMaxAimTimeTicks();
 		
@@ -292,7 +384,7 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 			f1 *= f1;
 		}
 		
-		return 1.0F - f1 * getMaxZoom();
+		return 1.0F - f1 * getMaxZoom(entityplayer);
 	}
 	
 	protected float getMaxAimTimeTicks()
@@ -300,7 +392,7 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 		return 20.0f;
 	}
 	
-	protected float getMaxZoom()
+	protected float getMaxZoom(EntityPlayer entityplayer)
 	{
 		return 0.15f;
 	}
@@ -308,16 +400,24 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 	public static enum RangedSpecs
 	{
 		BLOWGUN("weaponmod:dart", "blowgun", 250, 1),
+		BLOWGUNTEEMO("weaponmod:dart", "blowgunteemo", 0, 1),
 		CROSSBOW("weaponmod:bolt", "crossbow", 250, 1),
 		MUSKET("weaponmod:bullet", "musket", 80, 1),
 		BLUNDERBUSS("weaponmod:shot", "blunderbuss", 80, 1),
-		FLINTLOCK("weaponmod:bullet", "flintlock", 80, 1);
+		FLINTLOCK("weaponmod:bullet", "flintlock", 80, 1),
+		NAILGUN("weaponmod:screw", "nailgun", 250, 1),
+		NAILGUNMK2("weaponmod:screw", "nailgunMk-2", 350, 1),
+		SNIPERRIFLE("weaponmod:rifle-bullet", "sniperrifle", 64, 1),
+		SHOTGUN("weaponmod:buckshot", "shotgun", 64, 1),
+		ROCKET("weaponmod:rocket-shell", "rocket", 16, 1),
+		ROCKETWOODEN("weaponmod:rocket-shell", "rocket-wooden", 1, 1),
+		NONE(null, null, 0, 1);
 		
 		RangedSpecs(String ammoitemtag, String reloadtimetag, int durability, int stacksize)
 		{
+			durabilityBase = durability;
 			ammoItemTag = ammoitemtag;
 			reloadTimeTag = reloadtimetag;
-			this.durability = durability;
 			stackSize = stacksize;
 			ammoItem = null;
 			reloadTime = -1;
@@ -343,11 +443,11 @@ public abstract class RangedComponent extends AbstractWeaponComponent
 			}
 			return ammoItem;
 		}
-		
+
 		private int			reloadTime;
 		private Item		ammoItem;
 		private String		ammoItemTag;
 		public final String	reloadTimeTag;
-		public final int	durability, stackSize;
+		public final int	durabilityBase, stackSize;
 	}
 }

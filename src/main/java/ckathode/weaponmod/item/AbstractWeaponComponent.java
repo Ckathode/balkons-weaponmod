@@ -63,6 +63,8 @@ public abstract class AbstractWeaponComponent
 	
 	public abstract boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer player, Entity entity);
 	
+	public abstract ItemStack onRightClickEntity(ItemStack itemstack, World world, EntityPlayer entityplayer);
+	
 	public abstract ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer);
 	
 	public abstract void onUsingTick(ItemStack itemstack, EntityPlayer entityplayer, int count);

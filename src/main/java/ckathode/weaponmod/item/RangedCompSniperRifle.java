@@ -5,25 +5,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import ckathode.weaponmod.ReloadHelper;
-import ckathode.weaponmod.entity.projectile.EntityMusketBullet;
+import ckathode.weaponmod.entity.projectile.EntityPierceBullet;
+import ckathode.weaponmod.item.RangedComponent.RangedSpecs;
 
-public class RangedCompMusket extends RangedComponent
+public class RangedCompSniperRifle extends RangedComponent
 {
-	protected ItemMusket	musket;
-
-	public RangedCompMusket()
+	public RangedCompSniperRifle()
 	{
-		super(RangedSpecs.MUSKET, null);
-	}
-
-	@Override
-	protected void onSetItem()
-	{
-		super.onSetItem();
-		if (item instanceof ItemMusket)
-		{
-			musket = (ItemMusket) item;
-		}
+		super(RangedSpecs.SNIPERRIFLE, null);
 	}
 
 	@Override
@@ -47,33 +36,29 @@ public class RangedCompMusket extends RangedComponent
 
 		if (!world.isRemote)
 		{
-			EntityMusketBullet entitymusketbullet = new EntityMusketBullet(world, entityplayer, 7.0F, 1F / f);
-			applyProjectileEnchantments(entitymusketbullet, itemstack);
-			world.spawnEntityInWorld(entitymusketbullet);
+			EntityPierceBullet entitypiercebullet = new EntityPierceBullet(world, entityplayer, 10.0F, 0F);
+			applyProjectileEnchantments(entitypiercebullet, itemstack);
+			entitypiercebullet.setMainDamage(entitypiercebullet.mainDamage + 0F);
+			world.spawnEntityInWorld(entitypiercebullet);
 		}
 
-		int deltadamage = 1;
-
-		boolean flag = itemstack.getItemDamage() + deltadamage > itemstack.getMaxDamage();
-		itemstack.damageItem(deltadamage, entityplayer);
-		if (flag)
-		{
-			int bayonetdamage = itemstack.stackTagCompound == null ? 0 : itemstack.stackTagCompound.getShort("bayonetDamage");
-			entityplayer.inventory.addItemStackToInventory(new ItemStack(musket.bayonetItem, 1, bayonetdamage));
-		} else
+		int damage = 1;
+		if (itemstack.getItemDamage() + damage <= itemstack.getMaxDamage())
 		{
 			setReloadState(itemstack, ReloadHelper.STATE_NONE);
 		}
+		
+		itemstack.damageItem(damage, entityplayer);
 		postShootingEffects(itemstack, entityplayer, world);
 	}
 
 	@Override
 	public void effectPlayer(ItemStack itemstack, EntityPlayer entityplayer, World world)
 	{
-		float f = entityplayer.isSneaking() ? -0.05F : -0.1F;
+		float f = entityplayer.isSneaking() ? -0.1F : -0.2F;
 		double d = -MathHelper.sin((entityplayer.rotationYaw / 180F) * 3.141593F) * MathHelper.cos((0 / 180F) * 3.141593F) * f;
 		double d1 = MathHelper.cos((entityplayer.rotationYaw / 180F) * 3.141593F) * MathHelper.cos((0 / 180F) * 3.141593F) * f;
-		entityplayer.rotationPitch -= entityplayer.isSneaking() ? 7.5F : 15F;
+		entityplayer.rotationPitch -= entityplayer.isSneaking() ? 15F : 30F;
 		entityplayer.addVelocity(d, 0, d1);
 	}
 
@@ -97,7 +82,7 @@ public class RangedCompMusket extends RangedComponent
 	@Override
 	public float getMaxZoom(EntityPlayer entityplayer)
 	{
-		return 0.15f;
+		return entityplayer.isSneaking() ? 5.0f : 0.15f;
 	}
 
 }
