@@ -6,14 +6,14 @@ import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import ckathode.weaponmod.entity.projectile.EntityMusketBullet;
+import ckathode.weaponmod.entity.projectile.EntityPierceBullet;
 
-public class DispenseMusketBullet extends DispenseWeaponProjectile
+public class DispenseRifleBullet extends DispenseWeaponProjectile
 {
 	@Override
 	protected IProjectile getProjectileEntity(World world, IPosition pos)
 	{
-		return new EntityMusketBullet(world, pos.getX(), pos.getY(), pos.getZ());
+		return new EntityPierceBullet(world, pos.getX(), pos.getY(), pos.getZ());
 	}
 	
 	@Override
@@ -25,13 +25,13 @@ public class DispenseMusketBullet extends DispenseWeaponProjectile
 	@Override
 	public float getDeviation()
 	{
-		return 1.5F;
+		return 0F;
 	}
 	
 	@Override
 	public float getVelocity()
 	{
-		return 7F;
+		return 10F;
 	}
 	
 	@Override
