@@ -76,7 +76,7 @@ public class WMClientEventHandler
 			RangedComponent rc = ((IItemWeapon) e.entity.getItemInUse().getItem()).getRangedComponent();
 			if (rc != null && RangedComponent.isReadyToFire(e.entity.getItemInUse()))
 			{
-				e.newfov = e.fov * rc.getFOVMultiplier(e.entity.getItemInUseDuration());
+				e.newfov = e.fov * rc.getFOVMultiplier(e.entity.getItemInUseDuration(), e.entity);
 			}
 		}
 	}

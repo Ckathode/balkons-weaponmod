@@ -9,7 +9,7 @@ public class WeaponModConfig
 {
 	private final Configuration				config;
 	
-	public boolean							cannonDoesBlockDamage, dynamiteDoesBlockDamage;
+	public boolean							cannonDoesBlockDamage, dynamiteDoesBlockDamage,rocketDoesBlockDamage;
 	public boolean							canThrowKnife, canThrowSpear;
 	public boolean							allCanPickup;
 	
@@ -53,8 +53,9 @@ public class WeaponModConfig
 		config.addCustomCategoryComment("reloadtime", "The reload durations of the reloadable weapons");
 		config.addCustomCategoryComment("settings", "Miscellaneous mod settings");
 		
-		cannonDoesBlockDamage = config.get("settings", "cannon-block-damage", true).getBoolean(true);
-		dynamiteDoesBlockDamage = config.get("settings", "dynamite-block-damage", true).getBoolean(true);
+		cannonDoesBlockDamage = config.get("settings", "cannon-block-damage", false).getBoolean(true);
+		dynamiteDoesBlockDamage = config.get("settings", "dynamite-block-damage", false).getBoolean(true);
+		rocketDoesBlockDamage = config.get("settings", "rocket-block-damage", false).getBoolean(true);
 		canThrowKnife = config.get("settings", "can-throw-knife", true).getBoolean(true);
 		canThrowSpear = config.get("settings", "can-throw-spear", true).getBoolean(true);
 		allCanPickup = config.get("settings", "pickup-all", true, "Change this to 'false' to allow only the thrower/shooter of the projectile to pick the item up. If set to 'true' everyone can pick the item up.").getBoolean(true);

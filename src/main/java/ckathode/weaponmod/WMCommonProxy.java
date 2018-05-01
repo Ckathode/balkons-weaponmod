@@ -5,11 +5,13 @@ import ckathode.weaponmod.network.MsgCannonFire;
 import ckathode.weaponmod.network.MsgExplosion;
 import ckathode.weaponmod.network.WMMessagePipeline;
 
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 public class WMCommonProxy
 {
 	public void registerEventHandlers()
 	{
 		MinecraftForge.EVENT_BUS.register(new WMCommonEventHandler());
+		MinecraftForge.EVENT_BUS.register(new Weaponblockdamage());
 	}
 	
 	public void registerPackets(WMMessagePipeline pipeline)
@@ -25,4 +27,5 @@ public class WMCommonProxy
 	public void registerRenderers(WeaponModConfig config)
 	{
 	}
+	
 }

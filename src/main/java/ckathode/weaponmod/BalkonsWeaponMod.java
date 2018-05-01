@@ -15,6 +15,7 @@ import ckathode.weaponmod.entity.EntityDummy;
 import ckathode.weaponmod.entity.projectile.EntityBlowgunDart;
 import ckathode.weaponmod.entity.projectile.EntityBlunderShot;
 import ckathode.weaponmod.entity.projectile.EntityBoomerang;
+import ckathode.weaponmod.entity.projectile.EntityBuckshot;
 import ckathode.weaponmod.entity.projectile.EntityCannonBall;
 import ckathode.weaponmod.entity.projectile.EntityCrossbowBolt;
 import ckathode.weaponmod.entity.projectile.EntityDynamite;
@@ -22,14 +23,21 @@ import ckathode.weaponmod.entity.projectile.EntityFlail;
 import ckathode.weaponmod.entity.projectile.EntityJavelin;
 import ckathode.weaponmod.entity.projectile.EntityKnife;
 import ckathode.weaponmod.entity.projectile.EntityMusketBullet;
+import ckathode.weaponmod.entity.projectile.EntityPierceBullet;
+import ckathode.weaponmod.entity.projectile.EntityRocketShell;
+import ckathode.weaponmod.entity.projectile.EntityScrew;
 import ckathode.weaponmod.entity.projectile.EntitySpear;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseBlowgunDart;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseBlunderShot;
+import ckathode.weaponmod.entity.projectile.dispense.DispenseBuckshot;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseCannonBall;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseCrossbowBolt;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseDynamite;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseJavelin;
 import ckathode.weaponmod.entity.projectile.dispense.DispenseMusketBullet;
+import ckathode.weaponmod.entity.projectile.dispense.DispenseRifleBullet;
+import ckathode.weaponmod.entity.projectile.dispense.DispenseRocketShell;
+import ckathode.weaponmod.entity.projectile.dispense.DispenseScrew;
 import ckathode.weaponmod.item.DartType;
 import ckathode.weaponmod.item.ItemBlowgunDart;
 import ckathode.weaponmod.item.ItemCannon;
@@ -47,14 +55,22 @@ import ckathode.weaponmod.item.MeleeCompFirerod;
 import ckathode.weaponmod.item.MeleeCompHalberd;
 import ckathode.weaponmod.item.MeleeCompKnife;
 import ckathode.weaponmod.item.MeleeCompNone;
+import ckathode.weaponmod.item.MeleeCompQuarterStaff;
 import ckathode.weaponmod.item.MeleeCompSpear;
 import ckathode.weaponmod.item.MeleeCompWarhammer;
 import ckathode.weaponmod.item.MeleeComponent;
 import ckathode.weaponmod.item.MeleeComponent.MeleeSpecs;
 import ckathode.weaponmod.item.RangedCompBlowgun;
+import ckathode.weaponmod.item.RangedCompBlowgunTeemo;
 import ckathode.weaponmod.item.RangedCompBlunderbuss;
 import ckathode.weaponmod.item.RangedCompCrossbow;
 import ckathode.weaponmod.item.RangedCompFlintlock;
+import ckathode.weaponmod.item.RangedCompNailgun;
+import ckathode.weaponmod.item.RangedCompNailgunMk2;
+import ckathode.weaponmod.item.RangedCompRocket;
+import ckathode.weaponmod.item.RangedCompRocketWooden;
+import ckathode.weaponmod.item.RangedCompShotgun;
+import ckathode.weaponmod.item.RangedCompSniperRifle;
 import ckathode.weaponmod.item.WMItem;
 import ckathode.weaponmod.network.WMMessagePipeline;
 import cpw.mods.fml.common.Mod;
@@ -72,7 +88,7 @@ public class BalkonsWeaponMod
 {
 	public static final String		MOD_ID		= "weaponmod";
 	public static final String		MOD_NAME	= "Balkon's WeaponMod";
-	public static final String		MOD_VERSION	= "v1.14.3";
+	public static final String		MOD_VERSION	= "v1.15.0";
 	
 	@Instance("weaponmod")
 	public static BalkonsWeaponMod	instance;
@@ -144,7 +160,27 @@ public class BalkonsWeaponMod
 	
 	public static Item				katanaWood, katanaStone, katanaSteel, katanaDiamond, katanaGold;
 	
+	public static Item				quarterstaffWood, quarterstaffStone, quarterstaffSteel, quarterstaffDiamond, quarterstaffGold;
+	
 	public static Item				flintlockPistol;
+	public static Item				blowgunteemo;
+	
+	public static Item				sniperrifle;
+	public static Item				riflebullet;
+	public static Item				compressed_gunpowder;
+	public static Item				rifle_iron_part;
+	public static Item				sniperrifle_scope;
+	public static Item				screw;
+	public static Item				nailgun;
+	public static Item				nailgunMk2;
+	
+	public static Item				shotgun;
+	public static Item				shotgun_iron_part;
+	public static Item				shotgun_buckshot;
+	
+	public static Item				rocket;
+	public static Item				rocket_shell;
+	public static Item				rocket_wooden;
 	
 	public WeaponModConfig			modConfig;
 	public WMMessagePipeline		messagePipeline;
@@ -167,23 +203,37 @@ public class BalkonsWeaponMod
 		modConfig.addEnableSetting("warhammer");
 		modConfig.addEnableSetting("flail");
 		modConfig.addEnableSetting("katana");
+		modConfig.addEnableSetting("quarterstaff");
 		modConfig.addEnableSetting("boomerang");
 		modConfig.addEnableSetting("firerod");
 		modConfig.addEnableSetting("javelin");
 		modConfig.addEnableSetting("crossbow");
 		modConfig.addEnableSetting("blowgun");
+		modConfig.addEnableSetting("blowgunteemo");
 		modConfig.addEnableSetting("musket");
 		modConfig.addEnableSetting("blunderbuss");
 		modConfig.addEnableSetting("flintlock");
 		modConfig.addEnableSetting("dynamite");
 		modConfig.addEnableSetting("cannon");
 		modConfig.addEnableSetting("dummy");
+		modConfig.addEnableSetting("sniperrifle");
+		modConfig.addEnableSetting("nailgun");
+		modConfig.addEnableSetting("nailgunMk-2");
+		modConfig.addEnableSetting("shotgun");
+		modConfig.addEnableSetting("rocket");
 		
 		modConfig.addReloadTimeSetting("musket", 30);
 		modConfig.addReloadTimeSetting("crossbow", 15);
 		modConfig.addReloadTimeSetting("blowgun", 10);
 		modConfig.addReloadTimeSetting("blunderbuss", 20);
-		modConfig.addReloadTimeSetting("flintlock", 15);
+		modConfig.addReloadTimeSetting("flintlock", 5);
+		modConfig.addReloadTimeSetting("blowgunteemo", 5);
+		modConfig.addReloadTimeSetting("sniperrifle", 50);
+		modConfig.addReloadTimeSetting("nailgun", 5);
+		modConfig.addReloadTimeSetting("shotgun", 40);
+		modConfig.addReloadTimeSetting("rocket", 50);
+		modConfig.addReloadTimeSetting("rocket-wooden", 50);
+		modConfig.addReloadTimeSetting("nailgunMk-2", 5);
 		modConfig.loadConfig();
 		
 		addModItems();
@@ -282,6 +332,15 @@ public class BalkonsWeaponMod
 			boomerangDiamond = new ItemMelee("boomerang.diamond", new MeleeCompBoomerang(Item.ToolMaterial.EMERALD));
 		}
 		
+		if (modConfig.isEnabled("quarterstaff"))
+		{
+			quarterstaffWood = new ItemMelee("quarterstaff.wood", new MeleeCompQuarterStaff(Item.ToolMaterial.WOOD));
+			quarterstaffStone = new ItemMelee("quarterstaff.stone", new MeleeCompQuarterStaff(Item.ToolMaterial.STONE));
+			quarterstaffSteel = new ItemMelee("quarterstaff.iron", new MeleeCompQuarterStaff(Item.ToolMaterial.IRON));
+			quarterstaffGold = new ItemMelee("quarterstaff.gold", new MeleeCompQuarterStaff(Item.ToolMaterial.GOLD));
+			quarterstaffDiamond = new ItemMelee("quarterstaff.diamond", new MeleeCompQuarterStaff(Item.ToolMaterial.EMERALD));
+		}
+		
 		if (modConfig.isEnabled("firerod"))
 		{
 			fireRod = new ItemMelee("firerod", new MeleeCompFirerod());
@@ -302,6 +361,10 @@ public class BalkonsWeaponMod
 		{
 			blowgun = new ItemShooter("blowgun", new RangedCompBlowgun(), new MeleeCompNone());
 			dart = new ItemBlowgunDart("dart");
+		}
+		if (modConfig.isEnabled("blowgunteemo"))
+		{
+			blowgunteemo = new ItemShooter("blowgun.teemo", new RangedCompBlowgunTeemo(), new MeleeCompNone());
 		}
 		
 		if (modConfig.isEnabled("musket"))
@@ -346,15 +409,50 @@ public class BalkonsWeaponMod
 		{
 			dummy = new ItemDummy("dummy");
 		}
-		
-		if (modConfig.isEnabled("musket") || modConfig.isEnabled("blunderbuss"))
+		if (modConfig.isEnabled("sniperrifle"))
 		{
-			gunStock = new WMItem("gun-stock");
+			sniperrifle = new ItemShooter("sniper", new RangedCompSniperRifle(), new MeleeCompNone());
+			rifle_iron_part = new WMItem("rifle-ironpart");
+			screw = new WMItem("screw");
+			sniperrifle_scope = new WMItem("sniper-scope");
+			riflebullet = new WMItem("rifle-bullet");
+		}
+		if (modConfig.isEnabled("nailgun"))
+		{
+			nailgun = new ItemShooter("nailgun", new RangedCompNailgun(), new MeleeCompNone());
+		}
+		if (modConfig.isEnabled("nailgun") && modConfig.isEnabled("nailgunMk-2"))
+		{
+			nailgunMk2 = new ItemShooter("nailgunMk-2", new RangedCompNailgunMk2(), new MeleeCompNone());
 		}
 		
 		if (modConfig.isEnabled("musket") || modConfig.isEnabled("flintlock"))
 		{
 			musketBullet = new WMItem("bullet");
+		}
+		
+		if (modConfig.isEnabled("shotgun"))
+		{
+			shotgun_buckshot = new WMItem("buckshot");
+			shotgun = new ItemShooter("shotgun", new RangedCompShotgun(), new MeleeCompNone());
+			shotgun_iron_part = new WMItem("shotgun-ironpart");
+		}
+		
+		if(modConfig.isEnabled("shotgun") || modConfig.isEnabled("sniperrifle") || modConfig.isEnabled("musket") || modConfig.isEnabled("blunderbuss"))
+		{
+			gunStock = new WMItem("gun-stock");
+		}
+		
+		if (modConfig.isEnabled("rocket"))
+		{
+			rocket_shell = new WMItem("rocket-shell");
+			rocket = new ItemShooter("rocket", new RangedCompRocket(), new MeleeCompNone());
+			rocket_wooden = new ItemShooter("rocket-wooden", new RangedCompRocketWooden(), new MeleeCompNone());
+		}
+		
+		if (modConfig.isEnabled("sniperrifle") || modConfig.isEnabled("rocket"))
+		{
+			compressed_gunpowder = new WMItem("compressed-gunpowder");
 		}
 	}
 	
@@ -465,6 +563,10 @@ public class BalkonsWeaponMod
 			
 			EntityRegistry.registerModEntity(EntityBlowgunDart.class, "dart", 6, this, 64, 20, true);
 		}
+		if (modConfig.isEnabled("blowgunteemo") && modConfig.isEnabled("blowgun"))
+		{
+			GameRegistry.addRecipe(new ItemStack(blowgunteemo), "X O", " # ", "S X", 'X', Items.nether_star , '#', blowgun, 'O', Blocks.brown_mushroom, 'S', Blocks.red_mushroom);
+		}
 		
 		if (modConfig.isEnabled("dynamite"))
 		{
@@ -481,7 +583,7 @@ public class BalkonsWeaponMod
 			GameRegistry.addRecipe(new ShapedOreRecipe(flailDiamond, "  O", " XO", "X #", 'X', "stickWood", 'O', Items.string, '#', "gemDiamond"));
 			GameRegistry.addRecipe(new ShapedOreRecipe(flailGold, "  O", " XO", "X #", 'X', "stickWood", 'O', Items.string, '#', "ingotGold"));
 			
-			EntityRegistry.registerModEntity(EntityFlail.class, "flail", 8, this, 32, 20, true);
+			EntityRegistry.registerModEntity(EntityFlail.class, "flail", 8, this, 64, 1, true);
 		}
 		
 		if (modConfig.isEnabled("firerod"))
@@ -507,7 +609,7 @@ public class BalkonsWeaponMod
 			EntityRegistry.registerModEntity(EntityBlunderShot.class, "shot", 11, this, 16, 20, true);
 		}
 		
-		if (modConfig.isEnabled("musket") || modConfig.isEnabled("blunderbuss"))
+		if ((modConfig.isEnabled("musket") || modConfig.isEnabled("blunderbuss")) || modConfig.isEnabled("sniperrifle") || modConfig.isEnabled("shotgun"))
 		{
 			GameRegistry.addRecipe(new ShapedOreRecipe(gunStock, "XX#", 'X', "stickWood", '#', "plankWood"));
 		}
@@ -539,10 +641,69 @@ public class BalkonsWeaponMod
 			GameRegistry.addRecipe(new ShapedOreRecipe(katanaGold, "  #", " # ", "X  ", 'X', "stickWood", '#', "ingotGold"));
 		}
 		
+		if (modConfig.isEnabled("quarterstaff"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(quarterstaffWood, "  #", " X ", "#  ", 'X', "logWood", '#', "plankWood"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(quarterstaffStone, "  #", " X ", "#  ", 'X', "logWood", '#', Blocks.cobblestone));
+			GameRegistry.addRecipe(new ShapedOreRecipe(quarterstaffSteel, "  #", " X ", "#  ", 'X', "logWood", '#', "ingotIron"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(quarterstaffDiamond, "  #", " X ", "#  ", 'X', "logWood", '#', "gemDiamond"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(quarterstaffGold, "  #", " X ", "#  ", 'X', "logWood", '#', "ingotGold"));
+		}
+		
 		if (modConfig.isEnabled("flintlock"))
 		{
 			GameRegistry.addRecipe(new ShapedOreRecipe(flintlockPistol, "XX#", " -O", 'X', "ingotIron", '#', Items.flint_and_steel, '-', "stickWood", 'O', "plankWood"));
 		}
+		
+		if (modConfig.isEnabled("sniperrifle") && modConfig.isEnabled("musket"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressed_gunpowder, 1), "XXX", " O ", 'X', Items.gunpowder, 'O', Items.clay_ball));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(riflebullet, 8), "X", "#", "O", 'X', "ingotIron", '#', compressed_gunpowder, 'O', Items.paper));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle_iron_part, 1), " X ", "XOX"," # ", 'X', screw, 'O', musket_iron_part, '#',Items.diamond));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sniperrifle_scope, 1), " X ", "O O"," X ", 'X', "ingotIron", 'O', Blocks.glass));
+			GameRegistry.addRecipe(new ShapedOreRecipe(sniperrifle, "#O", " X", 'X', gunStock, '#', rifle_iron_part, 'O',sniperrifle_scope));
+			
+			EntityRegistry.registerModEntity(EntityPierceBullet.class, "piercebullet", 14, this, 16, 20, true);
+		}
+		
+		if (modConfig.isEnabled("shotgun"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(shotgun_buckshot, 8), "X X", " # ", " O ", 'X', "ingotIron", '#', Items.gunpowder, 'O', Items.paper));
+			GameRegistry.addRecipe(new ShapedOreRecipe(shotgun_iron_part, "XXX", "XX#", 'X', "ingotIron", '#', Items.flint_and_steel));
+			GameRegistry.addRecipe(new ShapedOreRecipe(shotgun, "#", "X", 'X', gunStock, '#', shotgun_iron_part));
+			
+			EntityRegistry.registerModEntity(EntityBuckshot.class, "buckshot", 15, this, 16, 20, true);
+		}
+		
+		if (modConfig.isEnabled("rocket"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rocket_shell, 6), "X", "#", "#", 'X', Blocks.iron_block, '#', compressed_gunpowder));
+			GameRegistry.addRecipe(new ShapedOreRecipe(rocket, "XXX", "XXX"," X#", 'X', "ingotIron", '#', Items.flint_and_steel));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rocket_wooden, 4), "XXX", "XXX"," X#", 'X', "logWood", '#', Items.flint_and_steel));
+			
+			EntityRegistry.registerModEntity(EntityRocketShell.class, "rocketshell", 16, this, 16, 20, true);
+		}
+		
+		if (modConfig.isEnabled("nailgun") || modConfig.isEnabled("sniperrifle"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(screw, 32), "XXX", " X ", " O ", 'X', "ingotIron", 'O', Items.flint));
+			
+		}
+		
+		if (modConfig.isEnabled("nailgun"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(nailgun, "XXX", " #X", "  O", 'X', "ingotIron", '#', Blocks.lever , 'O', "plankWood"));
+			
+			EntityRegistry.registerModEntity(EntityScrew.class, "nail", 17, this, 64, 20, true);
+			
+		}
+		
+		if (modConfig.isEnabled("nailgun") && modConfig.isEnabled("nailgunMk-2"))
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(nailgunMk2, "XOX", "O#O", "XWX", 'X', Items.redstone, 'W', Items.repeater , 'O', "plankWood", '#', nailgun));
+			
+		}
+
 	}
 	
 	private void registerDispenseBehavior()
@@ -570,6 +731,22 @@ public class BalkonsWeaponMod
 		if (blunderShot != null)
 		{
 			BlockDispenser.dispenseBehaviorRegistry.putObject(blunderShot, new DispenseBlunderShot());
+		}
+		if (riflebullet != null)
+		{
+			BlockDispenser.dispenseBehaviorRegistry.putObject(riflebullet, new DispenseRifleBullet());
+		}
+		if (shotgun_buckshot != null)
+		{
+			BlockDispenser.dispenseBehaviorRegistry.putObject(shotgun_buckshot, new DispenseBuckshot());
+		}
+		if (rocket_shell != null)
+		{
+			BlockDispenser.dispenseBehaviorRegistry.putObject(rocket_shell, new DispenseRocketShell());
+		}
+		if (screw != null)
+		{
+			BlockDispenser.dispenseBehaviorRegistry.putObject(screw, new DispenseScrew());
 		}
 		if (modConfig.isEnabled("cannon"))
 		{
