@@ -12,6 +12,10 @@ public class WeaponModConfig
 	public boolean							cannonDoesBlockDamage, dynamiteDoesBlockDamage;
 	public boolean							canThrowKnife, canThrowSpear;
 	public boolean							allCanPickup;
+
+	public int								dataWatcherBooleansId;
+	public int								dataWatcherWarhammerId;
+	public int								dataWatcherFlailId;
 	
 	private Map<String, EnableSetting>		enableSettings;
 	private Map<String, ReloadTimeSetting>	reloadTimeSettings;
@@ -58,6 +62,10 @@ public class WeaponModConfig
 		canThrowKnife = config.get("settings", "can-throw-knife", true).getBoolean(true);
 		canThrowSpear = config.get("settings", "can-throw-spear", true).getBoolean(true);
 		allCanPickup = config.get("settings", "pickup-all", true, "Change this to 'false' to allow only the thrower/shooter of the projectile to pick the item up. If set to 'true' everyone can pick the item up.").getBoolean(true);
+
+		dataWatcherBooleansId = config.get("settings", "datawatcher-booleans", 26, "Change this to another number to fix crashes related to 'duplicated id values'.").getInt(26);
+		dataWatcherWarhammerId = config.get("settings", "datawatcher-warhammer", 27, "Change this to another number to fix crashes related to 'duplicated id values'.").getInt(27);
+		dataWatcherFlailId = config.get("settings", "datawatcher-flail", 28, "Change this to another number to fix crashes related to 'duplicated id values'.").getInt(28);
 		
 		for (EnableSetting es : enableSettings.values())
 		{

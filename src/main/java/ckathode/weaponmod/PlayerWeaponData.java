@@ -5,7 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class PlayerWeaponData
 {
-	public static final int	BOOLEANS	= 26, WARHAMMER_LAST_SMASH_TICKS = 27, FLAIL_ENTITY_ID = 28;
+	public static final int	BOOLEANS = BalkonsWeaponMod.instance.modConfig.dataWatcherBooleansId,
+			WARHAMMER_LAST_SMASH_TICKS = BalkonsWeaponMod.instance.modConfig.dataWatcherWarhammerId,
+			FLAIL_ENTITY_ID = BalkonsWeaponMod.instance.modConfig.dataWatcherFlailId;
 	public static final int	WARHAMMER_CHARGED	= 1, FLAIL_THROWN = 2;
 	
 	public static void initPlayerWeaponData(EntityPlayer player)
